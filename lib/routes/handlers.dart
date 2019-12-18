@@ -9,6 +9,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:unicom_flutter/pages/homePage.dart';
+import 'package:unicom_flutter/pages/loginPage.dart';
 import 'package:unicom_flutter/pages/splashPage.dart';
 import 'package:unicom_flutter/pages/webViewPage.dart';
 
@@ -28,4 +29,10 @@ Handler homeHandler =
 Handler webViewHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   return WebViewPage();
+});
+
+// 登录 页面
+Handler loginHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return LoginPage();
 });

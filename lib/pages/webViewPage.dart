@@ -10,6 +10,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:unicom_flutter/routes/application.dart';
+import 'package:unicom_flutter/utils/index.dart';
 
 class WebViewPage extends StatefulWidget {
   @override
@@ -24,10 +25,14 @@ class _WebViewPageState extends State<WebViewPage> {
         "/": (_) => new WebviewScaffold(
               url: "https://www.igelian.com",
               appBar: new AppBar(
-                title: new Text("Widget webview"),
+                title: new Text("个联智能-全球化物联网完整解决方案"),
                 leading: InkWell(
-                  onTap: () {
-                    Application.router.navigateTo(context, '/', replace: true);
+                  onTap: () async {
+                    var box = await Utils.unicomBox();
+                    var token = box.get('token');
+                    Application.router.navigateTo(
+                        context, token != null ? '/' : '/login',
+                        replace: true);
                   },
                   child: Icon(Icons.keyboard_arrow_left, size: 36),
                 ),

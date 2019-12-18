@@ -6,13 +6,15 @@
  * @Description: 启动页 广告页
  * @FilePath: /unicom_flutter/lib/pages/splashPage.dart
  */
-
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:unicom_flutter/utils/index.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 import 'package:common_utils/common_utils.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -21,6 +23,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   TimerUtil mTimerUtil;
+  String token;
 
   @override
   void initState() {
@@ -29,17 +32,30 @@ class _SplashPageState extends State<SplashPage> {
     mTimerUtil.setOnTimerTickCallback((int tick) {
       double _tick = tick / 1000;
       if (_tick.toInt() == 0) {
-        Application.router.navigateTo(context, '/', replace: true);
+        Application.router
+            .navigateTo(context, token != null ? '/' : '/login', replace: true);
         mTimerUtil.cancel();
       }
     });
     mTimerUtil.startCountDown();
+    hiveInit();
   }
 
   @override
   void dispose() {
     super.dispose();
     if (mTimerUtil != null) mTimerUtil.cancel();
+  }
+
+  // 初始化 Hive
+  void hiveInit() async {
+    // path_provider插件 用于查找文件系统上常用位置
+    final dir = await getApplicationDocumentsDirectory();
+    Hive.init(dir.path);
+    var box = await Utils.unicomBox();
+    setState(() {
+      token = box.get('token');
+    });
   }
 
   @override
@@ -65,7 +81,9 @@ class _SplashPageState extends State<SplashPage> {
             top: ScreenUtil.statusBarHeight + setWidth(30),
             child: InkWell(
               onTap: () {
-                Application.router.navigateTo(context, '/', replace: true);
+                Application.router.navigateTo(
+                    context, token != null ? '/' : '/login',
+                    replace: true);
                 mTimerUtil.cancel();
               },
               child: Container(

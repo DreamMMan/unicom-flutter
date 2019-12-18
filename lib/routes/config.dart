@@ -24,5 +24,8 @@ class Routes {
     // webview页面
     router.define('/webView',
         handler: webViewHandler, transitionType: TransitionType.cupertino);
+    // 登录页面
+    router.define('/login',
+        handler: loginHandler, transitionType: TransitionType.cupertino);
   }
 }
