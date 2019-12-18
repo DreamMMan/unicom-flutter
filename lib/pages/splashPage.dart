@@ -1,10 +1,18 @@
+/*
+ * @Author: liangyt
+ * @Date: 2019-12-18 10:36:37
+ * @LastEditors  : liangyt
+ * @LastEditTime : 2019-12-18 14:07:50
+ * @Description: 启动页 广告页
+ * @FilePath: /unicom_flutter/lib/pages/splashPage.dart
+ */
+
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 import 'package:common_utils/common_utils.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -44,7 +52,8 @@ class _SplashPageState extends State<SplashPage> {
       children: <Widget>[
         InkWell(
           onTap: () {
-            print('点击了图片');
+            Application.router.navigateTo(context, '/webView');
+            mTimerUtil.cancel();
           },
           child: Image.asset(
             'assets/splash.png',

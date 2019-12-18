@@ -1,3 +1,12 @@
+/*
+ * @Author: liangyt
+ * @Date: 2019-12-18 10:26:42
+ * @LastEditors  : liangyt
+ * @LastEditTime : 2019-12-18 14:07:18
+ * @Description: 程序入口文件
+ * @FilePath: /unicom_flutter/lib/main.dart
+ */
+
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/routes/application.dart';
