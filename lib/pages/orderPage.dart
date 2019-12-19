@@ -10,7 +10,9 @@
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/utils/imagse.dart';
 import 'package:unicom_flutter/utils/index.dart';
+import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
+import 'package:unicom_flutter/utils/styles.dart';
 import 'package:unicom_flutter/widgets/myAppBar.dart';
 import 'package:unicom_flutter/widgets/myAsset.dart';
 import 'package:hive/hive.dart';
@@ -45,9 +47,19 @@ class OrderPage extends StatelessWidget {
                 name: userIcon,
                 width: 34,
               ),
-              Padding(
-                padding: setEdge(left: 15),
-                child: Text(box.get('username')),
+              Expanded(
+                child: Padding(
+                  padding: setEdge(left: 15),
+                  child: Text(
+                    box.get('username'),
+                    style: f30c66,
+                  ),
+                ),
+              ),
+              Icon(
+                Icons.keyboard_arrow_right,
+                size: setWidth(46),
+                color: c999,
               )
             ],
           ),

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:unicom_flutter/pages/alarmPage.dart';
 import 'package:unicom_flutter/pages/orderPage.dart';
 import 'package:unicom_flutter/utils/imagse.dart';
+import 'package:unicom_flutter/widgets/myAsset.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,12 +23,24 @@ class _HomePageState extends State<HomePage> {
   List<Widget> pageList = [OrderPage(), AlarmPage()];
   List<BottomNavigationBarItem> tabs = [
     BottomNavigationBarItem(
-        icon: Image.asset(orderDefault),
-        activeIcon: Image.asset(orderActive),
+        icon: MyAsset(
+          name: orderDefault,
+          width: 50,
+        ),
+        activeIcon: MyAsset(
+          name: orderActive,
+          width: 50,
+        ),
         title: Text('工单')),
     BottomNavigationBarItem(
-        icon: Image.asset(alarmDefault),
-        activeIcon: Image.asset(alarmActive),
+        icon: MyAsset(
+          name: alarmDefault,
+          width: 50,
+        ),
+        activeIcon: MyAsset(
+          name: alarmActive,
+          width: 50,
+        ),
         title: Text('通知'))
   ];
 
