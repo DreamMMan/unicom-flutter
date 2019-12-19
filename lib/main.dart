@@ -9,13 +9,19 @@
 
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:provide/provide.dart';
+import 'package:unicom_flutter/allProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/utils/myColors.dart';
 import 'pages/splashPage.dart';
 import 'routes/config.dart';
+import 'package:bot_toast/bot_toast.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ProviderNode(
+    child: MyApp(),
+    providers: allProvide(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -26,15 +32,18 @@ class MyApp extends StatelessWidget {
     Routes.configRoutes(router);
     Application.router = router;
 
-    return MaterialApp(
-      title: '智慧机房',
-      onGenerateRoute: Application.router.generator,
-      theme: ThemeData(
-          primaryColor: e04545,
-          scaffoldBackgroundColor: pageBg,
-          buttonTheme:
-              ButtonThemeData(buttonColor: e04545, disabledColor: cccc)),
-      home: SplashPage(),
+    return BotToastInit(
+      child: MaterialApp(
+        title: '智慧机房',
+        onGenerateRoute: Application.router.generator,
+        navigatorObservers: [BotToastNavigatorObserver()],
+        theme: ThemeData(
+            primaryColor: e04545,
+            scaffoldBackgroundColor: pageBg,
+            buttonTheme:
+                ButtonThemeData(buttonColor: e04545, disabledColor: cccc)),
+        home: SplashPage(),
+      ),
     );
   }
 }

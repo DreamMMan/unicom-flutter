@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provide/provide.dart';
+import 'package:unicom_flutter/providers/loginProvide.dart';
 import 'package:unicom_flutter/utils/imagse.dart';
 import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
@@ -27,17 +29,17 @@ class LoginPage extends StatelessWidget {
           left: 0,
           width: setWidth(750),
           height: setHeight(1000),
-          child: content(),
+          child: content(context),
         )
       ],
     ));
   }
 
   // 内容
-  Widget content() {
+  Widget content(BuildContext context) {
     return Container(
       child: Column(
-        children: <Widget>[title(), inputBox(), loginBtn()],
+        children: <Widget>[title(), inputBox(), loginBtn(context)],
       ),
     );
   }
@@ -77,31 +79,38 @@ class LoginPage extends StatelessWidget {
 
   // 输入框
   Widget inputItem(bool isPhone) {
-    return Container(
-      width: setWidth(550),
-      height: setHeight(140),
-      alignment: Alignment.centerLeft,
-      margin: setEdge(left: 30, right: 30),
-      decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(width: isPhone ? 1 : 0, color: borderColor))),
-      child: MyInput(
-        inintValue: isPhone ? '123' : '12312',
-        iconName: isPhone ? phoneIcon : passwordIcon,
-        hintText: isPhone ? '请输入手机号' : '请输入密码',
-        keyboardType: isPhone ? 'text' : 'password',
-        maxLength: isPhone ? 11 : 24,
-        paddingHeight: 24,
-        iconWidth: 30,
-        fieldCallBack: (val) {
-          print(val);
-        },
-      ),
+    return Provide<LoginProvide>(
+      builder: (BuildContext context, child, data) {
+        return Container(
+          width: setWidth(550),
+          height: setHeight(140),
+          alignment: Alignment.centerLeft,
+          margin: setEdge(left: 30, right: 30),
+          decoration: BoxDecoration(
+              border: Border(
+                  bottom:
+                      BorderSide(width: isPhone ? 1 : 0, color: borderColor))),
+          child: MyInput(
+            inintValue: isPhone ? data.username : '',
+            iconName: isPhone ? phoneIcon : passwordIcon,
+            hintText: isPhone ? '请输入手机号' : '请输入密码',
+            keyboardType: isPhone ? 'text' : 'password',
+            maxLength: isPhone ? 11 : 24,
+            paddingHeight: 24,
+            iconWidth: 30,
+            blackEegExp: ' ',
+            fieldCallBack: (val) {
+              Provide.value<LoginProvide>(context).setValue(
+                  isPhone ? val : data.username, isPhone ? data.password : val);
+            },
+          ),
+        );
+      },
     );
   }
 
   // 登录按钮
-  Widget loginBtn() {
+  Widget loginBtn(BuildContext context) {
     return Container(
       width: setWidth(610),
       height: setHeight(100),
@@ -109,8 +118,9 @@ class LoginPage extends StatelessWidget {
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
       child: SubmitBtn(
           textSty: f36cff,
+          txt: '登录',
           submit: () {
-            print('adasd');
+            Provide.value<LoginProvide>(context).submit();
           }),
     );
   }
