@@ -8,9 +8,11 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 
-TextStyle f26cf = TextStyle(
-  fontSize: setSp(26),
-  color: Colors.white
-);
+TextStyle f26cf = TextStyle(fontSize: setSp(26), color: Colors.white);
+TextStyle f30ccc = TextStyle(fontSize: setSp(30), color: cccc);
+TextStyle f30c33 = TextStyle(fontSize: setSp(30), color: c333);
+TextStyle f36ce0 = TextStyle(fontSize: setSp(36), color: e04545);
+TextStyle f36cff = TextStyle(fontSize: setSp(36), color: Colors.white);

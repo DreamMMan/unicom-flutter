@@ -10,6 +10,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/routes/application.dart';
+import 'package:unicom_flutter/utils/myColors.dart';
 import 'pages/splashPage.dart';
 import 'routes/config.dart';
 
@@ -28,6 +29,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: '智慧机房',
       onGenerateRoute: Application.router.generator,
+      theme: ThemeData(
+          primaryColor: e04545,
+          scaffoldBackgroundColor: pageBg,
+          buttonTheme:
+              ButtonThemeData(buttonColor: e04545, disabledColor: cccc)),
       home: SplashPage(),
     );
   }
