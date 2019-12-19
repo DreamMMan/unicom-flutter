@@ -3,14 +3,16 @@ import 'package:connectivity/connectivity.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:unicom_flutter/http/api.dart';
+import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/utils/index.dart';
 
 class HttpUtil {
   static Dio dio;
   static BaseOptions options;
+  static Response response;
   static String baseUrl = 'http://47.98.151.177';
 
-  static Future request(path, {data, isFormData = false}) async {
+  static Future request(path, context, {data, isFormData = false}) async {
     // hive
     var box = await Utils.unicomBox();
 
@@ -61,16 +63,25 @@ class HttpUtil {
         params = formData;
       }
       print('请求参数===============> $params');
-      return await dio.request(apiConfig[path]['url'],
+      response = await dio.request(apiConfig[path]['url'],
           data: params, options: Options(method: apiConfig[path]['method']));
+      if (response.data != null || response.data['ret'] == 0) {
+        return response.data['data'] ?? '';
+      } else {
+        BotToast.showText(text: response.data['des'] ?? '服务器错误');
+      }
     } on DioError catch (e) {
-      formatError(e);
+      formatError(e, box, context);
     }
   }
 
   // error统一处理
-  static formatError(DioError e) {
-    if (e.type == DioErrorType.CONNECT_TIMEOUT) {
+  static formatError(DioError e, box, context) {
+    if (e.response.statusCode == 401) {
+      box.delete('token');
+      Application.router.navigateTo(context, '/login', clearStack: true);
+      BotToast.showText(text: '登录失效，请重新登录');
+    } else if (e.type == DioErrorType.CONNECT_TIMEOUT) {
       BotToast.showText(text: '连接超时');
     } else if (e.type == DioErrorType.SEND_TIMEOUT) {
       BotToast.showText(text: '请求超时');

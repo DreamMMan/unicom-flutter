@@ -120,7 +120,7 @@ class LoginPage extends StatelessWidget {
           textSty: f36cff,
           txt: '登录',
           submit: () {
-            Provide.value<LoginProvide>(context).submit();
+            Provide.value<LoginProvide>(context).submit(context);
           }),
     );
   }

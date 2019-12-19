@@ -8,6 +8,7 @@
  */
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/http/httpUtil.dart';
+import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/utils/index.dart';
 import 'package:unicom_flutter/utils/rules.dart';
 
@@ -23,7 +24,8 @@ class LoginProvide with ChangeNotifier {
   }
 
   // 提交登录
-  void submit() async {
+  void submit(BuildContext context) async {
+    var box = await Utils.unicomBox();
     if (!Rules.isPhone(username)) {
       Utils.showToast('请输入正确的手机号');
       return;
@@ -32,14 +34,15 @@ class LoginProvide with ChangeNotifier {
       Utils.showToast('请输入密码');
       return;
     }
-
+    Utils.showLoading(context);
     var params = {'username': username, 'password': password};
-    HttpUtil.request('login', data: params).then((value) {
-      print(value);
-    }).catchError((error) {
-      print(error);
-    }).whenComplete(() {
-      print('请求结束');
+    HttpUtil.request('login', context, data: params).then((value) {
+      if (value != null) {
+        box.put('token', value);
+        box.put('username', username);
+        Navigator.pop(context);
+        Application.router.navigateTo(context, '/');
+      }
     });
   }
 }

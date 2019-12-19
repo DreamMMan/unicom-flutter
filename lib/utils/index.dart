@@ -10,6 +10,7 @@
 import 'package:hive/hive.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:unicom_flutter/widgets/myLoading.dart';
 
 class Utils {
   // hive
@@ -24,5 +25,22 @@ class Utils {
         text: title,
         align: Alignment(0, align),
         duration: Duration(seconds: s));
+  }
+
+  // 加载中
+  static showLoading(_context) {
+    showDialog(
+        context: _context,
+        barrierDismissible: false,
+        builder: (context) {
+          return WillPopScope(
+            // 禁止手动后退
+            onWillPop: () async {
+              BotToast.showText(text: '正在处理中，请勿退出页面');
+              return false;
+            },
+            child: MyLoading(),
+          );
+        });
   }
 }

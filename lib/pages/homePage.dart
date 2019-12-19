@@ -8,6 +8,9 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:unicom_flutter/routes/application.dart';
+import 'package:unicom_flutter/utils/index.dart';
+import 'package:unicom_flutter/widgets/myAppBar.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,8 +21,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: myAppBar('首页'),
       body: Container(
-        child: Text('HomePage'),
+        child: RaisedButton(
+          onPressed: () async {
+            var box = await Utils.unicomBox();
+            box.delete('token');
+            Application.router.navigateTo(context, '/login', replace: true);
+          },
+          child: Text('退出登录'),
+        ),
       ),
     );
   }
