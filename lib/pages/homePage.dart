@@ -8,10 +8,9 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:unicom_flutter/http/httpUtil.dart';
-import 'package:unicom_flutter/routes/application.dart';
-import 'package:unicom_flutter/utils/index.dart';
-import 'package:unicom_flutter/widgets/myAppBar.dart';
+import 'package:unicom_flutter/pages/alarmPage.dart';
+import 'package:unicom_flutter/pages/orderPage.dart';
+import 'package:unicom_flutter/utils/imagse.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,29 +18,35 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-  void getData() {
-    HttpUtil.request('orderList', context).then((value) {
-      
-    });
-  }
+  int current = 0;
+  List<Widget> pageList = [OrderPage(), AlarmPage()];
+  List<BottomNavigationBarItem> tabs = [
+    BottomNavigationBarItem(
+        icon: Image.asset(orderDefault),
+        activeIcon: Image.asset(orderActive),
+        title: Text('工单')),
+    BottomNavigationBarItem(
+        icon: Image.asset(alarmDefault),
+        activeIcon: Image.asset(alarmActive),
+        title: Text('通知'))
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar('首页'),
-      body: Container(
-        child: RaisedButton(
-          onPressed: () async {
-            var box = await Utils.unicomBox();
-            box.delete('token');
-            Application.router.navigateTo(context, '/login', replace: true);
-          },
-          child: Text('退出登录'),
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: tabs,
+        currentIndex: current,
+        unselectedFontSize: 14,
+        onTap: (int index) {
+          setState(() {
+            current = index;
+          });
+        },
+      ),
+      body: IndexedStack(
+        index: current,
+        children: pageList,
       ),
     );
   }

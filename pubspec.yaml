@@ -59,6 +59,10 @@ flutter:
    - assets/close1.png
    - assets/phone.png
    - assets/password.png
+   - assets/order_default.png
+   - assets/order_active.png
+   - assets/alarm_default.png
+   - assets/alarm_active.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

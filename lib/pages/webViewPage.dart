@@ -32,7 +32,7 @@ class _WebViewPageState extends State<WebViewPage> {
                     var token = box.get('token');
                     Application.router.navigateTo(
                         context, token != null ? '/' : '/login',
-                        replace: true);
+                        clearStack: true);
                   },
                   child: Icon(Icons.keyboard_arrow_left, size: 36),
                 ),
