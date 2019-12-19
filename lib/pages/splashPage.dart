@@ -7,6 +7,8 @@
  * @FilePath: /unicom_flutter/lib/pages/splashPage.dart
  */
 import 'package:flutter/material.dart';
+import 'package:provide/provide.dart';
+import 'package:unicom_flutter/providers/loginProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:unicom_flutter/utils/index.dart';
@@ -53,6 +55,8 @@ class _SplashPageState extends State<SplashPage> {
     final dir = await getApplicationDocumentsDirectory();
     Hive.init(dir.path);
     var box = await Utils.unicomBox();
+    Provide.value<LoginProvide>(context)
+        .setValue(box.get('username') ?? '', '');
     setState(() {
       token = box.get('token');
     });

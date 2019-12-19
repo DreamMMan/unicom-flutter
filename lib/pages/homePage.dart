@@ -8,6 +8,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:unicom_flutter/http/httpUtil.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/utils/index.dart';
 import 'package:unicom_flutter/widgets/myAppBar.dart';
@@ -18,6 +19,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+  void getData() {
+    HttpUtil.request('orderList', context).then((value) {
+      
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

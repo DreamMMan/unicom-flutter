@@ -41,7 +41,7 @@ class LoginProvide with ChangeNotifier {
         box.put('token', value);
         box.put('username', username);
         Navigator.pop(context);
-        Application.router.navigateTo(context, '/');
+        Application.router.navigateTo(context, '/', replace: true);
       }
     });
   }
