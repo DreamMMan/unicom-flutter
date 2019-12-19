@@ -15,3 +15,4 @@ final String orderDefault = 'assets/order_default.png';
 final String orderActive = 'assets/order_active.png';
 final String alarmDefault = 'assets/alarm_default.png';
 final String alarmActive = 'assets/alarm_active.png';
+final String userIcon = 'assets/user_icon.png';

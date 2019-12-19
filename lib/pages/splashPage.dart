@@ -54,7 +54,7 @@ class _SplashPageState extends State<SplashPage> {
     // path_provider插件 用于查找文件系统上常用位置
     final dir = await getApplicationDocumentsDirectory();
     Hive.init(dir.path);
-    var box = await Utils.unicomBox();
+    var box = await Hive.openBox(Utils.hiveName);
     Provide.value<LoginProvide>(context)
         .setValue(box.get('username') ?? '', '');
     setState(() {

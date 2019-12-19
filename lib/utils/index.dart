@@ -13,10 +13,10 @@ import 'package:flutter/material.dart';
 import 'package:unicom_flutter/widgets/myLoading.dart';
 
 class Utils {
+  static String hiveName = 'unicomBox';
   // hive
-  static unicomBox() async {
-    var box = await Hive.openBox('unicomBox');
-    return box;
+  static unicomBox() {
+    return Hive.box(hiveName);
   }
 
   // BotToast
