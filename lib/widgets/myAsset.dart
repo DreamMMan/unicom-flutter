@@ -4,7 +4,7 @@ import 'package:unicom_flutter/utils/screenUtil.dart';
 class MyAsset extends StatelessWidget {
   final String name;
   final double width;
-  MyAsset({this.name, this.width});
+  MyAsset({@required this.name, @required this.width});
 
   @override
   Widget build(BuildContext context) {

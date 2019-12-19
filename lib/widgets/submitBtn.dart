@@ -13,7 +13,7 @@ class SubmitBtn extends StatelessWidget {
   final TextStyle textSty;
   final String txt;
   final Function submit;
-  SubmitBtn({this.buttonColor, this.textSty, this.txt = '登录', this.submit});
+  SubmitBtn({this.buttonColor, @required this.textSty, this.txt = '登录', @required this.submit});
 
   @override
   Widget build(BuildContext context) {
