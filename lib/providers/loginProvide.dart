@@ -7,6 +7,7 @@
  * @FilePath: /unicom_flutter/lib/providers/loginProvide.dart
  */
 import 'package:flutter/material.dart';
+import 'package:unicom_flutter/http/httpUtil.dart';
 import 'package:unicom_flutter/utils/index.dart';
 import 'package:unicom_flutter/utils/rules.dart';
 
@@ -31,5 +32,14 @@ class LoginProvide with ChangeNotifier {
       Utils.showToast('请输入密码');
       return;
     }
+
+    var params = {'username': username, 'password': password};
+    HttpUtil.request('login', data: params).then((value) {
+      print(value);
+    }).catchError((error) {
+      print(error);
+    }).whenComplete(() {
+      print('请求结束');
+    });
   }
 }
