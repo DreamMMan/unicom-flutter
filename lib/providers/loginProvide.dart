@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 13:52:35
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-19 13:52:42
+ * @LastEditTime : 2019-12-20 16:37:41
  * @Description: login Provide
  * @FilePath: /unicom_flutter/lib/providers/loginProvide.dart
  */
@@ -36,7 +36,7 @@ class LoginProvide with ChangeNotifier {
     }
     Utils.showLoading(context);
     var params = {'username': username, 'password': password};
-    HttpUtil.request('login', context, data: params).then((value) {
+    HttpUtil.request(context, 'login', data: params).then((value) {
       if (value != null) {
         box.put('token', value);
         box.put('username', username);

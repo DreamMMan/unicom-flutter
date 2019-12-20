@@ -2,12 +2,14 @@
  * @Author: liangyt
  * @Date: 2019-12-19 17:49:04
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-20 11:49:02
+ * @LastEditTime : 2019-12-20 14:37:34
  * @Description: 工单列表页面
  * @FilePath: /unicom_flutter/lib/pages/orderPage.dart
  */
 
 import 'package:flutter/material.dart';
+import 'package:unicom_flutter/pages/orderList/lifeList.dart';
+import 'package:unicom_flutter/pages/orderList/planList.dart';
 import 'package:unicom_flutter/utils/imagse.dart';
 import 'package:unicom_flutter/utils/index.dart';
 import 'package:unicom_flutter/utils/myColors.dart';
@@ -31,7 +33,7 @@ class OrderPage extends StatelessWidget {
             userInfo(),
             MyTabs(
                 tabs: ['作业计划工单', '生命周期工单'],
-                listWidget: [Container(), Container()])
+                listWidget: [PlanList(), LifeList()])
           ],
         ),
       ),

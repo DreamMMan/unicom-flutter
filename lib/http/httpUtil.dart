@@ -12,7 +12,7 @@ class HttpUtil {
   static Response response;
   static String baseUrl = 'http://47.98.151.177';
 
-  static Future request(path, context, {data, isFormData = false}) async {
+  static Future request(context, path, {data, isFormData = false}) async {
     // hive
     var box = await Utils.unicomBox();
 
