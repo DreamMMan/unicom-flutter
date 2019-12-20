@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 17:49:04
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-19 22:05:13
+ * @LastEditTime : 2019-12-20 11:49:02
  * @Description: 工单列表页面
  * @FilePath: /unicom_flutter/lib/pages/orderPage.dart
  */
@@ -16,6 +16,7 @@ import 'package:unicom_flutter/utils/styles.dart';
 import 'package:unicom_flutter/widgets/myAppBar.dart';
 import 'package:unicom_flutter/widgets/myAsset.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:unicom_flutter/widgets/myTabs.dart';
 import 'package:unicom_flutter/widgets/showBottomSheet.dart';
 import 'package:unicom_flutter/routes/application.dart';
 
@@ -26,7 +27,12 @@ class OrderPage extends StatelessWidget {
       appBar: myAppBar('联通智慧机房工单系统'),
       body: Container(
         child: Column(
-          children: <Widget>[userInfo()],
+          children: <Widget>[
+            userInfo(),
+            MyTabs(
+                tabs: ['作业计划工单', '生命周期工单'],
+                listWidget: [Container(), Container()])
+          ],
         ),
       ),
     );
