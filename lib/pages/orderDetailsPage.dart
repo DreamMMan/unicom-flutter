@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 17:12:53
+ * @LastEditTime : 2019-12-21 17:22:11
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
+import 'package:unicom_flutter/utils/constant.dart';
 import 'package:unicom_flutter/utils/imagse.dart';
 import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
@@ -19,6 +20,7 @@ import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/myEmpty.dart';
 import 'package:unicom_flutter/widgets/common/myInput.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
+import 'package:unicom_flutter/widgets/common/showBottomSheet.dart';
 import 'package:unicom_flutter/widgets/list/listNoMore.dart';
 import 'package:unicom_flutter/widgets/list/sliverAppBarDelegate.dart';
 
@@ -55,7 +57,7 @@ class OrderDetailsPage extends StatelessWidget {
           },
           slivers: <Widget>[
             topContent(),
-            fixContent(),
+            fixContent(context),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
@@ -160,7 +162,7 @@ class OrderDetailsPage extends StatelessWidget {
   }
 
   // 固定的头部
-  Widget fixContent() {
+  Widget fixContent(context) {
     return SliverPersistentHeader(
       floating: false,
       pinned: true,
@@ -170,7 +172,7 @@ class OrderDetailsPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[listTitle(), searchBox()],
+            children: <Widget>[listTitle(), searchBox(context)],
           )),
     );
   }
@@ -187,7 +189,7 @@ class OrderDetailsPage extends StatelessWidget {
   }
 
   // 搜索框
-  Widget searchBox() {
+  Widget searchBox(context) {
     return Container(
       height: setHeight(100),
       padding: setEdge(left: 30, right: 30),
@@ -196,21 +198,26 @@ class OrderDetailsPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Text(
-                '区域（全部）',
-                style: f24c66,
-              ),
-              Transform(
-                transform: Matrix4.identity()..rotateZ(45),
-                origin: Offset(6, 3), // 旋转的中心点
-                child: Icon(
-                  Icons.arrow_right,
-                  size: setWidth(36),
+          InkWell(
+            onTap: () {
+              showModal(context);
+            },
+            child: Row(
+              children: <Widget>[
+                Text(
+                  '区域（全部）',
+                  style: f24c66,
                 ),
-              )
-            ],
+                Transform(
+                  transform: Matrix4.identity()..rotateZ(45),
+                  origin: Offset(6, 3), // 旋转的中心点
+                  child: Icon(
+                    Icons.arrow_right,
+                    size: setWidth(36),
+                  ),
+                )
+              ],
+            ),
           ),
           Expanded(
             child: Container(
@@ -232,5 +239,19 @@ class OrderDetailsPage extends StatelessWidget {
         ],
       ),
     );
+  }
+    // 底部选项卡
+  showModal(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: d9DEE1,
+        builder: (BuildContext context) {
+          return ShowBottomSheet(
+            list: regionList,
+            tap: (data) async {
+              print(data);
+            },
+          );
+        });
   }
 }
