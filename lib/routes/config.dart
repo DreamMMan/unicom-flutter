@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:40:16
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-18 10:40:37
+ * @LastEditTime : 2019-12-21 16:21:01
  * @Description: fluro 路由配置
  * @FilePath: /unicom_flutter/lib/routes/config.dart
  */
@@ -27,5 +27,8 @@ class Routes {
     // 登录页面
     router.define('/login',
         handler: loginHandler, transitionType: TransitionType.cupertino);
+    // 工单详情页面
+    router.define('/orderDetails',
+        handler: orderDetailsHandler, transitionType: TransitionType.cupertino);
   }
 }

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-20 14:12:14
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 11:38:37
+ * @LastEditTime : 2019-12-21 16:21:44
  * @Description: 作业计划工单
  * @FilePath: /unicom_flutter/lib/pages/orderList/planList.dart
  */
@@ -13,6 +13,7 @@ import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/providers/orderProvide.dart';
+import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/widgets/list/listNoMore.dart';
 import 'package:unicom_flutter/widgets/list/orderListItem.dart';
 import 'package:unicom_flutter/widgets/common/myEmpty.dart';
@@ -71,10 +72,14 @@ class _PlanListState extends State<PlanList>
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     return InkWell(
+                        onTap: () {
+                          Application.router
+                              .navigateTo(context, '/orderDetails');
+                        },
                         child: OrderListItem(
-                      data: data.planList[index],
-                      isPlan: true,
-                    ));
+                          data: data.planList[index],
+                          isPlan: true,
+                        ));
                   },
                   childCount: data.planList.length,
                 ),

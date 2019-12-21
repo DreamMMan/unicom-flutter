@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 10:28:55
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 11:40:09
+ * @LastEditTime : 2019-12-21 17:09:59
  * @Description: 输入框组件
  * @FilePath: /unicom_flutter/lib/widgets/myInput.dart
  */
@@ -41,7 +41,7 @@ class MyInput extends StatefulWidget {
       this.maxLength,
       this.hintText,
       this.hintStyle,
-      this.fieldCallBack,
+      @required this.fieldCallBack,
       this.delete = true,
       this.inputBorder,
       this.textStyle,

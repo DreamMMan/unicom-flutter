@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:40:26
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-18 10:43:56
+ * @LastEditTime : 2019-12-21 16:20:35
  * @Description: fluro handler配置集合
  * @FilePath: /unicom_flutter/lib/routes/handlers.dart
  */
@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:unicom_flutter/pages/homePage.dart';
 import 'package:unicom_flutter/pages/loginPage.dart';
+import 'package:unicom_flutter/pages/orderDetailsPage.dart';
 import 'package:unicom_flutter/pages/splashPage.dart';
 import 'package:unicom_flutter/pages/webViewPage.dart';
 
@@ -35,4 +36,10 @@ Handler webViewHandler =
 Handler loginHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   return LoginPage();
+});
+
+// 工单详情 页面
+Handler orderDetailsHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return OrderDetailsPage();
 });

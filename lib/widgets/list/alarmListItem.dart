@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 15:34:04
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 15:46:05
+ * @LastEditTime : 2019-12-21 16:14:28
  * @Description: 报警列表item
  * @FilePath: /unicom_flutter/lib/widgets/list/alarmListItem.dart
  */
@@ -45,7 +45,9 @@ class AlarmListItem extends StatelessWidget {
             (isOpen && data.handUserInfo == null)
                 ? Checkbox(
                     value: idList.indexOf(data.id) != -1,
-                    onChanged: (bool check) {},
+                    onChanged: (bool check) {
+                      Provide.value<AlarmProvide>(context).isSelect(data.id);
+                    },
                     activeColor: c52C47B,
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   )

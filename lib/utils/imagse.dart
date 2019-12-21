@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 09:48:20
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-19 17:39:51
+ * @LastEditTime : 2019-12-21 17:06:23
  * @Description: icon 名字
  * @FilePath: /unicom_flutter/lib/utils/imagse.dart
  */
@@ -16,3 +16,4 @@ final String orderActive = 'assets/order_active.png';
 final String alarmDefault = 'assets/alarm_default.png';
 final String alarmActive = 'assets/alarm_active.png';
 final String userIcon = 'assets/user_icon.png';
+final String searchIcon = 'assets/search.png';
