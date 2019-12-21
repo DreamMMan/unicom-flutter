@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-20 16:27:24
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-20 16:32:46
+ * @LastEditTime : 2019-12-21 11:01:17
  * @Description: 工单 provide
  * @FilePath: /unicom_flutter/lib/providers/orderProvide.dart
  */
@@ -17,15 +17,22 @@ class OrderProvide with ChangeNotifier {
   // 作业计划工单
   int planPage = 0;
   int planTotal = 0;
+  bool planFirst = true;
   List<MyList> planList = [];
   // 生命周期工单
   int lifePage = 0;
   int lifeTotal = 0;
+  bool lifeFirst = true;
   List<MyList> lifeList = [];
 
   // 下拉刷新
   onRefresh(context, bool isPlan) async {
     isError = false;
+    if (isPlan) {
+      planFirst = false;
+    } else {
+      lifeFirst = false;
+    }
     var params = {"page": 0, "size": size, "lifeCycle": !isPlan};
     await HttpUtil.request(context, 'orderList', data: params).then((data) {
       OrderModel dataInfo = OrderModel.fromJson(data);
@@ -40,7 +47,6 @@ class OrderProvide with ChangeNotifier {
       }
       notifyListeners();
     }).catchError((onError) {
-      print(onError.toString());
       isError = true;
       notifyListeners();
     });
@@ -50,9 +56,7 @@ class OrderProvide with ChangeNotifier {
   onLoad(context, bool isPlan) async {
     isError = false;
     var params = {
-      "page": isPlan
-          ? (planList.length > 0 ? planPage + 1 : 0)
-          : (lifeList.length > 0 ? lifePage + 1 : 0),
+      "page": isPlan ? planPage + 1 : lifePage + 1,
       "size": size,
       "lifeCycle": !isPlan
     };
@@ -69,7 +73,6 @@ class OrderProvide with ChangeNotifier {
       }
       notifyListeners();
     }).catchError((onError) {
-      print(onError.toString());
       isError = true;
       notifyListeners();
     });

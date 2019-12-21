@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-20 14:12:14
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-20 16:42:44
+ * @LastEditTime : 2019-12-21 11:09:00
  * @Description: 作业计划工单
  * @FilePath: /unicom_flutter/lib/pages/orderList/planList.dart
  */
@@ -13,6 +13,7 @@ import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/providers/orderProvide.dart';
+import 'package:unicom_flutter/widgets/list/orderListItem.dart';
 import 'package:unicom_flutter/widgets/myEmpty.dart';
 import 'package:unicom_flutter/widgets/myLoading.dart';
 
@@ -42,7 +43,8 @@ class _PlanListState extends State<PlanList>
           child: EasyRefresh.custom(
             header: MaterialHeader(),
             footer: MaterialFooter(),
-            emptyWidget: data.planList.length == 0 ? MyEmpty() : null,
+            emptyWidget:
+                !data.planFirst && data.planList.length == 0 ? MyEmpty() : null,
             controller: _controller,
             enableControlFinishRefresh: true,
             enableControlFinishLoad: true,
@@ -67,7 +69,11 @@ class _PlanListState extends State<PlanList>
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    return InkWell(child: Text('asdasd'));
+                    return InkWell(
+                        child: OrderListItem(
+                      data: data.planList[index],
+                      isPlan: true,
+                    ));
                   },
                   childCount: data.planList.length,
                 ),

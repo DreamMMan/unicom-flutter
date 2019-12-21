@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 09:56:34
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-19 20:23:12
+ * @LastEditTime : 2019-12-21 11:07:16
  * @Description: 颜色集合
  * @FilePath: /unicom_flutter/lib/utils/myColors.dart
  */
@@ -18,3 +18,5 @@ final Color c999 = Color(0xFF999999);
 final Color borderColor = Color(0xFFF1F1F1);
 final Color pageBg = Color(0xFFF2F7FA);
 final Color d9DEE1 = Color(0xFFD9DEE1);
+final Color f8f8f8 = Color(0xFFF8F8F8);
+final Color c03A4EE = Color(0xFF03A4EE);

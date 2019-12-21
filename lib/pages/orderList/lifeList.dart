@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-20 14:14:46
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-20 16:43:10
+ * @LastEditTime : 2019-12-21 11:11:42
  * @Description: 生命周期工单
  * @FilePath: /unicom_flutter/lib/pages/orderList/lifeList.dart
  */
@@ -13,6 +13,7 @@ import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/providers/orderProvide.dart';
+import 'package:unicom_flutter/widgets/list/orderListItem.dart';
 import 'package:unicom_flutter/widgets/myEmpty.dart';
 import 'package:unicom_flutter/widgets/myLoading.dart';
 
@@ -42,7 +43,8 @@ class _LifeListState extends State<LifeList>
           child: EasyRefresh.custom(
             header: MaterialHeader(),
             footer: MaterialFooter(),
-            emptyWidget: data.lifeList.length == 0 ? MyEmpty() : null,
+            emptyWidget:
+                !data.lifeFirst && data.lifeList.length == 0 ? MyEmpty() : null,
             controller: _controller,
             enableControlFinishRefresh: true,
             enableControlFinishLoad: true,
@@ -50,7 +52,7 @@ class _LifeListState extends State<LifeList>
             firstRefreshWidget: MyLoading(),
             onRefresh: () async {
               await Provide.value<OrderProvide>(context)
-                  .onRefresh(context, true);
+                  .onRefresh(context, false);
               _controller.resetLoadState(); // 重置加载状态
               _controller.finishRefresh(); // 完成刷新
               _controller.finishLoad(
@@ -58,7 +60,7 @@ class _LifeListState extends State<LifeList>
                       data.lifeList.length >= data.lifeTotal); // 加载完和判断是否能加载
             },
             onLoad: () async {
-              await Provide.value<OrderProvide>(context).onLoad(context, true);
+              await Provide.value<OrderProvide>(context).onLoad(context, false);
               _controller.finishLoad(
                   noMore:
                       data.lifeList.length >= data.lifeTotal); // 加载完和判断是否能加载
@@ -67,7 +69,11 @@ class _LifeListState extends State<LifeList>
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    return InkWell(child: Text('asdasd'));
+                    return InkWell(
+                        child: OrderListItem(
+                      data: data.lifeList[index],
+                      isPlan: false,
+                    ));
                   },
                   childCount: data.lifeList.length,
                 ),
