@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:unicom_flutter/pages/alarmPage.dart';
 import 'package:unicom_flutter/pages/orderPage.dart';
 import 'package:unicom_flutter/utils/imagse.dart';
-import 'package:unicom_flutter/widgets/myAsset.dart';
+import 'package:unicom_flutter/widgets/common/myAsset.dart';
 
 class HomePage extends StatefulWidget {
   @override

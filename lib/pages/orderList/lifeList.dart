@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-20 14:14:46
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 11:36:23
+ * @LastEditTime : 2019-12-21 11:41:10
  * @Description: 生命周期工单
  * @FilePath: /unicom_flutter/lib/pages/orderList/lifeList.dart
  */
@@ -13,10 +13,10 @@ import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/providers/orderProvide.dart';
+import 'package:unicom_flutter/widgets/list/listNoMore.dart';
 import 'package:unicom_flutter/widgets/list/orderListItem.dart';
-import 'package:unicom_flutter/widgets/listNoMore.dart';
-import 'package:unicom_flutter/widgets/myEmpty.dart';
-import 'package:unicom_flutter/widgets/myLoading.dart';
+import 'package:unicom_flutter/widgets/common/myEmpty.dart';
+import 'package:unicom_flutter/widgets/common/myLoading.dart';
 
 class LifeList extends StatefulWidget {
   @override

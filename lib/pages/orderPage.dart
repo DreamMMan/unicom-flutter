@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 17:49:04
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-20 14:37:34
+ * @LastEditTime : 2019-12-21 11:42:38
  * @Description: 工单列表页面
  * @FilePath: /unicom_flutter/lib/pages/orderPage.dart
  */
@@ -15,11 +15,11 @@ import 'package:unicom_flutter/utils/index.dart';
 import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
-import 'package:unicom_flutter/widgets/myAppBar.dart';
-import 'package:unicom_flutter/widgets/myAsset.dart';
+import 'package:unicom_flutter/widgets/common/myAppBar.dart';
+import 'package:unicom_flutter/widgets/common/myAsset.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:unicom_flutter/widgets/myTabs.dart';
-import 'package:unicom_flutter/widgets/showBottomSheet.dart';
+import 'package:unicom_flutter/widgets/common/myTabs.dart';
+import 'package:unicom_flutter/widgets/common/showBottomSheet.dart';
 import 'package:unicom_flutter/routes/application.dart';
 
 class OrderPage extends StatelessWidget {

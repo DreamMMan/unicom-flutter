@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-20 14:12:14
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 11:36:01
+ * @LastEditTime : 2019-12-21 11:38:37
  * @Description: 作业计划工单
  * @FilePath: /unicom_flutter/lib/pages/orderList/planList.dart
  */
@@ -13,10 +13,10 @@ import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/providers/orderProvide.dart';
+import 'package:unicom_flutter/widgets/list/listNoMore.dart';
 import 'package:unicom_flutter/widgets/list/orderListItem.dart';
-import 'package:unicom_flutter/widgets/listNoMore.dart';
-import 'package:unicom_flutter/widgets/myEmpty.dart';
-import 'package:unicom_flutter/widgets/myLoading.dart';
+import 'package:unicom_flutter/widgets/common/myEmpty.dart';
+import 'package:unicom_flutter/widgets/common/myLoading.dart';
 
 class PlanList extends StatefulWidget {
   @override

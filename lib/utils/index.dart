@@ -10,7 +10,7 @@
 import 'package:hive/hive.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:unicom_flutter/widgets/myLoading.dart';
+import 'package:unicom_flutter/widgets/common/myLoading.dart';
 
 class Utils {
   static String hiveName = 'unicomBox';

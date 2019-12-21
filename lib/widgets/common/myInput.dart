@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 10:28:55
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-19 10:29:17
+ * @LastEditTime : 2019-12-21 11:40:09
  * @Description: 输入框组件
  * @FilePath: /unicom_flutter/lib/widgets/myInput.dart
  */
@@ -12,7 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:unicom_flutter/utils/imagse.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
-import 'package:unicom_flutter/widgets/myAsset.dart';
+import 'package:unicom_flutter/widgets/common/myAsset.dart';
 
 typedef void ITextFieldCallBack(String content);
 

@@ -5,8 +5,8 @@ import 'package:unicom_flutter/utils/imagse.dart';
 import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
-import 'package:unicom_flutter/widgets/myInput.dart';
-import 'package:unicom_flutter/widgets/submitBtn.dart';
+import 'package:unicom_flutter/widgets/common/myInput.dart';
+import 'package:unicom_flutter/widgets/common/submitBtn.dart';
 
 class LoginPage extends StatelessWidget {
   @override
