@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-20 14:12:14
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 11:09:00
+ * @LastEditTime : 2019-12-21 11:36:01
  * @Description: 作业计划工单
  * @FilePath: /unicom_flutter/lib/pages/orderList/planList.dart
  */
@@ -14,6 +14,7 @@ import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/providers/orderProvide.dart';
 import 'package:unicom_flutter/widgets/list/orderListItem.dart';
+import 'package:unicom_flutter/widgets/listNoMore.dart';
 import 'package:unicom_flutter/widgets/myEmpty.dart';
 import 'package:unicom_flutter/widgets/myLoading.dart';
 
@@ -78,6 +79,9 @@ class _PlanListState extends State<PlanList>
                   childCount: data.planList.length,
                 ),
               ),
+              ListNoMore(
+                show: !data.planFirst && data.planList.length >= data.planTotal,
+              )
             ],
           ),
         );
