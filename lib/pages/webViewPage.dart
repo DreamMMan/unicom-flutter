@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 13:54:42
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-18 14:06:09
+ * @LastEditTime : 2019-12-21 11:49:08
  * @Description: 首页广告进入的webview页面
  * @FilePath: /unicom_flutter/lib/pages/webViewPage.dart
  */
@@ -20,25 +20,30 @@ class WebViewPage extends StatefulWidget {
 class _WebViewPageState extends State<WebViewPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        "/": (_) => new WebviewScaffold(
-              url: "https://www.igelian.com",
-              appBar: new AppBar(
-                title: new Text("个联智能-全球化物联网完整解决方案"),
-                leading: InkWell(
-                  onTap: () async {
-                    var box = await Utils.unicomBox();
-                    var token = box.get('token');
-                    Application.router.navigateTo(
-                        context, token != null ? '/' : '/login',
-                        clearStack: true);
-                  },
-                  child: Icon(Icons.keyboard_arrow_left, size: 36),
+    return WillPopScope(
+      onWillPop: () {
+        return;
+      },
+      child: MaterialApp(
+        routes: {
+          "/": (_) => new WebviewScaffold(
+                url: "https://www.igelian.com",
+                appBar: new AppBar(
+                  title: new Text("个联智能-全球化物联网完整解决方案"),
+                  leading: InkWell(
+                    onTap: () async {
+                      var box = await Utils.unicomBox();
+                      var token = box.get('token');
+                      Application.router.navigateTo(
+                          context, token != null ? '/' : '/login',
+                          clearStack: true);
+                    },
+                    child: Icon(Icons.keyboard_arrow_left, size: 36),
+                  ),
                 ),
               ),
-            ),
-      },
+        },
+      ),
     );
   }
 }
