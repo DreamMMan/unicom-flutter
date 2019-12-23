@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:09:16
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 13:51:15
+ * @LastEditTime : 2019-12-23 17:43:56
  * @Description: 登录页
  * @FilePath: /unicom_flutter/lib/pages/loginPage.dart
  */
@@ -21,6 +21,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
+        resizeToAvoidBottomPadding: false,
         body: Stack(
           children: <Widget>[
             Container(

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 14:08:33
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 16:53:02
+ * @LastEditTime : 2019-12-23 17:45:09
  * @Description: 处理详情页面
  * @FilePath: /unicom_flutter/lib/pages/AlarmDetailsPage.dart
  */
@@ -28,6 +28,7 @@ class AlarmDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBar('通知详情'),
+      resizeToAvoidBottomPadding: false,
       body: Provide<AlarmDetailsProvide>(
         builder: (context, child, data) {
           if (data.isLoad && data.pageData == null) {

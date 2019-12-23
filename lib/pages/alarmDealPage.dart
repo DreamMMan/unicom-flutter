@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 14:10:03
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 15:01:07
+ * @LastEditTime : 2019-12-23 17:44:52
  * @Description: 告警处理
  * @FilePath: /unicom_flutter/lib/pages/alarmDealPage.dart
  */
@@ -20,6 +20,7 @@ class AlarmDealPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: myAppBar('告警处理'),
+        resizeToAvoidBottomPadding: false,
         body: Provide<AlarmDealProvide>(
           builder: (context, child, data) {
             return Container(

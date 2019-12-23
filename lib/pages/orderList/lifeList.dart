@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-20 14:14:46
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 11:41:10
+ * @LastEditTime : 2019-12-23 17:38:21
  * @Description: 生命周期工单
  * @FilePath: /unicom_flutter/lib/pages/orderList/lifeList.dart
  */
@@ -13,6 +13,7 @@ import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/providers/orderProvide.dart';
+import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/widgets/list/listNoMore.dart';
 import 'package:unicom_flutter/widgets/list/orderListItem.dart';
 import 'package:unicom_flutter/widgets/common/myEmpty.dart';
@@ -71,10 +72,14 @@ class _LifeListState extends State<LifeList>
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     return InkWell(
+                        onTap: () {
+                          Application.router
+                              .navigateTo(context, '/orderDetails');
+                        },
                         child: OrderListItem(
-                      data: data.lifeList[index],
-                      isPlan: false,
-                    ));
+                          data: data.lifeList[index],
+                          isPlan: false,
+                        ));
                   },
                   childCount: data.lifeList.length,
                 ),
