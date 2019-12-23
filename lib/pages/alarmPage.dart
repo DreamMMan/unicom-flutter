@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 17:50:24
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 15:41:29
+ * @LastEditTime : 2019-12-23 13:50:54
  * @Description: 告警列表页
  * @FilePath: /unicom_flutter/lib/pages/alarmPage.dart
  */
@@ -13,7 +13,6 @@ import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/providers/alarmProvide.dart';
-import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
@@ -54,7 +53,7 @@ class AlarmPage extends StatelessWidget {
         children: <Widget>[
           Text(
             '告警状态说明：',
-            style: f26c66,
+            style: Styles.f26c66,
           ),
           Padding(
             padding: setEdge(left: 20, right: 15),
@@ -62,13 +61,13 @@ class AlarmPage extends StatelessWidget {
               child: Container(
                 width: setWidth(14),
                 height: setWidth(14),
-                color: e04545,
+                color: Styles.e04545,
               ),
             ),
           ),
           Text(
             '告警中',
-            style: f26ce0,
+            style: Styles.f26ce0,
           ),
           Padding(
             padding: setEdge(left: 40, right: 15),
@@ -76,14 +75,14 @@ class AlarmPage extends StatelessWidget {
               child: Container(
                 width: setWidth(14),
                 height: setWidth(14),
-                color: c999,
+                color: Styles.c999,
               ),
             ),
           ),
           Expanded(
             child: Text(
               '已解除',
-              style: f26c99,
+              style: Styles.f26c99,
             ),
           ),
           InkWell(
@@ -97,7 +96,7 @@ class AlarmPage extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(setWidth(10))),
               alignment: Alignment.center,
-              child: Text(isOpen ? '退出批量审核' : '批量审核', style: f26c33),
+              child: Text(isOpen ? '退出批量处理' : '批量处理', style: Styles.f26c33),
             ),
           )
         ],

@@ -134,7 +134,7 @@ class _MyInputState extends State<MyInput> {
       maxLength: widget.maxLength,
       keyboardType: _getTextInputType(),
       inputFormatters: _getInputFormatter(),
-      style: widget.textStyle != null ? widget.textStyle : f30c33,
+      style: widget.textStyle != null ? widget.textStyle : Styles.f30c33,
       obscureText: widget.keyboardType == 'password' ? true : false,
       textInputAction: _getTextInputAction(),
       decoration: InputDecoration(
@@ -166,7 +166,7 @@ class _MyInputState extends State<MyInput> {
               : InputBorder.none,
           hintText: widget.hintText,
           counterText: '',
-          hintStyle: widget.hintStyle != null ? widget.hintStyle : f30ccc),
+          hintStyle: widget.hintStyle != null ? widget.hintStyle : Styles.f30ccc),
       onChanged: (val) {
         setState(() {
           _inputText = val;

@@ -1,7 +1,6 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/models/orderModel.dart';
-import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 
@@ -31,7 +30,7 @@ class OrderListItem extends StatelessWidget {
                     data.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: f30c33,
+                    style: Styles.f30c33,
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: setHeight(20)),
@@ -39,7 +38,7 @@ class OrderListItem extends StatelessWidget {
                       '${DateUtil.formatDateMs(data.createdTime, format: "yyyy-MM-dd HH:mm:ss")}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: f26c99,
+                      style: Styles.f26c99,
                     ),
                   )
                 ],
@@ -65,11 +64,11 @@ class OrderListItem extends StatelessWidget {
           padding: EdgeInsets.all(setWidth(10)),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
-            color: f8f8f8,
+            color: Styles.f8f8f8,
           ),
           child: Text(
             '确认退回:  $rejectionNum',
-            style: f26ce0,
+            style: Styles.f26ce0,
           ),
         ),
       );
@@ -81,11 +80,11 @@ class OrderListItem extends StatelessWidget {
             padding: EdgeInsets.all(setWidth(10)),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5.0),
-              color: f8f8f8,
+              color: Styles.f8f8f8,
             ),
             child: Text(
               isPlan ? '进行中: $processingNum' : '待确认: $processingNum',
-              style: isPlan ? f26c3a : f26c99,
+              style: isPlan ? Styles.f26c3a : Styles.f26c99,
             ),
           )));
     }

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 17:49:04
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 11:42:38
+ * @LastEditTime : 2019-12-23 13:52:04
  * @Description: 工单列表页面
  * @FilePath: /unicom_flutter/lib/pages/orderPage.dart
  */
@@ -12,7 +12,6 @@ import 'package:unicom_flutter/pages/orderList/lifeList.dart';
 import 'package:unicom_flutter/pages/orderList/planList.dart';
 import 'package:unicom_flutter/utils/constant.dart';
 import 'package:unicom_flutter/utils/index.dart';
-import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
@@ -65,14 +64,14 @@ class OrderPage extends StatelessWidget {
                     padding: setEdge(left: 15),
                     child: Text(
                       box.get('username'),
-                      style: f30c66,
+                      style: Styles.f30c66,
                     ),
                   ),
                 ),
                 Icon(
                   Icons.keyboard_arrow_right,
                   size: setWidth(46),
-                  color: c999,
+                  color: Styles.c999,
                 )
               ],
             ),
@@ -86,7 +85,7 @@ class OrderPage extends StatelessWidget {
   showModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
-        backgroundColor: d9DEE1,
+        backgroundColor: Styles.d9DEE1,
         builder: (BuildContext context) {
           return ShowBottomSheet(
             list: [

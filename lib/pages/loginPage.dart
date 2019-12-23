@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:09:16
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 10:15:41
+ * @LastEditTime : 2019-12-23 13:51:15
  * @Description: 登录页
  * @FilePath: /unicom_flutter/lib/pages/loginPage.dart
  */
@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/providers/loginProvide.dart';
 import 'package:unicom_flutter/utils/constant.dart';
-import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 import 'package:unicom_flutter/widgets/common/myInput.dart';
@@ -53,7 +52,7 @@ class LoginPage extends StatelessWidget {
   // 标题
   Widget title() {
     return DefaultTextStyle(
-      style: f36ce0,
+      style: Styles.f36ce0,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,7 +71,7 @@ class LoginPage extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-                color: boxShadow,
+                color: Styles.boxShadow,
                 offset: Offset(2, 2),
                 blurRadius: 25,
                 spreadRadius: 5),
@@ -94,8 +93,8 @@ class LoginPage extends StatelessWidget {
           margin: setEdge(left: 30, right: 30),
           decoration: BoxDecoration(
               border: Border(
-                  bottom:
-                      BorderSide(width: isPhone ? 1 : 0, color: borderColor))),
+                  bottom: BorderSide(
+                      width: isPhone ? 1 : 0, color: Styles.borderColor))),
           child: MyInput(
             inintValue: isPhone ? data.username : '',
             iconName: isPhone ? Constant.phoneIcon : Constant.passwordIcon,
@@ -123,7 +122,7 @@ class LoginPage extends StatelessWidget {
       margin: setEdge(top: 140),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
       child: MySubmitBtn(
-          textSty: f36cff,
+          textSty: Styles.f36cff,
           txt: '登录',
           submit: () {
             Provide.value<LoginProvide>(context).submit(context);

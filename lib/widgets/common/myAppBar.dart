@@ -14,7 +14,7 @@ Widget myAppBar(String title) {
   return AppBar(
     title: Text(
       title,
-      style: f36cff,
+      style: Styles.f36cff,
     ),
     centerTitle: true,
   );

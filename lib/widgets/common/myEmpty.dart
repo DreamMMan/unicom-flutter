@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-20 14:18:32
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-20 16:03:33
+ * @LastEditTime : 2019-12-23 13:52:41
  * @Description: 空数据显示的内容
  * @FilePath: /unicom_flutter/lib/widgets/myEmpty.dart
  */
@@ -15,7 +15,7 @@ class MyEmpty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(emptyLabel, style: f30c99),
+      child: Text(emptyLabel, style: Styles.f30c99),
     );
   }
 }

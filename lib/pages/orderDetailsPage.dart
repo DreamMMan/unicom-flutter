@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 10:13:09
+ * @LastEditTime : 2019-12-23 13:51:51
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
@@ -14,7 +14,6 @@ import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/providers/orderDetailsProvide.dart';
 import 'package:unicom_flutter/utils/constant.dart';
-import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
@@ -104,7 +103,7 @@ class OrderDetailsPage extends StatelessWidget {
       padding: setEdge(left: 30, top: 30, right: 30, bottom: 30),
       color: Colors.white,
       child: DefaultTextStyle(
-        style: f26c99,
+        style: Styles.f26c99,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +112,7 @@ class OrderDetailsPage extends StatelessWidget {
               children: <Widget>[
                 Text(
                   '采集建设工单',
-                  style: f36c33,
+                  style: Styles.f36c33,
                 ),
                 Padding(
                   padding: setEdge(left: 40),
@@ -161,10 +160,10 @@ class OrderDetailsPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text('$_num', style: f36c33),
+          Text('$_num', style: Styles.f36c33),
           Text(
             name,
-            style: f26c66,
+            style: Styles.f26c66,
           )
         ],
       ),
@@ -193,8 +192,8 @@ class OrderDetailsPage extends StatelessWidget {
       height: setHeight(80),
       alignment: Alignment.centerLeft,
       padding: setEdge(left: 30),
-      color: pageBg,
-      child: Text('作业站点列表', style: f30c66),
+      color: Styles.pageBg,
+      child: Text('作业站点列表', style: Styles.f30c66),
     );
   }
 
@@ -216,7 +215,7 @@ class OrderDetailsPage extends StatelessWidget {
               children: <Widget>[
                 Text(
                   '区域（全部）',
-                  style: f24c66,
+                  style: Styles.f24c66,
                 ),
                 Transform(
                   transform: Matrix4.identity()..rotateZ(45),
@@ -235,12 +234,12 @@ class OrderDetailsPage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               padding: setEdge(left: 20, right: 20),
               decoration: BoxDecoration(
-                  color: pageBg, borderRadius: BorderRadius.circular(5)),
+                  color: Styles.pageBg, borderRadius: BorderRadius.circular(5)),
               child: MyInput(
                   iconName: Constant.searchIcon,
                   paddingHeight: 20,
                   hintText: '站点/编号/地址',
-                  hintStyle: f24c99,
+                  hintStyle: Styles.f24c99,
                   fieldCallBack: (value) {
                     print(value);
                   }),
@@ -255,7 +254,7 @@ class OrderDetailsPage extends StatelessWidget {
   showModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
-        backgroundColor: d9DEE1,
+        backgroundColor: Styles.d9DEE1,
         builder: (BuildContext context) {
           return ShowBottomSheet(
             list: Constant.regionList,

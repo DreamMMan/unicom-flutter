@@ -100,7 +100,7 @@ class _SplashPageState extends State<SplashPage> {
                     borderRadius: BorderRadius.circular(20)),
                 child: Text(
                   '跳过广告',
-                  style: f26cf,
+                  style: Styles.f26cf,
                 ),
               ),
             ))

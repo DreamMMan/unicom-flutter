@@ -21,7 +21,7 @@ class ListNoMore extends StatelessWidget {
       child: Container(
         height: show ? setHeight(88) : 0,
         alignment: Alignment.center,
-        child: Text(noMore, style: f26c99),
+        child: Text(noMore, style: Styles.f26c99),
       ),
     );
   }

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:42:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 10:11:12
+ * @LastEditTime : 2019-12-23 13:52:34
  * @Description: utils方法
  * @FilePath: /unicom_flutter/lib/utils/index.dart
  */
@@ -12,7 +12,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/models/deviceList_model.dart';
 import 'package:unicom_flutter/utils/constant.dart';
-import 'package:unicom_flutter/utils/myColors.dart';
+import 'package:unicom_flutter/utils/styles.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
 import 'dart:convert' as convert;
 
@@ -59,15 +59,15 @@ class Utils {
     switch (value) {
       case 0:
         str['label'] = '连接正常';
-        str['color'] = c52C47B;
+        str['color'] = Styles.c52C47B;
         break;
       case 1:
         str['label'] = '未关联';
-        str['color'] = cccc;
+        str['color'] = Styles.cccc;
         break;
       case 2:
         str['label'] = '连接异常';
-        str['color'] = e04545;
+        str['color'] = Styles.e04545;
         break;
       default:
     }
@@ -80,19 +80,19 @@ class Utils {
     switch (value) {
       case 1:
         str['label'] = '已完成';
-        str['color'] = c999;
+        str['color'] = Styles.c999;
         break;
       case 2:
         str['label'] = '待确认';
-        str['color'] = c999;
+        str['color'] = Styles.c999;
         break;
       case 3:
         str['label'] = '进行中';
-        str['color'] = c03A4EE;
+        str['color'] = Styles.c03A4EE;
         break;
       case 4:
         str['label'] = '确认退回';
-        str['color'] = e04545;
+        str['color'] = Styles.e04545;
         break;
       default:
     }

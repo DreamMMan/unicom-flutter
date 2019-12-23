@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 15:00:40
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 15:36:30
+ * @LastEditTime : 2019-12-23 11:43:46
  * @Description: 告警通知列表
  * @FilePath: /unicom_flutter/lib/providers/alarmProvide.dart
  */
@@ -34,6 +34,7 @@ class AlarmProvide with ChangeNotifier {
     } else {
       idList.removeAt(idList.indexOf(id));
     }
+    print(idList);
     notifyListeners();
   }
 

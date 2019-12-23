@@ -2,13 +2,12 @@
  * @Author: liangyt
  * @Date: 2019-12-19 20:17:40
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-19 21:51:18
+ * @LastEditTime : 2019-12-23 13:53:39
  * @Description: 底部弹出选项
  * @FilePath: /unicom-flutter/lib/widgets/showBottomSheet.dart
  */
 
 import 'package:flutter/material.dart';
-import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 
@@ -58,7 +57,8 @@ class ShowBottomSheet extends StatelessWidget {
       height: setHeight(88),
       padding: setEdge(left: 30, right: 30),
       decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(width: 1, color: borderColor))),
+          border:
+              Border(bottom: BorderSide(width: 1, color: Styles.borderColor))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,7 +68,7 @@ class ShowBottomSheet extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 titleName,
-                style: f28c666,
+                style: Styles.f28c666,
               ),
             ),
           ),
@@ -79,7 +79,7 @@ class ShowBottomSheet extends StatelessWidget {
             child: Icon(
               Icons.close,
               size: 28,
-              color: c999,
+              color: Styles.c999,
             ),
           )
         ],
@@ -113,8 +113,9 @@ class ShowBottomSheet extends StatelessWidget {
         height: setHeight(88),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(width: 1, color: borderColor))),
-        child: Text(list[index]['name'], style: f30c33),
+            border: Border(
+                bottom: BorderSide(width: 1, color: Styles.borderColor))),
+        child: Text(list[index]['name'], style: Styles.f30c33),
       ),
     );
   }
@@ -129,7 +130,7 @@ class ShowBottomSheet extends StatelessWidget {
         children: <Widget>[
           Container(
             height: setHeight(12),
-            color: borderColor,
+            color: Styles.borderColor,
           ),
           InkWell(
             onTap: () {
@@ -139,9 +140,9 @@ class ShowBottomSheet extends StatelessWidget {
               height: setHeight(88),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  border:
-                      Border(bottom: BorderSide(width: 1, color: borderColor))),
-              child: Text(closeName, style: f30c33),
+                  border: Border(
+                      bottom: BorderSide(width: 1, color: Styles.borderColor))),
+              child: Text(closeName, style: Styles.f30c33),
             ),
           )
         ],

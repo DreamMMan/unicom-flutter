@@ -2,14 +2,13 @@
  * @Author: liangyt
  * @Date: 2019-12-23 09:16:17
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 09:26:57
+ * @LastEditTime : 2019-12-23 13:55:03
  * @Description: 站点列表itrm
  * @FilePath: /unicom_flutter/lib/widgets/list/siteListItem.dart
  */
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/models/siteListModel.dart';
 import 'package:unicom_flutter/utils/index.dart';
-import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 
@@ -26,7 +25,7 @@ class SiteListItem extends StatelessWidget {
       padding: EdgeInsets.all(setWidth(30)),
       decoration: BoxDecoration(
           color: Colors.white,
-          border: Border(top: BorderSide(width: 1, color: borderColor))),
+          border: Border(top: BorderSide(width: 1, color: Styles.borderColor))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,13 +50,13 @@ class SiteListItem extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     data.name ?? '',
-                    style: f36c33,
+                    style: Styles.f36c33,
                   ),
                   Padding(
                     padding: setEdge(top: 20),
                     child: Text(
                       data.address ?? '',
-                      style: TextStyle(color: c999),
+                      style: TextStyle(color: Styles.c999),
                     ),
                   )
                 ],
@@ -68,7 +67,7 @@ class SiteListItem extends StatelessWidget {
               alignment: Alignment.center,
               child: Icon(
                 Icons.trending_flat,
-                color: c999,
+                color: Styles.c999,
                 size: 20,
               ),
             ),
@@ -77,12 +76,12 @@ class SiteListItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(data.targetName ?? '', style: f36c33),
+                  Text(data.targetName ?? '', style: Styles.f36c33),
                   Padding(
                     padding: setEdge(top: 20),
                     child: Text(
                       data.targetAddress ?? '',
-                      style: TextStyle(color: c999),
+                      style: TextStyle(color: Styles.c999),
                     ),
                   )
                 ],
@@ -100,18 +99,21 @@ class SiteListItem extends StatelessWidget {
               width: isLife
                   ? data.status == 3 ? setWidth(500) : setWidth(690)
                   : setWidth(500),
-              child: Text.rich(
-                  TextSpan(text: '${data.name}   ', style: f36c33, children: [
-                name == '数据采集建设'
-                    ? TextSpan(
-                        text: Utils.deviceStatus(data.deviceStatus)['label'],
-                        style: TextStyle(
-                            color:
-                                Utils.deviceStatus(data.deviceStatus)['color'],
-                            fontSize: setSp(26)),
-                      )
-                    : TextSpan()
-              ]))),
+              child: Text.rich(TextSpan(
+                  text: '${data.name}   ',
+                  style: Styles.f36c33,
+                  children: [
+                    name == '数据采集建设'
+                        ? TextSpan(
+                            text:
+                                Utils.deviceStatus(data.deviceStatus)['label'],
+                            style: TextStyle(
+                                color: Utils.deviceStatus(
+                                    data.deviceStatus)['color'],
+                                fontSize: setSp(26)),
+                          )
+                        : TextSpan()
+                  ]))),
           Container(
             width: isLife
                 ? data.status == 3 ? setWidth(500) : setWidth(690)
@@ -121,7 +123,7 @@ class SiteListItem extends StatelessWidget {
               data.address,
               maxLines: 5,
               overflow: TextOverflow.ellipsis,
-              style: f26c33,
+              style: Styles.f26c33,
             ),
           )
         ],
@@ -136,10 +138,10 @@ class SiteListItem extends StatelessWidget {
         return Container(
           padding: setEdge(left: 18, top: 10, right: 18, bottom: 10),
           decoration: BoxDecoration(
-              color: pageBg, borderRadius: BorderRadius.circular(5)),
+              color: Styles.pageBg, borderRadius: BorderRadius.circular(5)),
           child: Text(
             '待确认',
-            style: f26c99,
+            style: Styles.f26c99,
           ),
         );
       } else {
@@ -149,7 +151,7 @@ class SiteListItem extends StatelessWidget {
       return Container(
         padding: setEdge(left: 18, top: 10, right: 18, bottom: 10),
         decoration: BoxDecoration(
-            color: pageBg, borderRadius: BorderRadius.circular(5)),
+            color: Styles.pageBg, borderRadius: BorderRadius.circular(5)),
         child: Text(
           Utils.siteStatus(data.status)['label'],
           style: TextStyle(

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 16:55:45
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-19 16:56:07
+ * @LastEditTime : 2019-12-23 13:52:50
  * @Description: 加载组件
  * @FilePath: /unicom_flutter/lib/widgets/myLoading.dart
  */
@@ -36,7 +36,7 @@ class MyLoading extends StatelessWidget {
               Container(
                 child: Text(
                   '正在拼命加载',
-                  style: f26cf,
+                  style: Styles.f26cf,
                 ),
               )
             ],

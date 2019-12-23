@@ -2,13 +2,12 @@
  * @Author: liangyt
  * @Date: 2019-12-20 11:33:17
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-20 11:49:15
+ * @LastEditTime : 2019-12-23 13:53:03
  * @Description: tabs 导航栏
  * @FilePath: /unicom_flutter/lib/widgets/myTabs.dart
  */
 
 import 'package:flutter/material.dart';
-import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 
@@ -56,15 +55,15 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
               decoration: BoxDecoration(
                   color: Colors.white,
                   border:
-                      Border(bottom: BorderSide(width: 1, color: borderColor))),
+                      Border(bottom: BorderSide(width: 1, color: Styles.borderColor))),
               child: TabBar(
                 controller: _tabController,
                 isScrollable: widget.isScrollable,
-                labelColor: e04545,
-                unselectedLabelColor: c666,
-                indicatorColor: e04545,
+                labelColor: Styles.e04545,
+                unselectedLabelColor: Styles.c666,
+                indicatorColor: Styles.e04545,
                 indicatorSize: TabBarIndicatorSize.label,
-                labelStyle: f30cff,
+                labelStyle: Styles.f30cff,
                 tabs: widget.tabs.map((item) {
                   return Tab(
                     text: item,
