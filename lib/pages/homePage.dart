@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:50:53
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 10:27:40
+ * @LastEditTime : 2019-12-23 17:02:05
  * @Description: 首页
  * @FilePath: /unicom_flutter/lib/pages/homePage.dart
  */
@@ -10,8 +10,10 @@
 import 'dart:async';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:provide/provide.dart';
 import 'package:unicom_flutter/pages/alarmPage.dart';
 import 'package:unicom_flutter/pages/orderPage.dart';
+import 'package:unicom_flutter/providers/homeProvide.dart';
 import 'package:unicom_flutter/utils/constant.dart';
 import 'package:unicom_flutter/widgets/common/myAsset.dart';
 import 'package:connectivity/connectivity.dart';
@@ -81,21 +83,23 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: tabs,
-        currentIndex: current,
-        unselectedFontSize: 14,
-        onTap: (int index) {
-          setState(() {
-            current = index;
-          });
-        },
-      ),
-      body: IndexedStack(
-        index: current,
-        children: pageList,
-      ),
+    return Provide<HomeProvide>(
+      builder: (context, child, data) {
+        return Scaffold(
+          bottomNavigationBar: BottomNavigationBar(
+            items: tabs,
+            currentIndex: data.current,
+            unselectedFontSize: 14,
+            onTap: (int index) {
+              Provide.value<HomeProvide>(context).setCurrent(index);
+            },
+          ),
+          body: IndexedStack(
+            index: data.current,
+            children: pageList,
+          ),
+        );
+      },
     );
   }
 }

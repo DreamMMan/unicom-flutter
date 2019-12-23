@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:40:16
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 14:13:16
+ * @LastEditTime : 2019-12-23 16:38:44
  * @Description: fluro 路由配置
  * @FilePath: /unicom_flutter/lib/routes/config.dart
  */
@@ -36,5 +36,8 @@ class Routes {
     // 报警处理页面
     router.define('/alarmDeal',
         handler: alarmDealHandler, transitionType: TransitionType.cupertino);
+    // 站点详情页面
+    router.define('/siteDetails',
+        handler: siteDetailsHandler, transitionType: TransitionType.cupertino);
   }
 }

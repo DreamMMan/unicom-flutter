@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 17:50:24
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 14:36:07
+ * @LastEditTime : 2019-12-23 17:02:36
  * @Description: 告警列表页
  * @FilePath: /unicom_flutter/lib/pages/alarmPage.dart
  */
@@ -114,6 +114,9 @@ class AlarmPage extends StatelessWidget {
     if (data.isError) {
       _controller.finishRefresh();
       _controller.finishLoad();
+    }
+    if (data.callRefresh) {
+      _controller.callRefresh();
     }
     return Expanded(
       child: EasyRefresh.custom(

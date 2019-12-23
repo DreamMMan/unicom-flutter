@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 14:53:50
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-19 14:53:55
+ * @LastEditTime : 2019-12-23 15:27:41
  * @Description: 后台接口列表
  * @FilePath: /unicom_flutter/lib/http/api.dart
  */
@@ -12,7 +12,7 @@ const apiConfig = {
   'orderList':{'method': 'POST', 'url': '/system/appSupportTicket/getList'}, // 计划工单 和生命工单列表
   'alarmList':{'method': 'POST', 'url': '/system/appAlarm/getList'}, // 告警列表
   'handAlarm':{'method': 'POST', 'url': '/system/appAlarm/handAlarm'}, // 告警批量处理
-  'alarDetail':{'method': 'POST', 'url': '/system/appAlarm/getDetail'}, // 告警详情
+  'alarmDetail':{'method': 'POST', 'url': '/system/appAlarm/getDetail'}, // 告警详情
   'orderDetails':{'method': 'POST', 'url': '/system/appSupportTicket/getDetail'}, // 工单详情
   'appSiteList':{'method': 'POST', 'url': '/system/appSite/getList'}, // 站点列表
   'appSiteDetail':{'method': 'POST', 'url': '/system/appSite/getDetail'}, // 站点详情

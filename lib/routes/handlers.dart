@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:40:26
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 15:19:56
+ * @LastEditTime : 2019-12-23 16:38:22
  * @Description: fluro handler配置集合
  * @FilePath: /unicom_flutter/lib/routes/handlers.dart
  */
@@ -13,6 +13,7 @@ import 'package:unicom_flutter/pages/alarmDetailsPage.dart';
 import 'package:unicom_flutter/pages/homePage.dart';
 import 'package:unicom_flutter/pages/loginPage.dart';
 import 'package:unicom_flutter/pages/orderDetailsPage.dart';
+import 'package:unicom_flutter/pages/siteDetailsPage.dart';
 import 'package:unicom_flutter/pages/splashPage.dart';
 import 'package:unicom_flutter/pages/webViewPage.dart';
 
@@ -57,3 +58,10 @@ Handler alarmDealHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   return AlarmDealPage();
 });
+
+// 站点详情 页面
+Handler siteDetailsHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return SiteDetailsPage();
+});
+

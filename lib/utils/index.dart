@@ -2,11 +2,12 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:42:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 13:52:34
+ * @LastEditTime : 2019-12-23 16:15:24
  * @Description: utils方法
  * @FilePath: /unicom_flutter/lib/utils/index.dart
  */
 
+import 'package:common_utils/common_utils.dart';
 import 'package:hive/hive.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,27 @@ class Utils {
             child: MyLoading(),
           );
         });
+  }
+
+  // 持续时间 时间戳转小时和分钟
+  static durationTime(int createTime, int removeTime) {
+    int newTime = DateUtil.getNowDateMs();
+    if (removeTime != null) {
+      newTime = removeTime;
+    }
+    int time = newTime - createTime;
+
+    int leavel, h, m;
+    h = time ~/ (1000 * 60 * 60);
+    if (h > 0) {
+      leavel = time - (1000 * 60 * 60 * h);
+    } else {
+      leavel = time;
+    }
+    m = leavel ~/ (1000 * 60);
+    String hstr = h > 0 ? h.toString() + 'h' : '';
+    String mstr = m > 0 ? m.toString() + 'm' : '<1m';
+    return hstr + mstr;
   }
 
   //  字符串json转Map

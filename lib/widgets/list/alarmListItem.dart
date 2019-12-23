@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 15:34:04
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 15:21:55
+ * @LastEditTime : 2019-12-23 15:25:43
  * @Description: 报警列表item
  * @FilePath: /unicom_flutter/lib/widgets/list/alarmListItem.dart
  */
@@ -35,7 +35,7 @@ class AlarmListItem extends StatelessWidget {
         }
         if (!isOpen) {
           Application.router.navigateTo(context, '/alarmDetails');
-          Provide.value<AlarmDetailsProvide>(context).setId(data.id);
+          Provide.value<AlarmDetailsProvide>(context).setId(context, data.id);
         }
       },
       child: Container(

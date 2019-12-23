@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 15:00:40
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 11:43:46
+ * @LastEditTime : 2019-12-23 16:50:15
  * @Description: 告警通知列表
  * @FilePath: /unicom_flutter/lib/providers/alarmProvide.dart
  */
@@ -16,6 +16,7 @@ class AlarmProvide with ChangeNotifier {
   int page = 0;
   int total = 0;
   bool first = true;
+  bool callRefresh = false;
   bool isOpen = false;
   List<int> idList = [];
   List<AlarmList> list = [];
@@ -34,14 +35,19 @@ class AlarmProvide with ChangeNotifier {
     } else {
       idList.removeAt(idList.indexOf(id));
     }
-    print(idList);
     notifyListeners();
+  }
+
+  // 出发刷新
+  void setCallRefresh() {
+    callRefresh = true;
   }
 
   // 下拉刷新
   onRefresh(context) async {
     isError = false;
     first = false;
+    callRefresh = false;
     var params = {"page": 0, "size": size};
     await HttpUtil.request(context, 'alarmList', data: params).then((data) {
       AlarmModel dataInfo = AlarmModel.fromJson(data);

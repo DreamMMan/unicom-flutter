@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 17:14:27
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 10:12:29
+ * @LastEditTime : 2019-12-23 15:55:04
  * @Description: 常量
  * @FilePath: /unicom_flutter/lib/utils/constant.dart
  */
@@ -36,4 +36,6 @@ class Constant {
   static String alarmActive = 'assets/alarm_active.png';
   static String userIcon = 'assets/user_icon.png';
   static String searchIcon = 'assets/search.png';
+  static String alarmIcon1 = 'assets/alarm_icon1.png';
+  static String alarmIcon2 = 'assets/alarm_icon2.png';
 }

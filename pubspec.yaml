@@ -66,6 +66,8 @@ flutter:
    - assets/alarm_active.png
    - assets/user_icon.png
    - assets/search.png
+   - assets/alarm_icon1.png
+   - assets/alarm_icon2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
