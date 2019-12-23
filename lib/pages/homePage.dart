@@ -2,16 +2,19 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:50:53
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-18 14:08:07
+ * @LastEditTime : 2019-12-23 09:51:10
  * @Description: 首页
  * @FilePath: /unicom_flutter/lib/pages/homePage.dart
  */
 
+import 'dart:async';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/pages/alarmPage.dart';
 import 'package:unicom_flutter/pages/orderPage.dart';
 import 'package:unicom_flutter/utils/imagse.dart';
 import 'package:unicom_flutter/widgets/common/myAsset.dart';
+import 'package:connectivity/connectivity.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -43,6 +46,38 @@ class _HomePageState extends State<HomePage> {
         ),
         title: Text('通知'))
   ];
+
+  // 网络监测
+  Stream<ConnectivityResult> connectChangeListener() async* {
+    final Connectivity connectivity = Connectivity();
+    await for (ConnectivityResult result
+        in connectivity.onConnectivityChanged) {
+      yield result;
+    }
+  }
+
+  StreamSubscription<ConnectivityResult> connectivitySubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    connectivitySubscription = connectChangeListener().listen(
+      (ConnectivityResult connectivityResult) {
+        if (!mounted) {
+          return;
+        }
+        if (connectivityResult == ConnectivityResult.none) {
+          BotToast.showText(text: '请检查网络连接！');
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    connectivitySubscription.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
