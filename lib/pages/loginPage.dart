@@ -15,7 +15,7 @@ import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 import 'package:unicom_flutter/widgets/common/myInput.dart';
-import 'package:unicom_flutter/widgets/common/submitBtn.dart';
+import 'package:unicom_flutter/widgets/common/mySubmitBtn.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -122,7 +122,7 @@ class LoginPage extends StatelessWidget {
       height: setHeight(100),
       margin: setEdge(top: 140),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-      child: SubmitBtn(
+      child: MySubmitBtn(
           textSty: f36cff,
           txt: '登录',
           submit: () {
