@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 17:22:11
+ * @LastEditTime : 2019-12-23 09:43:24
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
+import 'package:provide/provide.dart';
+import 'package:unicom_flutter/providers/orderDetailsProvide.dart';
 import 'package:unicom_flutter/utils/constant.dart';
 import 'package:unicom_flutter/utils/imagse.dart';
 import 'package:unicom_flutter/utils/myColors.dart';
@@ -22,6 +24,7 @@ import 'package:unicom_flutter/widgets/common/myInput.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
 import 'package:unicom_flutter/widgets/common/showBottomSheet.dart';
 import 'package:unicom_flutter/widgets/list/listNoMore.dart';
+import 'package:unicom_flutter/widgets/list/siteListItem.dart';
 import 'package:unicom_flutter/widgets/list/sliverAppBarDelegate.dart';
 
 class OrderDetailsPage extends StatelessWidget {
@@ -30,52 +33,60 @@ class OrderDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBar('工单详情'),
-      body: Container(
-        child: EasyRefresh.custom(
-          header: MaterialHeader(),
-          footer: MaterialFooter(),
-          emptyWidget: false ? MyEmpty() : null,
-          controller: _controller,
-          // enableControlFinishRefresh: true,
-          // enableControlFinishLoad: true,
-          // firstRefresh: true,
-          // firstRefreshWidget: MyLoading(),
-          onRefresh: () async {
-            // await Provide.value<OrderProvide>(context)
-            //     .onRefresh(context, false);
-            // _controller.resetLoadState(); // 重置加载状态
-            // _controller.finishRefresh(); // 完成刷新
-            // _controller.finishLoad(
-            //     noMore:
-            //         data.lifeList.length >= data.lifeTotal); // 加载完和判断是否能加载
-          },
-          onLoad: () async {
-            // await Provide.value<OrderProvide>(context).onLoad(context, false);
-            // _controller.finishLoad(
-            //     noMore:
-            //         data.lifeList.length >= data.lifeTotal); // 加载完和判断是否能加载
-          },
-          slivers: <Widget>[
-            topContent(),
-            fixContent(context),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return InkWell(
-                      child: Container(
-                    height: 100,
-                    child: Text('adas'),
-                  ));
-                },
-                childCount: 20,
+      body: Provide<OrderDetailsProvide>(builder: (context, child, data) {
+        // 报错时 关闭刷新 关闭加载
+        if (data.isError) {
+          _controller.finishRefresh();
+          _controller.finishLoad();
+        }
+        // 触发刷新
+        if (data.isCallRefresh) {
+          _controller.callRefresh();
+        }
+        return Container(
+          child: EasyRefresh.custom(
+            header: MaterialHeader(),
+            footer: MaterialFooter(),
+            emptyWidget: false ? MyEmpty() : null,
+            controller: _controller,
+            enableControlFinishRefresh: true,
+            enableControlFinishLoad: true,
+            firstRefresh: true,
+            firstRefreshWidget: MyLoading(),
+            onRefresh: () async {
+              await Provide.value<OrderDetailsProvide>(context)
+                  .onRefresh(context);
+              _controller.resetLoadState(); // 重置加载状态
+              _controller.finishRefresh(); // 完成刷新
+              _controller.finishLoad(
+                  noMore: data.list.length >= data.total); // 加载完和判断是否能加载
+            },
+            onLoad: () async {
+              await Provide.value<OrderDetailsProvide>(context).onLoad(context);
+              _controller.finishLoad(
+                  noMore: data.list.length >= data.total); // 加载完和判断是否能加载
+            },
+            slivers: <Widget>[
+              topContent(),
+              fixContent(context),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return InkWell(
+                        child: SiteListItem(
+                      data: data.list[index],
+                    ));
+                  },
+                  childCount: data.list.length,
+                ),
               ),
-            ),
-            ListNoMore(
-              show: true,
-            )
-          ],
-        ),
-      ),
+              ListNoMore(
+                show: true,
+              )
+            ],
+          ),
+        );
+      }),
     );
   }
 
@@ -240,7 +251,8 @@ class OrderDetailsPage extends StatelessWidget {
       ),
     );
   }
-    // 底部选项卡
+
+  // 底部选项卡
   showModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
@@ -248,6 +260,7 @@ class OrderDetailsPage extends StatelessWidget {
         builder: (BuildContext context) {
           return ShowBottomSheet(
             list: regionList,
+            titleName: '请选择站点区域',
             tap: (data) async {
               print(data);
             },
