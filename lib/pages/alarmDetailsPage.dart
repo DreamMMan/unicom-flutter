@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 14:08:33
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 17:45:09
+ * @LastEditTime : 2019-12-23 18:03:13
  * @Description: 处理详情页面
  * @FilePath: /unicom_flutter/lib/pages/AlarmDetailsPage.dart
  */
@@ -260,7 +260,7 @@ class AlarmDetailsPage extends StatelessWidget {
         txt: '告警处理',
         textSty: Styles.f36cff,
         submit: () {
-          Provide.value<AlarmDealProvide>(context).setId([pageData.id]);
+          Provide.value<AlarmDealProvide>(context).setId([pageData.id], 2);
           Application.router.navigateTo(context, '/alarmDeal');
         },
       ),

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 14:27:18
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 17:02:28
+ * @LastEditTime : 2019-12-23 18:03:36
  * @Description: 告警处理
  * @FilePath: /unicom_flutter/lib/providers/alarmDealProvide.dart
  */
@@ -16,10 +16,12 @@ import 'package:unicom_flutter/utils/index.dart';
 class AlarmDealProvide with ChangeNotifier {
   List<int> idList = [];
   bool checked = true;
+  int backNum = 1;
   String description = '';
 
-  void setId(ids) {
+  void setId(ids, _num) {
     idList = ids;
+    backNum = _num;
     checked = true;
     notifyListeners();
   }
@@ -44,7 +46,9 @@ class AlarmDealProvide with ChangeNotifier {
       if (data != null) {
         Utils.showToast('处理成功！');
         Provide.value<AlarmProvide>(context).setCallRefresh();
-        Application.router.navigateTo(context, '/', clearStack: true);
+        for (var i = 0; i < backNum; i++) {
+          Navigator.pop(context);
+        }
       }
     });
   }

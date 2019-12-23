@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 17:50:24
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 17:02:36
+ * @LastEditTime : 2019-12-23 17:53:21
  * @Description: 告警列表页
  * @FilePath: /unicom_flutter/lib/pages/alarmPage.dart
  */
@@ -175,7 +175,7 @@ class AlarmPage extends StatelessWidget {
               Utils.showToast('请选择要处理的通知');
               return;
             }
-            Provide.value<AlarmDealProvide>(context).setId(data.idList);
+            Provide.value<AlarmDealProvide>(context).setId(data.idList, 1);
             Provide.value<AlarmProvide>(context).setOpen();
             Application.router.navigateTo(context, '/alarmDeal');
           },
