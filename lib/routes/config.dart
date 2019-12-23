@@ -31,8 +31,8 @@ class Routes {
     router.define('/orderDetails',
         handler: orderDetailsHandler, transitionType: TransitionType.cupertino);
     // 报警处理详情页面
-    router.define('/dealDetails',
-        handler: dealDetailsHandler, transitionType: TransitionType.cupertino);
+    router.define('/alarmDetails',
+        handler: alarmDetailsHandler, transitionType: TransitionType.cupertino);
     // 报警处理页面
     router.define('/alarmDeal',
         handler: alarmDealHandler, transitionType: TransitionType.cupertino);

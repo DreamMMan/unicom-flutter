@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 15:34:04
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 15:17:03
+ * @LastEditTime : 2019-12-23 15:21:55
  * @Description: 报警列表item
  * @FilePath: /unicom_flutter/lib/widgets/list/alarmListItem.dart
  */
@@ -10,8 +10,8 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/models/alarmModel.dart';
+import 'package:unicom_flutter/providers/alarmDetailsProvide.dart';
 import 'package:unicom_flutter/providers/alarmProvide.dart';
-import 'package:unicom_flutter/providers/dealDetailsProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
@@ -34,8 +34,8 @@ class AlarmListItem extends StatelessWidget {
           Provide.value<AlarmProvide>(context).isSelect(data.id);
         }
         if (!isOpen) {
-          Application.router.navigateTo(context, '/dealDetails');
-          Provide.value<DealDetailsProvide>(context).setId(data.id);
+          Application.router.navigateTo(context, '/alarmDetails');
+          Provide.value<AlarmDetailsProvide>(context).setId(data.id);
         }
       },
       child: Container(
