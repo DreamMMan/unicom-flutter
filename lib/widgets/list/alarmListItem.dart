@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 15:34:04
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 13:54:04
+ * @LastEditTime : 2019-12-23 14:38:17
  * @Description: 报警列表item
  * @FilePath: /unicom_flutter/lib/widgets/list/alarmListItem.dart
  */
@@ -10,7 +10,10 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/models/alarmModel.dart';
+import 'package:unicom_flutter/providers/alarmDealProvide.dart';
 import 'package:unicom_flutter/providers/alarmProvide.dart';
+import 'package:unicom_flutter/providers/dealDetailsProvide.dart';
+import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 
@@ -30,6 +33,14 @@ class AlarmListItem extends StatelessWidget {
       onTap: () {
         if (isOpen && data.handUserInfo == null) {
           Provide.value<AlarmProvide>(context).isSelect(data.id);
+        }
+        if (!isOpen && data.handUserInfo == null) {
+          Application.router.navigateTo(context, '/alarmDeal');
+          Provide.value<AlarmDealProvide>(context).setId([data.id]);
+        }
+        if (!isOpen && data.handUserInfo != null) {
+          Application.router.navigateTo(context, '/dealDetails');
+          Provide.value<DealDetailsProvide>(context).setId(data.id);
         }
       },
       child: Container(

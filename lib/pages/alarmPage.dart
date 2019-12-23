@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 17:50:24
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 13:50:54
+ * @LastEditTime : 2019-12-23 14:36:07
  * @Description: 告警列表页
  * @FilePath: /unicom_flutter/lib/pages/alarmPage.dart
  */
@@ -12,12 +12,16 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
+import 'package:unicom_flutter/providers/alarmDealProvide.dart';
 import 'package:unicom_flutter/providers/alarmProvide.dart';
+import 'package:unicom_flutter/routes/application.dart';
+import 'package:unicom_flutter/utils/index.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/myEmpty.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
+import 'package:unicom_flutter/widgets/common/mySubmitBtn.dart';
 import 'package:unicom_flutter/widgets/list/alarmListItem.dart';
 import 'package:unicom_flutter/widgets/list/listNoMore.dart';
 
@@ -34,7 +38,8 @@ class AlarmPage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   labelInfo(context, data.isOpen),
-                  listBox(context, data)
+                  listBox(context, data),
+                  dealBtn(context, data)
                 ],
               ),
             );
@@ -136,12 +141,10 @@ class AlarmPage extends StatelessWidget {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                return InkWell(
-                    onTap: () {},
-                    child: AlarmListItem(
-                        data: data.list[index],
-                        idList: data.idList,
-                        isOpen: data.isOpen));
+                return AlarmListItem(
+                    data: data.list[index],
+                    idList: data.idList,
+                    isOpen: data.isOpen);
               },
               childCount: data.list.length,
             ),
@@ -152,5 +155,31 @@ class AlarmPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // 批量处理
+  Widget dealBtn(BuildContext context, data) {
+    if (data.isOpen) {
+      return Container(
+        width: setWidth(690),
+        height: setHeight(100),
+        margin: setEdge(left: 30, top: 40, right: 30, bottom: 40),
+        child: MySubmitBtn(
+          txt: '批量处理',
+          textSty: Styles.f36cff,
+          submit: () {
+            if (data.idList.length < 1) {
+              Utils.showToast('请选择要处理的通知');
+              return;
+            }
+            Provide.value<AlarmDealProvide>(context).setId(data.idList);
+            Provide.value<AlarmProvide>(context).setOpen();
+            Application.router.navigateTo(context, '/alarmDeal');
+          },
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 }
