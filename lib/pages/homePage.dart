@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:50:53
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 09:51:10
+ * @LastEditTime : 2019-12-23 10:12:47
  * @Description: 首页
  * @FilePath: /unicom_flutter/lib/pages/homePage.dart
  */
@@ -12,7 +12,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/pages/alarmPage.dart';
 import 'package:unicom_flutter/pages/orderPage.dart';
-import 'package:unicom_flutter/utils/imagse.dart';
+import 'package:unicom_flutter/utils/constant.dart';
 import 'package:unicom_flutter/widgets/common/myAsset.dart';
 import 'package:connectivity/connectivity.dart';
 
@@ -27,21 +27,21 @@ class _HomePageState extends State<HomePage> {
   List<BottomNavigationBarItem> tabs = [
     BottomNavigationBarItem(
         icon: MyAsset(
-          name: orderDefault,
+          name: Constant.orderDefault,
           width: 50,
         ),
         activeIcon: MyAsset(
-          name: orderActive,
+          name: Constant.orderActive,
           width: 50,
         ),
         title: Text('工单')),
     BottomNavigationBarItem(
         icon: MyAsset(
-          name: alarmDefault,
+          name: Constant.alarmDefault,
           width: 50,
         ),
         activeIcon: MyAsset(
-          name: alarmActive,
+          name: Constant.alarmActive,
           width: 50,
         ),
         title: Text('通知'))

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 09:43:24
+ * @LastEditTime : 2019-12-23 10:13:09
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
@@ -14,7 +14,6 @@ import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/providers/orderDetailsProvide.dart';
 import 'package:unicom_flutter/utils/constant.dart';
-import 'package:unicom_flutter/utils/imagse.dart';
 import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
@@ -238,7 +237,7 @@ class OrderDetailsPage extends StatelessWidget {
               decoration: BoxDecoration(
                   color: pageBg, borderRadius: BorderRadius.circular(5)),
               child: MyInput(
-                  iconName: searchIcon,
+                  iconName: Constant.searchIcon,
                   paddingHeight: 20,
                   hintText: '站点/编号/地址',
                   hintStyle: f24c99,
@@ -259,7 +258,7 @@ class OrderDetailsPage extends StatelessWidget {
         backgroundColor: d9DEE1,
         builder: (BuildContext context) {
           return ShowBottomSheet(
-            list: regionList,
+            list: Constant.regionList,
             titleName: '请选择站点区域',
             tap: (data) async {
               print(data);

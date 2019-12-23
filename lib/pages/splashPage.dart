@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:36:37
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-18 14:07:50
+ * @LastEditTime : 2019-12-23 09:59:37
  * @Description: 启动页 广告页
  * @FilePath: /unicom_flutter/lib/pages/splashPage.dart
  */
@@ -11,7 +11,7 @@ import 'package:provide/provide.dart';
 import 'package:unicom_flutter/providers/loginProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:unicom_flutter/utils/index.dart';
+import 'package:unicom_flutter/utils/constant.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 import 'package:common_utils/common_utils.dart';
@@ -30,6 +30,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
+    // 倒计时
     mTimerUtil = new TimerUtil(mInterval: 1000, mTotalTime: 3000);
     mTimerUtil.setOnTimerTickCallback((int tick) {
       double _tick = tick / 1000;
@@ -54,7 +55,7 @@ class _SplashPageState extends State<SplashPage> {
     // path_provider插件 用于查找文件系统上常用位置
     final dir = await getApplicationDocumentsDirectory();
     Hive.init(dir.path);
-    var box = await Hive.openBox(Utils.hiveName);
+    var box = await Hive.openBox(Constant.hiveName);
     Provide.value<LoginProvide>(context)
         .setValue(box.get('username') ?? '', '');
     setState(() {
@@ -64,12 +65,13 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    // 屏幕适配
+    // 屏幕适配初始化
     ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
     return Scaffold(
         body: Stack(
       fit: StackFit.expand,
       children: <Widget>[
+        // 广告图片
         InkWell(
           onTap: () {
             Application.router.navigateTo(context, '/webView');
@@ -80,6 +82,7 @@ class _SplashPageState extends State<SplashPage> {
             fit: BoxFit.cover,
           ),
         ),
+        // 右上角提示部件
         Positioned(
             right: setWidth(30),
             top: ScreenUtil.statusBarHeight + setWidth(30),

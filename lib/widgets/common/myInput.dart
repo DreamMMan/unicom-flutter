@@ -2,14 +2,14 @@
  * @Author: liangyt
  * @Date: 2019-12-19 10:28:55
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 17:09:59
+ * @LastEditTime : 2019-12-23 10:13:17
  * @Description: 输入框组件
  * @FilePath: /unicom_flutter/lib/widgets/myInput.dart
  */
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:unicom_flutter/utils/imagse.dart';
+import 'package:unicom_flutter/utils/constant.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 import 'package:unicom_flutter/widgets/common/myAsset.dart';
@@ -150,7 +150,7 @@ class _MyInputState extends State<MyInput> {
                   child: IconButton(
                     alignment: Alignment.centerRight,
                     padding: const EdgeInsets.all(0.0),
-                    icon: MyAsset(name: deleteIcon, width: widget.iconWidth),
+                    icon: MyAsset(name: Constant.deleteIcon, width: widget.iconWidth),
                     onPressed: () {
                       setState(() {
                         _inputText = "";

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 13:54:42
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 11:49:08
+ * @LastEditTime : 2019-12-23 10:04:32
  * @Description: 首页广告进入的webview页面
  * @FilePath: /unicom_flutter/lib/pages/webViewPage.dart
  */
@@ -38,7 +38,7 @@ class _WebViewPageState extends State<WebViewPage> {
                           context, token != null ? '/' : '/login',
                           clearStack: true);
                     },
-                    child: Icon(Icons.keyboard_arrow_left, size: 36),
+                    child: Icon(Icons.close, size: 36),
                   ),
                 ),
               ),

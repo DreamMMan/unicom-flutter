@@ -1,7 +1,16 @@
+/*
+ * @Author: liangyt
+ * @Date: 2019-12-18 14:09:16
+ * @LastEditors  : liangyt
+ * @LastEditTime : 2019-12-23 10:15:41
+ * @Description: 登录页
+ * @FilePath: /unicom_flutter/lib/pages/loginPage.dart
+ */
+
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/providers/loginProvide.dart';
-import 'package:unicom_flutter/utils/imagse.dart';
+import 'package:unicom_flutter/utils/constant.dart';
 import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
@@ -12,27 +21,24 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         body: Stack(
-      children: <Widget>[
-        Container(
-          width: double.infinity,
-          height: double.infinity,
-          alignment: Alignment.topCenter,
-          color: Colors.white,
-          child: Image.asset(
-            loginBg,
-            fit: BoxFit.fitWidth,
-          ),
-        ),
-        Positioned(
-          top: setHeight(170),
-          left: 0,
-          width: setWidth(750),
-          height: setHeight(1000),
-          child: content(context),
-        )
-      ],
-    ));
+          children: <Widget>[
+            Container(
+              alignment: Alignment.topCenter,
+              child: Image.asset(
+                Constant.loginBg,
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+            Positioned(
+              top: setHeight(170),
+              left: 0,
+              width: setWidth(750),
+              child: content(context),
+            )
+          ],
+        ));
   }
 
   // 内容
@@ -92,7 +98,7 @@ class LoginPage extends StatelessWidget {
                       BorderSide(width: isPhone ? 1 : 0, color: borderColor))),
           child: MyInput(
             inintValue: isPhone ? data.username : '',
-            iconName: isPhone ? phoneIcon : passwordIcon,
+            iconName: isPhone ? Constant.phoneIcon : Constant.passwordIcon,
             hintText: isPhone ? '请输入手机号' : '请输入密码',
             keyboardType: isPhone ? 'text' : 'password',
             maxLength: isPhone ? 11 : 24,

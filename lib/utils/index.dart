@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:42:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 09:24:02
+ * @LastEditTime : 2019-12-23 10:11:12
  * @Description: utils方法
  * @FilePath: /unicom_flutter/lib/utils/index.dart
  */
@@ -11,15 +11,15 @@ import 'package:hive/hive.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/models/deviceList_model.dart';
+import 'package:unicom_flutter/utils/constant.dart';
 import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
 import 'dart:convert' as convert;
 
 class Utils {
-  static String hiveName = 'unicomBox';
   // hive
   static unicomBox() {
-    return Hive.box(hiveName);
+    return Hive.box(Constant.hiveName);
   }
 
   // BotToast

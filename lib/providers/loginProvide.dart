@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 13:52:35
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-20 16:37:41
+ * @LastEditTime : 2019-12-23 10:21:32
  * @Description: login Provide
  * @FilePath: /unicom_flutter/lib/providers/loginProvide.dart
  */
@@ -30,7 +30,7 @@ class LoginProvide with ChangeNotifier {
       Utils.showToast('请输入正确的手机号');
       return;
     }
-    if (password.trim().length < 1) {
+    if (password.length < 1) {
       Utils.showToast('请输入密码');
       return;
     }
@@ -40,8 +40,10 @@ class LoginProvide with ChangeNotifier {
       if (value != null) {
         box.put('token', value);
         box.put('username', username);
+        password = '';
         Navigator.pop(context);
         Application.router.navigateTo(context, '/', replace: true);
+        notifyListeners();
       }
     });
   }

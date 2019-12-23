@@ -10,7 +10,7 @@
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/pages/orderList/lifeList.dart';
 import 'package:unicom_flutter/pages/orderList/planList.dart';
-import 'package:unicom_flutter/utils/imagse.dart';
+import 'package:unicom_flutter/utils/constant.dart';
 import 'package:unicom_flutter/utils/index.dart';
 import 'package:unicom_flutter/utils/myColors.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
@@ -57,7 +57,7 @@ class OrderPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 MyAsset(
-                  name: userIcon,
+                  name: Constant.userIcon,
                   width: 34,
                 ),
                 Expanded(
