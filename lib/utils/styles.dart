@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 11:37:14
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 16:29:56
+ * @LastEditTime : 2019-12-24 13:55:58
  * @Description: 字体大小和颜色
  * @FilePath: /unicom_flutter/lib/utils/styles.dart
  */
@@ -34,6 +34,7 @@ class Styles {
   static TextStyle f26c33 = TextStyle(fontSize: setSp(26), color: c333);
   static TextStyle f26c66 = TextStyle(fontSize: setSp(26), color: c666);
   static TextStyle f26c99 = TextStyle(fontSize: setSp(26), color: c999);
+  static TextStyle f26ccc = TextStyle(fontSize: setSp(26), color: cccc);
   static TextStyle f26ce0 = TextStyle(fontSize: setSp(26), color: e04545);
   static TextStyle f26c3a = TextStyle(fontSize: setSp(26), color: c03A4EE);
   static TextStyle f28c666 = TextStyle(fontSize: setSp(28), color: c666);

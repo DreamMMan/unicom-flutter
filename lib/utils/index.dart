@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:42:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 16:15:24
+ * @LastEditTime : 2019-12-24 14:08:31
  * @Description: utils方法
  * @FilePath: /unicom_flutter/lib/utils/index.dart
  */

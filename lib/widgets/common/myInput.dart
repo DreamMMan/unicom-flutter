@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 10:28:55
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-24 10:45:01
+ * @LastEditTime : 2019-12-24 11:09:32
  * @Description: 输入框组件
  * @FilePath: /unicom_flutter/lib/widgets/myInput.dart
  */
@@ -152,7 +152,8 @@ class _MyInputState extends State<MyInput> {
                   child: IconButton(
                     alignment: Alignment.centerRight,
                     padding: const EdgeInsets.all(0.0),
-                    icon: MyAsset(name: Constant.deleteIcon, width: widget.iconWidth),
+                    icon: MyAsset(
+                        name: Constant.deleteIcon, width: widget.iconWidth),
                     onPressed: () {
                       setState(() {
                         _inputText = "";
@@ -168,7 +169,8 @@ class _MyInputState extends State<MyInput> {
               : InputBorder.none,
           hintText: widget.hintText,
           counterText: '',
-          hintStyle: widget.hintStyle != null ? widget.hintStyle : Styles.f30ccc),
+          hintStyle:
+              widget.hintStyle != null ? widget.hintStyle : Styles.f30ccc),
       onChanged: (val) {
         setState(() {
           _inputText = val;
@@ -176,7 +178,7 @@ class _MyInputState extends State<MyInput> {
           widget.fieldCallBack(_inputText);
         });
       },
-      onSubmitted: (value){
+      onSubmitted: (value) {
         widget.submit(_inputText);
       },
     );

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-24 10:52:01
+ * @LastEditTime : 2019-12-24 13:56:11
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
@@ -82,9 +82,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                         },
                         child: SiteListItem(
                           data: data.list[index],
-                          name:
-                              data.orderData != null ? data.orderData.name : '',
-                          isLife: data.isLife,
+                          name: '设备',
+                          isLife: false,
                         ));
                   },
                   childCount: data.list.length,

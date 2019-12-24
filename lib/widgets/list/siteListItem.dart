@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 09:16:17
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 13:55:03
+ * @LastEditTime : 2019-12-24 14:21:33
  * @Description: 站点列表itrm
  * @FilePath: /unicom_flutter/lib/widgets/list/siteListItem.dart
  */
@@ -22,143 +22,187 @@ class SiteListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: setWidth(750),
-      padding: EdgeInsets.all(setWidth(30)),
+      padding: setEdge(left: 30, top: 40, right: 30, bottom: 40),
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border(top: BorderSide(width: 1, color: Styles.borderColor))),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      child: _content(),
+    );
+  }
+
+  Widget _content() {
+    if (name == '设备调拨') {
+      // 设备调拨
+      return _allot();
+    }
+    if (isLife) {
+      return _addContent();
+    }
+    return _planOrder();
+  }
+
+  // 设备调拨
+  Widget _allot() {
+    return Container(
+      child: Column(
         children: <Widget>[
-          _leftContent(data, name, isLife),
-          _rightBtn(data, isLife)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Container(
+                    constraints: BoxConstraints(maxWidth: setWidth(230)),
+                    child: Text(
+                      data.name,
+                      style: Styles.f36c33,
+                    ),
+                  ),
+                  Padding(
+                    padding: setEdge(left: 20, right: 20),
+                    child: Icon(Icons.arrow_right),
+                  ),
+                  Container(
+                    constraints: BoxConstraints(maxWidth: setWidth(230)),
+                    child: Text(
+                      data.targetName,
+                      style: Styles.f36c33,
+                    ),
+                  ),
+                ],
+              ),
+              rightBtn()
+            ],
+          ),
+          Padding(
+            padding: setEdge(top: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  width: setWidth(295),
+                  child: Text(
+                    data.address,
+                    style: Styles.f26c66,
+                  ),
+                ),
+                Padding(
+                  padding: setEdge(left: 20, right: 20),
+                  child: Icon(Icons.arrow_right),
+                ),
+                Container(
+                  width: setWidth(295),
+                  child: Text(
+                    data.targetAddress,
+                    style: Styles.f26c66,
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
   }
 
-  // 列表左边内容 设备调拨的区分
-  Widget _leftContent(data, name, isLife) {
-    if (name == '设备调拨') {
-      return Container(
-        child: Row(
-          children: <Widget>[
-            Container(
-              width: data.status == 3 ? setWidth(225) : setWidth(295),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    data.name ?? '',
-                    style: Styles.f36c33,
-                  ),
-                  Padding(
-                    padding: setEdge(top: 20),
-                    child: Text(
-                      data.address ?? '',
-                      style: TextStyle(color: Styles.c999),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              width: setWidth(100),
-              alignment: Alignment.center,
-              child: Icon(
-                Icons.trending_flat,
-                color: Styles.c999,
-                size: 20,
-              ),
-            ),
-            Container(
-              width: data.status == 3 ? setWidth(225) : setWidth(295),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(data.targetName ?? '', style: Styles.f36c33),
-                  Padding(
-                    padding: setEdge(top: 20),
-                    child: Text(
-                      data.targetAddress ?? '',
-                      style: TextStyle(color: Styles.c999),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      );
-    } else {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  // 生命周期非调拨
+  Widget _addContent() {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-              width: isLife
-                  ? data.status == 3 ? setWidth(500) : setWidth(690)
-                  : setWidth(500),
-              child: Text.rich(TextSpan(
-                  text: '${data.name}   ',
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  data.name,
                   style: Styles.f36c33,
-                  children: [
-                    name == '数据采集建设'
-                        ? TextSpan(
-                            text:
-                                Utils.deviceStatus(data.deviceStatus)['label'],
-                            style: TextStyle(
-                                color: Utils.deviceStatus(
-                                    data.deviceStatus)['color'],
-                                fontSize: setSp(26)),
-                          )
-                        : TextSpan()
-                  ]))),
-          Container(
-            width: isLife
-                ? data.status == 3 ? setWidth(500) : setWidth(690)
-                : setWidth(500),
-            margin: EdgeInsets.only(top: setHeight(25)),
+                ),
+              ),
+              rightBtn()
+            ],
+          ),
+          Padding(
+            padding: setEdge(top: 20),
             child: Text(
               data.address,
-              maxLines: 5,
-              overflow: TextOverflow.ellipsis,
-              style: Styles.f26c33,
+              style: Styles.f26c99,
             ),
           )
         ],
-      );
-    }
+      ),
+    );
   }
 
-  // 列表item 右边按钮
-  Widget _rightBtn(data, isLife) {
-    if (isLife) {
-      if (data.status == 3) {
-        return Container(
-          padding: setEdge(left: 18, top: 10, right: 18, bottom: 10),
-          decoration: BoxDecoration(
-              color: Styles.pageBg, borderRadius: BorderRadius.circular(5)),
-          child: Text(
-            '待确认',
-            style: Styles.f26c99,
+  // 作业计划工单
+  Widget _planOrder() {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Container(
+                      constraints: BoxConstraints(maxWidth: setWidth(400)),
+                      child: Text(data.name, style: Styles.f36c33),
+                    ),
+                    Padding(
+                      padding: setEdge(left: 40),
+                      child: Text('未连接', style: Styles.f26ccc),
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: setEdge(top: 20),
+                  child: Text(data.address, style: Styles.f26c99),
+                )
+              ],
+            ),
           ),
-        );
-      } else {
-        return Container();
-      }
+          rightBtn()
+        ],
+      ),
+    );
+  }
+
+  // 右边按钮
+  Widget rightBtn() {
+    String name;
+    Color color;
+    if (isLife && data.status == 3) {
+      name = '待审核';
+      color = Styles.c333;
+    } else if (!isLife) {
+      name = Utils.siteStatus(data.status)['label'];
+      color = Utils.siteStatus(data.status)['color'];
     } else {
-      return Container(
-        padding: setEdge(left: 18, top: 10, right: 18, bottom: 10),
-        decoration: BoxDecoration(
-            color: Styles.pageBg, borderRadius: BorderRadius.circular(5)),
-        child: Text(
-          Utils.siteStatus(data.status)['label'],
-          style: TextStyle(
-              color: Utils.siteStatus(data.status)['color'],
-              fontSize: setSp(26)),
-        ),
-      );
+      return Container();
     }
+    return Container(
+      width: setWidth(136),
+      height: setHeight(48),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+          color: Styles.f8f8f8,
+          borderRadius: BorderRadius.circular(setWidth(10))),
+      child: DefaultTextStyle(
+        style: TextStyle(fontSize: setSp(26)),
+        child: Text(
+          name,
+          style: TextStyle(color: color),
+        ),
+      ),
+    );
   }
 }
