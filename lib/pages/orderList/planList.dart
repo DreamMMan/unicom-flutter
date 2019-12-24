@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-20 14:12:14
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 16:21:44
+ * @LastEditTime : 2019-12-24 10:33:12
  * @Description: 作业计划工单
  * @FilePath: /unicom_flutter/lib/pages/orderList/planList.dart
  */
@@ -12,6 +12,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
+import 'package:unicom_flutter/providers/orderDetailsProvide.dart';
 import 'package:unicom_flutter/providers/orderProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/widgets/list/listNoMore.dart';
@@ -73,6 +74,8 @@ class _PlanListState extends State<PlanList>
                   (context, index) {
                     return InkWell(
                         onTap: () {
+                          Provide.value<OrderDetailsProvide>(context)
+                              .setIdAndIslife(data.planList[index].id, false);
                           Application.router
                               .navigateTo(context, '/orderDetails');
                         },

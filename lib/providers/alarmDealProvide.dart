@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 14:27:18
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 18:03:36
+ * @LastEditTime : 2019-12-24 09:20:48
  * @Description: 告警处理
  * @FilePath: /unicom_flutter/lib/providers/alarmDealProvide.dart
  */
@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/http/httpUtil.dart';
 import 'package:unicom_flutter/providers/alarmProvide.dart';
-import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/utils/index.dart';
 
 class AlarmDealProvide with ChangeNotifier {

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 10:28:55
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 10:13:17
+ * @LastEditTime : 2019-12-24 10:45:01
  * @Description: 输入框组件
  * @FilePath: /unicom_flutter/lib/widgets/myInput.dart
  */
@@ -24,6 +24,7 @@ class MyInput extends StatefulWidget {
   final String hintText;
   final TextStyle hintStyle;
   final ITextFieldCallBack fieldCallBack;
+  final ITextFieldCallBack submit;
   final bool delete;
   final InputBorder inputBorder;
   final String iconName;
@@ -42,6 +43,7 @@ class MyInput extends StatefulWidget {
       this.hintText,
       this.hintStyle,
       @required this.fieldCallBack,
+      this.submit,
       this.delete = true,
       this.inputBorder,
       this.textStyle,
@@ -173,6 +175,9 @@ class _MyInputState extends State<MyInput> {
           _hasdeleteIcon = (_inputText.isNotEmpty);
           widget.fieldCallBack(_inputText);
         });
+      },
+      onSubmitted: (value){
+        widget.submit(_inputText);
       },
     );
     return textField;

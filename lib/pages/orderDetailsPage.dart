@@ -2,22 +2,23 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 13:51:51
+ * @LastEditTime : 2019-12-24 10:52:01
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
 
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
+import 'package:unicom_flutter/models/orderDetailsModel.dart';
 import 'package:unicom_flutter/providers/orderDetailsProvide.dart';
 import 'package:unicom_flutter/utils/constant.dart';
 import 'package:unicom_flutter/utils/screenUtil.dart';
 import 'package:unicom_flutter/utils/styles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
-import 'package:unicom_flutter/widgets/common/myEmpty.dart';
 import 'package:unicom_flutter/widgets/common/myInput.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
 import 'package:unicom_flutter/widgets/common/showBottomSheet.dart';
@@ -25,7 +26,12 @@ import 'package:unicom_flutter/widgets/list/listNoMore.dart';
 import 'package:unicom_flutter/widgets/list/siteListItem.dart';
 import 'package:unicom_flutter/widgets/list/sliverAppBarDelegate.dart';
 
-class OrderDetailsPage extends StatelessWidget {
+class OrderDetailsPage extends StatefulWidget {
+  @override
+  _OrderDetailsPageState createState() => _OrderDetailsPageState();
+}
+
+class _OrderDetailsPageState extends State<OrderDetailsPage> {
   final EasyRefreshController _controller = EasyRefreshController();
   @override
   Widget build(BuildContext context) {
@@ -45,7 +51,7 @@ class OrderDetailsPage extends StatelessWidget {
           child: EasyRefresh.custom(
             header: MaterialHeader(),
             footer: MaterialFooter(),
-            emptyWidget: false ? MyEmpty() : null,
+            emptyWidget: null,
             controller: _controller,
             enableControlFinishRefresh: true,
             enableControlFinishLoad: true,
@@ -65,21 +71,27 @@ class OrderDetailsPage extends StatelessWidget {
                   noMore: data.list.length >= data.total); // 加载完和判断是否能加载
             },
             slivers: <Widget>[
-              topContent(),
-              fixContent(context),
+              topContent(data.orderData),
+              fixContent(context, data),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     return InkWell(
+                        onTap: () {
+                          print('adad');
+                        },
                         child: SiteListItem(
-                      data: data.list[index],
-                    ));
+                          data: data.list[index],
+                          name:
+                              data.orderData != null ? data.orderData.name : '',
+                          isLife: data.isLife,
+                        ));
                   },
                   childCount: data.list.length,
                 ),
               ),
               ListNoMore(
-                show: true,
+                show: data.list.length >= data.total,
               )
             ],
           ),
@@ -89,16 +101,18 @@ class OrderDetailsPage extends StatelessWidget {
   }
 
   // 顶部内容
-  Widget topContent() {
+  Widget topContent(OrderDetailsModel orderData) {
     return SliverToBoxAdapter(
-      child: Column(
-        children: <Widget>[orderContent(), siteNum()],
-      ),
+      child: orderData == null
+          ? Container()
+          : Column(
+              children: <Widget>[orderContent(orderData), siteNum(orderData)],
+            ),
     );
   }
 
   // 工单内容
-  Widget orderContent() {
+  Widget orderContent(OrderDetailsModel orderData) {
     return Container(
       padding: setEdge(left: 30, top: 30, right: 30, bottom: 30),
       color: Colors.white,
@@ -111,22 +125,23 @@ class OrderDetailsPage extends StatelessWidget {
             Row(
               children: <Widget>[
                 Text(
-                  '采集建设工单',
+                  orderData.name,
                   style: Styles.f36c33,
                 ),
                 Padding(
                   padding: setEdge(left: 40),
-                  child: Text('1234567899555'),
+                  child: Text(orderData.ticketNo),
                 )
               ],
             ),
             Padding(
               padding: setEdge(top: 20),
-              child: Text('计划完成时间：2019-03-29'),
+              child: Text(
+                  '计划完成时间：${DateUtil.formatDateMs(orderData.plannedTime, format: "yyyy-MM-dd")}'),
             ),
             Padding(
               padding: setEdge(top: 20),
-              child: Text('作业内容：完成数据采集建设工作'),
+              child: Text('作业内容：${orderData.content}'),
             )
           ],
         ),
@@ -135,7 +150,7 @@ class OrderDetailsPage extends StatelessWidget {
   }
 
   // 站点状态数量
-  Widget siteNum() {
+  Widget siteNum(OrderDetailsModel orderData) {
     return Container(
       margin: setEdge(top: 10),
       height: setHeight(150),
@@ -144,10 +159,10 @@ class OrderDetailsPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          siteNumItem('站点总数', 4),
-          siteNumItem('进行中', 1),
-          siteNumItem('审核驳回', 1),
-          siteNumItem('已完成', 1)
+          siteNumItem('站点总数', orderData.totalSite),
+          siteNumItem('进行中', orderData.processingNum),
+          siteNumItem('审核驳回', orderData.rejectionNum),
+          siteNumItem('已完成', orderData.completedNum)
         ],
       ),
     );
@@ -171,7 +186,7 @@ class OrderDetailsPage extends StatelessWidget {
   }
 
   // 固定的头部
-  Widget fixContent(context) {
+  Widget fixContent(context, data) {
     return SliverPersistentHeader(
       floating: false,
       pinned: true,
@@ -181,7 +196,7 @@ class OrderDetailsPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[listTitle(), searchBox(context)],
+            children: <Widget>[listTitle(), searchBox(context, data)],
           )),
     );
   }
@@ -198,7 +213,7 @@ class OrderDetailsPage extends StatelessWidget {
   }
 
   // 搜索框
-  Widget searchBox(context) {
+  Widget searchBox(context, data) {
     return Container(
       height: setHeight(100),
       padding: setEdge(left: 30, right: 30),
@@ -214,12 +229,12 @@ class OrderDetailsPage extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(
-                  '区域（全部）',
+                  data.region,
                   style: Styles.f24c66,
                 ),
                 Transform(
                   transform: Matrix4.identity()..rotateZ(45),
-                  origin: Offset(6, 3), // 旋转的中心点
+                  origin: Offset(6, 6), // 旋转的中心点
                   child: Icon(
                     Icons.arrow_right,
                     size: setWidth(36),
@@ -240,8 +255,13 @@ class OrderDetailsPage extends StatelessWidget {
                   paddingHeight: 20,
                   hintText: '站点/编号/地址',
                   hintStyle: Styles.f24c99,
+                  textInputAction: 'search',
                   fieldCallBack: (value) {
-                    print(value);
+                    Provide.value<OrderDetailsProvide>(context)
+                        .setkeyWorld(value);
+                  },
+                  submit: (value) {
+                    _controller.callRefresh();
                   }),
             ),
           )
@@ -260,7 +280,9 @@ class OrderDetailsPage extends StatelessWidget {
             list: Constant.regionList,
             titleName: '请选择站点区域',
             tap: (data) async {
-              print(data);
+              Provide.value<OrderDetailsProvide>(context).setRegion(
+                  Constant.regionList[data]['name'],
+                  Constant.regionList[data]['code']);
             },
           );
         });

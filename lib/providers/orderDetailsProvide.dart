@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 09:27:49
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 09:40:37
+ * @LastEditTime : 2019-12-24 11:03:30
  * @Description: 站点详情provide
  * @FilePath: /unicom_flutter/lib/providers/orderDetailsProvide.dart
  */
@@ -15,6 +15,7 @@ import 'package:unicom_flutter/models/siteListModel.dart';
 class OrderDetailsProvide with ChangeNotifier {
   int id;
   int districtCode;
+  String region = '区域（全部）';
   String keyWord = '';
   bool isLife = false;
   int size = 20;
@@ -29,12 +30,38 @@ class OrderDetailsProvide with ChangeNotifier {
   void setIdAndIslife(int orderId, bool islife) {
     id = orderId;
     isLife = islife;
+    districtCode = null;
+    region = '区域（全部）';
+    keyWord = '';
+    page = 0;
+    total = 0;
+    list = [];
+    orderData = null;
+    notifyListeners();
+  }
+
+  // 设置区域名和code
+  void setRegion(String name, int code) {
+    region = name;
+    districtCode = code;
+    isCallRefresh = true;
+    notifyListeners();
+  }
+
+  // 获取输入框数据
+  void setkeyWorld(world) {
+    keyWord = world;
+    notifyListeners();
+  }
+
+  // 触发刷新
+  void callRefresh() {
+    isCallRefresh = true;
     notifyListeners();
   }
 
   // 下拉刷新
   onRefresh(context) async {
-    orderData = null;
     isError = false;
     isCallRefresh = false;
     var params = {
@@ -50,8 +77,6 @@ class OrderDetailsProvide with ChangeNotifier {
       OrderDetailsModel dataInfo = OrderDetailsModel.fromJson(data);
       orderData = dataInfo;
       notifyListeners();
-    }).catchError((onError) {
-      print(onError.toString());
     });
 
     // 获取站点列表
@@ -62,7 +87,6 @@ class OrderDetailsProvide with ChangeNotifier {
       list = siteList.list;
       notifyListeners();
     }).catchError((onError) {
-      print(onError.toString());
       isError = true;
       notifyListeners();
     });
@@ -72,7 +96,7 @@ class OrderDetailsProvide with ChangeNotifier {
   onLoad(context) async {
     isError = false;
     var params = {
-      "page": list.length > 0 ? page + 1 : 0,
+      "page": page + 1,
       "size": size,
       'id': id,
       'districtCode': districtCode,
@@ -85,15 +109,8 @@ class OrderDetailsProvide with ChangeNotifier {
       list..addAll(siteList.list);
       notifyListeners();
     }).catchError((onError) {
-      print(onError.toString());
       isError = true;
       notifyListeners();
     });
-  }
-
-  // 触发刷新
-  void callRefresh() {
-    isCallRefresh = true;
-    notifyListeners();
   }
 }
