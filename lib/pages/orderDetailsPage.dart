@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-24 13:56:11
+ * @LastEditTime : 2019-12-24 14:33:30
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
@@ -71,7 +71,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                   noMore: data.list.length >= data.total); // 加载完和判断是否能加载
             },
             slivers: <Widget>[
-              topContent(data.orderData),
+              topContent(data.orderData, data),
               fixContent(context, data),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
@@ -82,8 +82,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                         },
                         child: SiteListItem(
                           data: data.list[index],
-                          name: '设备',
-                          isLife: false,
+                          name:
+                              data.orderData != null ? data.orderData.name : '',
+                          isLife: data.isLife,
                         ));
                   },
                   childCount: data.list.length,
@@ -100,18 +101,21 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   }
 
   // 顶部内容
-  Widget topContent(OrderDetailsModel orderData) {
+  Widget topContent(OrderDetailsModel orderData, data) {
     return SliverToBoxAdapter(
       child: orderData == null
           ? Container()
           : Column(
-              children: <Widget>[orderContent(orderData), siteNum(orderData)],
+              children: <Widget>[
+                orderContent(orderData, data),
+                siteNum(orderData, data)
+              ],
             ),
     );
   }
 
   // 工单内容
-  Widget orderContent(OrderDetailsModel orderData) {
+  Widget orderContent(OrderDetailsModel orderData, data) {
     return Container(
       padding: setEdge(left: 30, top: 30, right: 30, bottom: 30),
       color: Colors.white,
@@ -135,13 +139,18 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             ),
             Padding(
               padding: setEdge(top: 20),
-              child: Text(
-                  '计划完成时间：${DateUtil.formatDateMs(orderData.plannedTime, format: "yyyy-MM-dd")}'),
+              child: data.isLife
+                  ? Text(
+                      '${DateUtil.formatDateMs(orderData.createdTime, format: "yyyy-MM-dd HH-mm-ss")}')
+                  : Text(
+                      '计划完成时间：${DateUtil.formatDateMs(orderData.plannedTime, format: "yyyy-MM-dd")}'),
             ),
-            Padding(
-              padding: setEdge(top: 20),
-              child: Text('作业内容：${orderData.content}'),
-            )
+            data.isLife
+                ? Container()
+                : Padding(
+                    padding: setEdge(top: 20),
+                    child: Text('作业内容：${orderData.content}'),
+                  )
           ],
         ),
       ),
@@ -149,7 +158,19 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   }
 
   // 站点状态数量
-  Widget siteNum(OrderDetailsModel orderData) {
+  Widget siteNum(OrderDetailsModel orderData, data) {
+    List<Widget> list = [];
+    if (data.isLife) {
+      list
+        ..add(siteNumItem('站点总数', orderData.totalSite))
+        ..add(siteNumItem('待审核', orderData.processingNum));
+    } else {
+      list
+        ..add(siteNumItem('站点总数', orderData.totalSite))
+        ..add(siteNumItem('进行中', orderData.processingNum))
+        ..add(siteNumItem('审核驳回', orderData.rejectionNum))
+        ..add(siteNumItem('已完成', orderData.completedNum));
+    }
     return Container(
       margin: setEdge(top: 10),
       height: setHeight(150),
@@ -157,12 +178,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          siteNumItem('站点总数', orderData.totalSite),
-          siteNumItem('进行中', orderData.processingNum),
-          siteNumItem('审核驳回', orderData.rejectionNum),
-          siteNumItem('已完成', orderData.completedNum)
-        ],
+        children: list,
       ),
     );
   }
