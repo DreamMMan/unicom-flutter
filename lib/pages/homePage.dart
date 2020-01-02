@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:50:53
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-02 14:47:56
+ * @LastEditTime : 2020-01-02 15:46:44
  * @Description: 首页
  * @FilePath: /unicom_flutter/lib/pages/homePage.dart
  */
@@ -24,7 +24,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int current = 0;
   List<Widget> pageList = [OrderPage(), AlarmPage()];
   List<BottomNavigationBarItem> tabs = [
     BottomNavigationBarItem(

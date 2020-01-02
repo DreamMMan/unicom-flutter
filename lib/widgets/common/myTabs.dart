@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-20 11:33:17
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 13:53:03
+ * @LastEditTime : 2020-01-02 15:53:39
  * @Description: tabs 导航栏
  * @FilePath: /unicom_flutter/lib/widgets/myTabs.dart
  */
@@ -54,8 +54,9 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
               height: MyScreen.setWidth(88),
               decoration: BoxDecoration(
                   color: Colors.white,
-                  border:
-                      Border(bottom: BorderSide(width: 1, color: MyStyles.borderColor))),
+                  border: Border(
+                      bottom:
+                          BorderSide(width: 1, color: MyStyles.borderColor))),
               child: TabBar(
                 controller: _tabController,
                 isScrollable: widget.isScrollable,

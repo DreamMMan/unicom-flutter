@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 17:49:04
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-02 14:48:36
+ * @LastEditTime : 2020-01-02 15:47:48
  * @Description: 工单列表页面
  * @FilePath: /unicom_flutter/lib/pages/orderPage.dart
  */
@@ -29,7 +29,7 @@ class OrderPage extends StatelessWidget {
       body: Container(
         child: Column(
           children: <Widget>[
-            userInfo(),
+            _userInfo(),
             MyTabs(
                 tabs: ['作业计划工单', '生命周期工单'],
                 listWidget: [PlanList(), LifeList()])
@@ -40,7 +40,7 @@ class OrderPage extends StatelessWidget {
   }
 
   // 用户信息栏
-  Widget userInfo() {
+  Widget _userInfo() {
     return WatchBoxBuilder(
       box: Utils.unicomBox(),
       builder: (context, box) {
