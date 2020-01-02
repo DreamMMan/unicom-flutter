@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 17:14:27
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-02 14:47:22
+ * @LastEditTime : 2020-01-02 15:11:59
  * @Description: 常量
  * @FilePath: /unicom_flutter/lib/constant/myConstant.dart
  */
@@ -13,7 +13,7 @@ class MyConstant {
   static const String hiveName = 'unicomBox';
 
   // 区域列表
-  static List regionList = [
+  static const List regionList = [
     {'name': '全部区域', 'code': null},
     {'name': '罗湖区', 'code': 440303},
     {'name': '福田区', 'code': 440304},
@@ -28,6 +28,7 @@ class MyConstant {
 
   // 图片名字
   static const String loginBg = 'assets/login_bg.png';
+  static const String splash = 'assets/splash.png';
   static const String deleteIcon = 'assets/close1.png';
   static const String phoneIcon = 'assets/phone.png';
   static const String passwordIcon = 'assets/password.png';

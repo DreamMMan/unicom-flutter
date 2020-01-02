@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:09:16
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 17:43:56
+ * @LastEditTime : 2020-01-02 15:37:12
  * @Description: 登录页
  * @FilePath: /unicom_flutter/lib/pages/loginPage.dart
  */
@@ -13,6 +13,7 @@ import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/providers/loginProvide.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
+import 'package:unicom_flutter/widgets/common/myAsset.dart';
 import 'package:unicom_flutter/widgets/common/myInput.dart';
 import 'package:unicom_flutter/widgets/common/mySubmitBtn.dart';
 
@@ -22,38 +23,45 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomPadding: false,
-        body: Stack(
-          children: <Widget>[
-            Container(
-              alignment: Alignment.topCenter,
-              child: Image.asset(
-                MyConstant.loginBg,
-                fit: BoxFit.fitWidth,
-              ),
-            ),
-            Positioned(
-              top: MyScreen.setHeight(170),
-              left: 0,
-              width: MyScreen.setWidth(750),
-              child: content(context),
-            )
-          ],
-        ));
+        body: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.topCenter,
+                  child: MyAsset(
+                    name: MyConstant.loginBg,
+                    width: 750,
+                    height: 430,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  top: MyScreen.setHeight(170),
+                  left: 0,
+                  width: MyScreen.setWidth(750),
+                  child: _content(context),
+                )
+              ],
+            )));
   }
 
   // 内容
-  Widget content(BuildContext context) {
+  Widget _content(BuildContext context) {
     return Container(
       child: Column(
-        children: <Widget>[title(), inputBox(), loginBtn(context)],
+        children: <Widget>[_title(), _inputBox(), _loginBtn(context)],
       ),
     );
   }
 
   // 标题
-  Widget title() {
+  Widget _title() {
     return DefaultTextStyle(
-      style: MyStyles.f36ce0,
+      style: MyStyles.f36ce0B,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,12 +71,12 @@ class LoginPage extends StatelessWidget {
   }
 
   // 输入框box
-  Widget inputBox() {
+  Widget _inputBox() {
     return Container(
       width: MyScreen.setWidth(610),
       margin: MyScreen.setEdge(top: 82),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(MyScreen.setWidth(15)),
           color: Colors.white,
           boxShadow: [
             BoxShadow(
@@ -78,13 +86,13 @@ class LoginPage extends StatelessWidget {
                 spreadRadius: 5),
           ]),
       child: Column(
-        children: <Widget>[inputItem(true), inputItem(false)],
+        children: <Widget>[_inputItem(true), _inputItem(false)],
       ),
     );
   }
 
   // 输入框
-  Widget inputItem(bool isPhone) {
+  Widget _inputItem(bool isPhone) {
     return Provide<LoginProvide>(
       builder: (BuildContext context, child, data) {
         return Container(
@@ -100,7 +108,7 @@ class LoginPage extends StatelessWidget {
             inintValue: isPhone ? data.username : '',
             iconName: isPhone ? MyConstant.phoneIcon : MyConstant.passwordIcon,
             hintText: isPhone ? '请输入手机号' : '请输入密码',
-            keyboardType: isPhone ? 'text' : 'password',
+            keyboardType: isPhone ? 'number' : 'password',
             maxLength: isPhone ? 11 : 24,
             paddingHeight: 24,
             iconWidth: 30,
@@ -116,7 +124,7 @@ class LoginPage extends StatelessWidget {
   }
 
   // 登录按钮
-  Widget loginBtn(BuildContext context) {
+  Widget _loginBtn(BuildContext context) {
     return Container(
       width: MyScreen.setWidth(610),
       height: MyScreen.setHeight(100),

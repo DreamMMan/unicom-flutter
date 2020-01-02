@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:36:37
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-02 14:48:52
+ * @LastEditTime : 2020-01-02 15:12:14
  * @Description: 启动页 广告页
  * @FilePath: /unicom_flutter/lib/pages/splashPage.dart
  */
@@ -78,14 +78,14 @@ class _SplashPageState extends State<SplashPage> {
             mTimerUtil.cancel();
           },
           child: Image.asset(
-            'assets/splash.png',
+            MyConstant.splash,
             fit: BoxFit.cover,
           ),
         ),
         // 右上角提示部件
         Positioned(
             right: MyScreen.setWidth(30),
-            top: ScreenUtil.statusBarHeight + MyScreen.setWidth(30),
+            top: MyScreen.statusBarHeight + MyScreen.setWidth(30),
             child: InkWell(
               onTap: () {
                 Application.router.navigateTo(
@@ -94,7 +94,8 @@ class _SplashPageState extends State<SplashPage> {
                 mTimerUtil.cancel();
               },
               child: Container(
-                padding: MyScreen.setEdge(left: 20, top: 5, right: 20, bottom: 5),
+                padding:
+                    MyScreen.setEdge(left: 20, top: 5, right: 20, bottom: 5),
                 decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(20)),

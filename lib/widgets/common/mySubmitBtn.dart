@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 11:17:18
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 10:24:43
+ * @LastEditTime : 2020-01-02 15:40:03
  * @Description: 提交按钮
  * @FilePath: /unicom_flutter/lib/widgets/submitBtn.dart
  */
@@ -13,7 +13,11 @@ class MySubmitBtn extends StatelessWidget {
   final TextStyle textSty;
   final String txt;
   final Function submit;
-  MySubmitBtn({this.buttonColor, this.textSty, @required this.txt, this.submit});
+  MySubmitBtn(
+      {this.buttonColor,
+      this.textSty,
+      @required this.txt,
+      @required this.submit});
 
   @override
   Widget build(BuildContext context) {

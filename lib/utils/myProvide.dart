@@ -1,10 +1,10 @@
 /*
  * @Author: liangyt
- * @Date: 2019-12-19 13:55:35
+ * @Date: 2020-01-02 15:03:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 17:00:25
+ * @LastEditTime : 2020-01-02 15:03:49
  * @Description: provide 集合
- * @FilePath: /unicom_flutter/lib/allProvide.dart
+ * @FilePath: /unicom_flutter/lib/utils/myProvide.dart
  */
 
 import 'package:provide/provide.dart';
@@ -16,7 +16,7 @@ import 'package:unicom_flutter/providers/loginProvide.dart';
 import 'package:unicom_flutter/providers/orderDetailsProvide.dart';
 import 'package:unicom_flutter/providers/orderProvide.dart';
 
-allProvide() {
+myProvide() {
   final provides = Providers();
   provides
     ..provide(Provider<HomeProvide>.value(HomeProvide()))

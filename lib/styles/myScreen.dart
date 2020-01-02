@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 11:09:23
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-02 14:58:20
+ * @LastEditTime : 2020-01-02 15:11:05
  * @Description: 屏幕适配插件设置
  * @FilePath: /unicom_flutter/lib/utils/screenUtil.dart
  */
@@ -32,4 +32,6 @@ class MyScreen {
   static setEdgeAll(double size) {
     return EdgeInsets.all(setWidth(size));
   }
+
+  static double statusBarHeight = ScreenUtil.statusBarHeight;
 }
