@@ -13,8 +13,8 @@ import 'package:unicom_flutter/models/alarmModel.dart';
 import 'package:unicom_flutter/providers/alarmDetailsProvide.dart';
 import 'package:unicom_flutter/providers/alarmProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 
 class AlarmListItem extends StatelessWidget {
   final AlarmList data;
@@ -39,13 +39,13 @@ class AlarmListItem extends StatelessWidget {
         }
       },
       child: Container(
-        width: setWidth(750),
-        constraints: BoxConstraints(minHeight: setHeight(160)),
-        padding: EdgeInsets.all(setWidth(30)),
+        width: MyScreen.setWidth(750),
+        constraints: BoxConstraints(minHeight: MyScreen.setHeight(160)),
+        padding: EdgeInsets.all(MyScreen.setWidth(30)),
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border(
-                bottom: BorderSide(width: 1, color: Styles.borderColor))),
+                bottom: BorderSide(width: 1, color: MyStyles.borderColor))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +56,7 @@ class AlarmListItem extends StatelessWidget {
                     onChanged: (bool check) {
                       Provide.value<AlarmProvide>(context).isSelect(data.id);
                     },
-                    activeColor: Styles.c52C47B,
+                    activeColor: MyStyles.c52C47B,
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   )
                 : Text(''),
@@ -72,34 +72,34 @@ class AlarmListItem extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           Container(
-                            margin: EdgeInsets.only(right: setWidth(20)),
+                            margin: EdgeInsets.only(right: MyScreen.setWidth(20)),
                             child: ClipOval(
                               child: Container(
-                                width: setWidth(20),
-                                height: setWidth(20),
+                                width: MyScreen.setWidth(20),
+                                height: MyScreen.setWidth(20),
                                 color: data.removeTime != null
-                                    ? Styles.c999
-                                    : Styles.e04545,
+                                    ? MyStyles.c999
+                                    : MyStyles.e04545,
                               ),
                             ),
                           ),
                           Container(
-                            width: setWidth(400),
+                            width: MyScreen.setWidth(400),
                             child: Text(
                               '${data.name}告警',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: Styles.f36c33,
+                              style: MyStyles.f36c33,
                             ),
                           )
                         ],
                       ),
                       Container(
-                        width: isOpen ? setWidth(400) : setWidth(450),
+                        width: isOpen ? MyScreen.setWidth(400) : MyScreen.setWidth(450),
                         margin: EdgeInsets.only(
-                            top: setHeight(20), left: setWidth(40)),
+                            top: MyScreen.setHeight(20), left: MyScreen.setWidth(40)),
                         child:
-                            Text('${data.siteName}$str', style: Styles.f26c66),
+                            Text('${data.siteName}$str', style: MyStyles.f26c66),
                       )
                     ],
                   ),
@@ -112,17 +112,17 @@ class AlarmListItem extends StatelessWidget {
               children: <Widget>[
                 Text(
                   '${DateUtil.formatDateMs(data.createTime, format: "MM-dd HH:mm:ss")}',
-                  style: Styles.f24c99,
+                  style: MyStyles.f24c99,
                 ),
                 Padding(
-                  padding: setEdge(top: 20),
+                  padding: MyScreen.setEdge(top: 20),
                   child: Text(
                     data.handUserInfo != null ? '已处理' : '未处理',
                     style: TextStyle(
-                        fontSize: setSp(26),
+                        fontSize: MyScreen.setSp(26),
                         color: data.handUserInfo != null
-                            ? Styles.c999
-                            : Styles.e04545),
+                            ? MyStyles.c999
+                            : MyStyles.e04545),
                   ),
                 )
               ],

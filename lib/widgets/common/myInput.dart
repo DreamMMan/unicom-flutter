@@ -2,16 +2,16 @@
  * @Author: liangyt
  * @Date: 2019-12-19 10:28:55
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-24 11:09:32
+ * @LastEditTime : 2020-01-02 14:49:16
  * @Description: 输入框组件
  * @FilePath: /unicom_flutter/lib/widgets/myInput.dart
  */
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:unicom_flutter/utils/constant.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/constant/myConstant.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myAsset.dart';
 
 typedef void ITextFieldCallBack(String content);
@@ -136,13 +136,13 @@ class _MyInputState extends State<MyInput> {
       maxLength: widget.maxLength,
       keyboardType: _getTextInputType(),
       inputFormatters: _getInputFormatter(),
-      style: widget.textStyle != null ? widget.textStyle : Styles.f30c33,
+      style: widget.textStyle != null ? widget.textStyle : MyStyles.f30c33,
       obscureText: widget.keyboardType == 'password' ? true : false,
       textInputAction: _getTextInputAction(),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.only(
-            top: setHeight(widget.paddingHeight),
-            bottom: setHeight(widget.paddingHeight),
+            top: MyScreen.setHeight(widget.paddingHeight),
+            bottom: MyScreen.setHeight(widget.paddingHeight),
           ),
           icon: widget.iconName != null
               ? MyAsset(name: widget.iconName, width: widget.iconWidth)
@@ -153,7 +153,7 @@ class _MyInputState extends State<MyInput> {
                     alignment: Alignment.centerRight,
                     padding: const EdgeInsets.all(0.0),
                     icon: MyAsset(
-                        name: Constant.deleteIcon, width: widget.iconWidth),
+                        name: MyConstant.deleteIcon, width: widget.iconWidth),
                     onPressed: () {
                       setState(() {
                         _inputText = "";
@@ -170,7 +170,7 @@ class _MyInputState extends State<MyInput> {
           hintText: widget.hintText,
           counterText: '',
           hintStyle:
-              widget.hintStyle != null ? widget.hintStyle : Styles.f30ccc),
+              widget.hintStyle != null ? widget.hintStyle : MyStyles.f30ccc),
       onChanged: (val) {
         setState(() {
           _inputText = val;

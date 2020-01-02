@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:42:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-24 14:08:31
+ * @LastEditTime : 2020-01-02 14:49:01
  * @Description: utils方法
  * @FilePath: /unicom_flutter/lib/utils/index.dart
  */
@@ -11,16 +11,16 @@ import 'package:common_utils/common_utils.dart';
 import 'package:hive/hive.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/models/deviceList_model.dart';
-import 'package:unicom_flutter/utils/constant.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
 import 'dart:convert' as convert;
 
 class Utils {
   // hive
   static unicomBox() {
-    return Hive.box(Constant.hiveName);
+    return Hive.box(MyConstant.hiveName);
   }
 
   // BotToast
@@ -81,15 +81,15 @@ class Utils {
     switch (value) {
       case 0:
         str['label'] = '连接正常';
-        str['color'] = Styles.c52C47B;
+        str['color'] = MyStyles.c52C47B;
         break;
       case 1:
         str['label'] = '未关联';
-        str['color'] = Styles.cccc;
+        str['color'] = MyStyles.cccc;
         break;
       case 2:
         str['label'] = '连接异常';
-        str['color'] = Styles.e04545;
+        str['color'] = MyStyles.e04545;
         break;
       default:
     }
@@ -102,19 +102,19 @@ class Utils {
     switch (value) {
       case 1:
         str['label'] = '已完成';
-        str['color'] = Styles.c999;
+        str['color'] = MyStyles.c999;
         break;
       case 2:
         str['label'] = '待确认';
-        str['color'] = Styles.c999;
+        str['color'] = MyStyles.c999;
         break;
       case 3:
         str['label'] = '进行中';
-        str['color'] = Styles.c03A4EE;
+        str['color'] = MyStyles.c03A4EE;
         break;
       case 4:
         str['label'] = '确认退回';
-        str['color'] = Styles.e04545;
+        str['color'] = MyStyles.e04545;
         break;
       default:
     }

@@ -9,10 +9,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
+import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/providers/loginProvide.dart';
-import 'package:unicom_flutter/utils/constant.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myInput.dart';
 import 'package:unicom_flutter/widgets/common/mySubmitBtn.dart';
 
@@ -27,14 +27,14 @@ class LoginPage extends StatelessWidget {
             Container(
               alignment: Alignment.topCenter,
               child: Image.asset(
-                Constant.loginBg,
+                MyConstant.loginBg,
                 fit: BoxFit.fitWidth,
               ),
             ),
             Positioned(
-              top: setHeight(170),
+              top: MyScreen.setHeight(170),
               left: 0,
-              width: setWidth(750),
+              width: MyScreen.setWidth(750),
               child: content(context),
             )
           ],
@@ -53,7 +53,7 @@ class LoginPage extends StatelessWidget {
   // 标题
   Widget title() {
     return DefaultTextStyle(
-      style: Styles.f36ce0,
+      style: MyStyles.f36ce0,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,14 +65,14 @@ class LoginPage extends StatelessWidget {
   // 输入框box
   Widget inputBox() {
     return Container(
-      width: setWidth(610),
-      margin: setEdge(top: 82),
+      width: MyScreen.setWidth(610),
+      margin: MyScreen.setEdge(top: 82),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-                color: Styles.boxShadow,
+                color: MyStyles.boxShadow,
                 offset: Offset(2, 2),
                 blurRadius: 25,
                 spreadRadius: 5),
@@ -88,17 +88,17 @@ class LoginPage extends StatelessWidget {
     return Provide<LoginProvide>(
       builder: (BuildContext context, child, data) {
         return Container(
-          width: setWidth(550),
-          height: setHeight(140),
+          width: MyScreen.setWidth(550),
+          height: MyScreen.setHeight(140),
           alignment: Alignment.centerLeft,
-          margin: setEdge(left: 30, right: 30),
+          margin: MyScreen.setEdge(left: 30, right: 30),
           decoration: BoxDecoration(
               border: Border(
                   bottom: BorderSide(
-                      width: isPhone ? 1 : 0, color: Styles.borderColor))),
+                      width: isPhone ? 1 : 0, color: MyStyles.borderColor))),
           child: MyInput(
             inintValue: isPhone ? data.username : '',
-            iconName: isPhone ? Constant.phoneIcon : Constant.passwordIcon,
+            iconName: isPhone ? MyConstant.phoneIcon : MyConstant.passwordIcon,
             hintText: isPhone ? '请输入手机号' : '请输入密码',
             keyboardType: isPhone ? 'text' : 'password',
             maxLength: isPhone ? 11 : 24,
@@ -118,12 +118,12 @@ class LoginPage extends StatelessWidget {
   // 登录按钮
   Widget loginBtn(BuildContext context) {
     return Container(
-      width: setWidth(610),
-      height: setHeight(100),
-      margin: setEdge(top: 140),
+      width: MyScreen.setWidth(610),
+      height: MyScreen.setHeight(100),
+      margin: MyScreen.setEdge(top: 140),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
       child: MySubmitBtn(
-          textSty: Styles.f36cff,
+          textSty: MyStyles.f36cff,
           txt: '登录',
           submit: () {
             Provide.value<LoginProvide>(context).submit(context);

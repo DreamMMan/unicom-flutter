@@ -2,15 +2,15 @@
  * @Author: liangyt
  * @Date: 2019-12-23 14:10:03
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 17:44:52
+ * @LastEditTime : 2020-01-02 14:58:33
  * @Description: 告警处理
  * @FilePath: /unicom_flutter/lib/pages/alarmDealPage.dart
  */
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/providers/alarmDealProvide.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/myInput.dart';
 import 'package:unicom_flutter/widgets/common/mySubmitBtn.dart';
@@ -24,8 +24,8 @@ class AlarmDealPage extends StatelessWidget {
         body: Provide<AlarmDealProvide>(
           builder: (context, child, data) {
             return Container(
-              width: setWidth(750),
-              color: Styles.pageBg,
+              width: MyScreen.setWidth(750),
+              color: MyStyles.pageBg,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,19 +43,19 @@ class AlarmDealPage extends StatelessWidget {
   // 单选
   Widget _radioWiget(context, data) {
     return Container(
-        constraints: BoxConstraints(minHeight: setHeight(120)),
+        constraints: BoxConstraints(minHeight: MyScreen.setHeight(120)),
         color: Colors.white,
-        padding: setEdge(left: 30, right: 30),
+        padding: MyScreen.setEdge(left: 30, right: 30),
         child: DefaultTextStyle(
-          style: Styles.f36c33,
+          style: MyStyles.f36c33,
           child: Row(
             children: <Widget>[
               Text.rich(TextSpan(
                   text: '*',
-                  style: TextStyle(color: Styles.e04545),
+                  style: TextStyle(color: MyStyles.e04545),
                   children: <TextSpan>[
                     TextSpan(
-                        text: '处理结果:', style: TextStyle(color: Styles.c333))
+                        text: '处理结果:', style: TextStyle(color: MyStyles.c333))
                   ])),
               Flexible(
                   child: InkWell(
@@ -102,14 +102,14 @@ class AlarmDealPage extends StatelessWidget {
   // 文本框
   Widget _textareaWidget(context) {
     return Container(
-      width: setWidth(750),
-      height: setHeight(280),
+      width: MyScreen.setWidth(750),
+      height: MyScreen.setHeight(280),
       color: Colors.white,
-      margin: setEdge(top: 20),
-      padding: setEdge(left: 30, top: 30, right: 30, bottom: 30),
+      margin: MyScreen.setEdge(top: 20),
+      padding: MyScreen.setEdge(left: 30, top: 30, right: 30, bottom: 30),
       child: MyInput(
         hintText: '请输入处理说明',
-        hintStyle: Styles.f30c99,
+        hintStyle: MyStyles.f30c99,
         paddingHeight: 0,
         maxLines: 10,
         maxLength: 300,
@@ -123,12 +123,12 @@ class AlarmDealPage extends StatelessWidget {
   // 按钮
   Widget _buttonWidget(context) {
     return Container(
-      width: setWidth(690),
-      height: setHeight(100),
-      margin: setEdge(top: 60),
+      width: MyScreen.setWidth(690),
+      height: MyScreen.setHeight(100),
+      margin: MyScreen.setEdge(top: 60),
       child: MySubmitBtn(
         txt: '确定',
-        textSty: Styles.f36cff,
+        textSty: MyStyles.f36cff,
         submit: () {
           Provide.value<AlarmDealProvide>(context).submit(context);
         },

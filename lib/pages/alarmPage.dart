@@ -16,8 +16,8 @@ import 'package:unicom_flutter/providers/alarmDealProvide.dart';
 import 'package:unicom_flutter/providers/alarmProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/utils/index.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/myEmpty.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
@@ -50,44 +50,44 @@ class AlarmPage extends StatelessWidget {
   // 顶部信息栏
   Widget labelInfo(BuildContext context, bool isOpen) {
     return Container(
-      height: setHeight(90),
-      padding: setEdge(left: 30, right: 30),
+      height: MyScreen.setHeight(90),
+      padding: MyScreen.setEdge(left: 30, right: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
             '告警状态说明：',
-            style: Styles.f26c66,
+            style: MyStyles.f26c66,
           ),
           Padding(
-            padding: setEdge(left: 20, right: 15),
+            padding: MyScreen.setEdge(left: 20, right: 15),
             child: ClipOval(
               child: Container(
-                width: setWidth(14),
-                height: setWidth(14),
-                color: Styles.e04545,
+                width: MyScreen.setWidth(14),
+                height: MyScreen.setWidth(14),
+                color: MyStyles.e04545,
               ),
             ),
           ),
           Text(
             '告警中',
-            style: Styles.f26ce0,
+            style: MyStyles.f26ce0,
           ),
           Padding(
-            padding: setEdge(left: 40, right: 15),
+            padding: MyScreen.setEdge(left: 40, right: 15),
             child: ClipOval(
               child: Container(
-                width: setWidth(14),
-                height: setWidth(14),
-                color: Styles.c999,
+                width: MyScreen.setWidth(14),
+                height: MyScreen.setWidth(14),
+                color: MyStyles.c999,
               ),
             ),
           ),
           Expanded(
             child: Text(
               '已解除',
-              style: Styles.f26c99,
+              style: MyStyles.f26c99,
             ),
           ),
           InkWell(
@@ -95,13 +95,13 @@ class AlarmPage extends StatelessWidget {
               Provide.value<AlarmProvide>(context).setOpen();
             },
             child: Container(
-              height: setHeight(48),
-              padding: setEdge(left: 15, right: 15),
+              height: MyScreen.setHeight(48),
+              padding: MyScreen.setEdge(left: 15, right: 15),
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(setWidth(10))),
+                  borderRadius: BorderRadius.circular(MyScreen.setWidth(10))),
               alignment: Alignment.center,
-              child: Text(isOpen ? '退出批量处理' : '批量处理', style: Styles.f26c33),
+              child: Text(isOpen ? '退出批量处理' : '批量处理', style: MyStyles.f26c33),
             ),
           )
         ],
@@ -164,12 +164,12 @@ class AlarmPage extends StatelessWidget {
   Widget dealBtn(BuildContext context, data) {
     if (data.isOpen) {
       return Container(
-        width: setWidth(690),
-        height: setHeight(100),
-        margin: setEdge(left: 30, top: 40, right: 30, bottom: 40),
+        width: MyScreen.setWidth(690),
+        height: MyScreen.setHeight(100),
+        margin: MyScreen.setEdge(left: 30, top: 40, right: 30, bottom: 40),
         child: MySubmitBtn(
           txt: '批量处理',
-          textSty: Styles.f36cff,
+          textSty: MyStyles.f36cff,
           submit: () {
             if (data.idList.length < 1) {
               Utils.showToast('请选择要处理的通知');

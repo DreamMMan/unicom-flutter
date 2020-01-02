@@ -1,8 +1,8 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/models/orderModel.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 
 class OrderListItem extends StatelessWidget {
   final MyList data;
@@ -12,11 +12,11 @@ class OrderListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: setWidth(750),
+        width: MyScreen.setWidth(750),
         color: Colors.white,
-        constraints: BoxConstraints(minHeight: setHeight(160)),
-        padding: EdgeInsets.all(setWidth(22)),
-        margin: EdgeInsets.only(bottom: setWidth(20)),
+        constraints: BoxConstraints(minHeight: MyScreen.setHeight(160)),
+        padding: EdgeInsets.all(MyScreen.setWidth(22)),
+        margin: EdgeInsets.only(bottom: MyScreen.setWidth(20)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -30,15 +30,15 @@ class OrderListItem extends StatelessWidget {
                     data.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: Styles.f30c33,
+                    style: MyStyles.f30c33,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: setHeight(20)),
+                    padding: EdgeInsets.only(top: MyScreen.setHeight(20)),
                     child: Text(
                       '${DateUtil.formatDateMs(data.createdTime, format: "yyyy-MM-dd HH:mm:ss")}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: Styles.f26c99,
+                      style: MyStyles.f26c99,
                     ),
                   )
                 ],
@@ -61,30 +61,30 @@ class OrderListItem extends StatelessWidget {
     if (rejectionNum > 0) {
       views.add(
         Container(
-          padding: EdgeInsets.all(setWidth(10)),
+          padding: EdgeInsets.all(MyScreen.setWidth(10)),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
-            color: Styles.f8f8f8,
+            color: MyStyles.f8f8f8,
           ),
           child: Text(
             '确认退回:  $rejectionNum',
-            style: Styles.f26ce0,
+            style: MyStyles.f26ce0,
           ),
         ),
       );
     }
     if (processingNum > 0) {
       views.add(Padding(
-          padding: EdgeInsets.only(top: rejectionNum > 0 ? setHeight(20) : 0),
+          padding: EdgeInsets.only(top: rejectionNum > 0 ? MyScreen.setHeight(20) : 0),
           child: Container(
-            padding: EdgeInsets.all(setWidth(10)),
+            padding: EdgeInsets.all(MyScreen.setWidth(10)),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5.0),
-              color: Styles.f8f8f8,
+              color: MyStyles.f8f8f8,
             ),
             child: Text(
               isPlan ? '进行中: $processingNum' : '待确认: $processingNum',
-              style: isPlan ? Styles.f26c3a : Styles.f26c99,
+              style: isPlan ? MyStyles.f26c3a : MyStyles.f26c99,
             ),
           )));
     }

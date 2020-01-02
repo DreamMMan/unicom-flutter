@@ -7,8 +7,8 @@
  * @FilePath: /unicom_flutter/lib/widgets/listNoMore.dart
  */
 import 'package:flutter/material.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 
 class ListNoMore extends StatelessWidget {
   final bool show;
@@ -19,25 +19,25 @@ class ListNoMore extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
-        height: show ? setHeight(88) : 0,
+        height: show ? MyScreen.setHeight(88) : 0,
         alignment: Alignment.center,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              width: setWidth(100),
-              height: setHeight(1),
-              color: Styles.cccc,
+              width: MyScreen.setWidth(100),
+              height: MyScreen.setHeight(1),
+              color: MyStyles.cccc,
             ),
             Padding(
-              padding: setEdge(left: 15, right: 15),
-              child: Text(noMore, style: Styles.f26c99),
+              padding: MyScreen.setEdge(left: 15, right: 15),
+              child: Text(noMore, style: MyStyles.f26c99),
             ),
             Container(
-              width: setWidth(100),
-              height: setHeight(1),
-              color: Styles.cccc,
+              width: MyScreen.setWidth(100),
+              height: MyScreen.setHeight(1),
+              color: MyStyles.cccc,
             ),
           ],
         ),

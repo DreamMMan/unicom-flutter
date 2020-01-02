@@ -2,15 +2,15 @@
  * @Author: liangyt
  * @Date: 2019-12-23 09:16:17
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-24 14:21:33
+ * @LastEditTime : 2020-01-02 15:01:48
  * @Description: 站点列表itrm
  * @FilePath: /unicom_flutter/lib/widgets/list/siteListItem.dart
  */
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/models/siteListModel.dart';
 import 'package:unicom_flutter/utils/index.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 
 class SiteListItem extends StatelessWidget {
   final SiteList data;
@@ -21,11 +21,11 @@ class SiteListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: setWidth(750),
-      padding: setEdge(left: 30, top: 40, right: 30, bottom: 40),
+      width: MyScreen.setWidth(750),
+      padding: MyScreen.setEdge(left: 30, top: 40, right: 30, bottom: 40),
       decoration: BoxDecoration(
           color: Colors.white,
-          border: Border(top: BorderSide(width: 1, color: Styles.borderColor))),
+          border: Border(top: BorderSide(width: 1, color: MyStyles.borderColor))),
       child: _content(),
     );
   }
@@ -53,21 +53,21 @@ class SiteListItem extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Container(
-                    constraints: BoxConstraints(maxWidth: setWidth(230)),
+                    constraints: BoxConstraints(maxWidth: MyScreen.setWidth(230)),
                     child: Text(
                       data.name,
-                      style: Styles.f36c33,
+                      style: MyStyles.f36c33,
                     ),
                   ),
                   Padding(
-                    padding: setEdge(left: 20, right: 20),
+                    padding: MyScreen.setEdge(left: 20, right: 20),
                     child: Icon(Icons.arrow_right),
                   ),
                   Container(
-                    constraints: BoxConstraints(maxWidth: setWidth(230)),
+                    constraints: BoxConstraints(maxWidth: MyScreen.setWidth(230)),
                     child: Text(
                       data.targetName,
-                      style: Styles.f36c33,
+                      style: MyStyles.f36c33,
                     ),
                   ),
                 ],
@@ -76,27 +76,27 @@ class SiteListItem extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: setEdge(top: 20),
+            padding: MyScreen.setEdge(top: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  width: setWidth(295),
+                  width: MyScreen.setWidth(295),
                   child: Text(
                     data.address,
-                    style: Styles.f26c66,
+                    style: MyStyles.f26c66,
                   ),
                 ),
                 Padding(
-                  padding: setEdge(left: 20, right: 20),
+                  padding: MyScreen.setEdge(left: 20, right: 20),
                   child: Icon(Icons.arrow_right),
                 ),
                 Container(
-                  width: setWidth(295),
+                  width: MyScreen.setWidth(295),
                   child: Text(
                     data.targetAddress,
-                    style: Styles.f26c66,
+                    style: MyStyles.f26c66,
                   ),
                 ),
               ],
@@ -121,17 +121,17 @@ class SiteListItem extends StatelessWidget {
               Expanded(
                 child: Text(
                   data.name,
-                  style: Styles.f36c33,
+                  style: MyStyles.f36c33,
                 ),
               ),
               rightBtn()
             ],
           ),
           Padding(
-            padding: setEdge(top: 20),
+            padding: MyScreen.setEdge(top: 20),
             child: Text(
               data.address,
-              style: Styles.f26c99,
+              style: MyStyles.f26c99,
             ),
           )
         ],
@@ -154,18 +154,18 @@ class SiteListItem extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     Container(
-                      constraints: BoxConstraints(maxWidth: setWidth(400)),
-                      child: Text(data.name, style: Styles.f36c33),
+                      constraints: BoxConstraints(maxWidth: MyScreen.setWidth(400)),
+                      child: Text(data.name, style: MyStyles.f36c33),
                     ),
                     Padding(
-                      padding: setEdge(left: 40),
-                      child: Text('未连接', style: Styles.f26ccc),
+                      padding: MyScreen.setEdge(left: 40),
+                      child: Text('未连接', style: MyStyles.f26ccc),
                     )
                   ],
                 ),
                 Padding(
-                  padding: setEdge(top: 20),
-                  child: Text(data.address, style: Styles.f26c99),
+                  padding: MyScreen.setEdge(top: 20),
+                  child: Text(data.address, style: MyStyles.f26c99),
                 )
               ],
             ),
@@ -182,7 +182,7 @@ class SiteListItem extends StatelessWidget {
     Color color;
     if (isLife && data.status == 3) {
       name = '待审核';
-      color = Styles.c333;
+      color = MyStyles.c333;
     } else if (!isLife) {
       name = Utils.siteStatus(data.status)['label'];
       color = Utils.siteStatus(data.status)['color'];
@@ -190,14 +190,14 @@ class SiteListItem extends StatelessWidget {
       return Container();
     }
     return Container(
-      width: setWidth(136),
-      height: setHeight(48),
+      width: MyScreen.setWidth(136),
+      height: MyScreen.setHeight(48),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          color: Styles.f8f8f8,
-          borderRadius: BorderRadius.circular(setWidth(10))),
+          color: MyStyles.f8f8f8,
+          borderRadius: BorderRadius.circular(MyScreen.setWidth(10))),
       child: DefaultTextStyle(
-        style: TextStyle(fontSize: setSp(26)),
+        style: TextStyle(fontSize: MyScreen.setSp(26)),
         child: Text(
           name,
           style: TextStyle(color: color),

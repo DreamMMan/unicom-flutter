@@ -2,18 +2,18 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:36:37
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 09:59:37
+ * @LastEditTime : 2020-01-02 14:48:52
  * @Description: 启动页 广告页
  * @FilePath: /unicom_flutter/lib/pages/splashPage.dart
  */
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
+import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/providers/loginProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:unicom_flutter/utils/constant.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
@@ -55,7 +55,7 @@ class _SplashPageState extends State<SplashPage> {
     // path_provider插件 用于查找文件系统上常用位置
     final dir = await getApplicationDocumentsDirectory();
     Hive.init(dir.path);
-    var box = await Hive.openBox(Constant.hiveName);
+    var box = await Hive.openBox(MyConstant.hiveName);
     Provide.value<LoginProvide>(context)
         .setValue(box.get('username') ?? '', '');
     setState(() {
@@ -84,8 +84,8 @@ class _SplashPageState extends State<SplashPage> {
         ),
         // 右上角提示部件
         Positioned(
-            right: setWidth(30),
-            top: ScreenUtil.statusBarHeight + setWidth(30),
+            right: MyScreen.setWidth(30),
+            top: ScreenUtil.statusBarHeight + MyScreen.setWidth(30),
             child: InkWell(
               onTap: () {
                 Application.router.navigateTo(
@@ -94,13 +94,13 @@ class _SplashPageState extends State<SplashPage> {
                 mTimerUtil.cancel();
               },
               child: Container(
-                padding: setEdge(left: 20, top: 5, right: 20, bottom: 5),
+                padding: MyScreen.setEdge(left: 20, top: 5, right: 20, bottom: 5),
                 decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(20)),
                 child: Text(
                   '跳过广告',
-                  style: Styles.f26cf,
+                  style: MyStyles.f26cf,
                 ),
               ),
             ))

@@ -8,8 +8,8 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 
 class ShowBottomSheet extends StatelessWidget {
   final String titleName;
@@ -35,7 +35,7 @@ class ShowBottomSheet extends StatelessWidget {
     }
     return SafeArea(
       child: Container(
-        height: setHeight(heightSheet),
+        height: MyScreen.setHeight(heightSheet),
         color: Colors.white,
         child: Column(
           children: <Widget>[
@@ -54,11 +54,11 @@ class ShowBottomSheet extends StatelessWidget {
       return Container();
     }
     return Container(
-      height: setHeight(88),
-      padding: setEdge(left: 30, right: 30),
+      height: MyScreen.setHeight(88),
+      padding: MyScreen.setEdge(left: 30, right: 30),
       decoration: BoxDecoration(
           border:
-              Border(bottom: BorderSide(width: 1, color: Styles.borderColor))),
+              Border(bottom: BorderSide(width: 1, color: MyStyles.borderColor))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,7 +68,7 @@ class ShowBottomSheet extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 titleName,
-                style: Styles.f28c666,
+                style: MyStyles.f28c666,
               ),
             ),
           ),
@@ -79,7 +79,7 @@ class ShowBottomSheet extends StatelessWidget {
             child: Icon(
               Icons.close,
               size: 28,
-              color: Styles.c999,
+              color: MyStyles.c999,
             ),
           )
         ],
@@ -90,7 +90,7 @@ class ShowBottomSheet extends StatelessWidget {
   // 选项列表
   Widget listBox(BuildContext context) {
     return Container(
-        constraints: BoxConstraints(maxHeight: setHeight(440)),
+        constraints: BoxConstraints(maxHeight: MyScreen.setHeight(440)),
         child: SingleChildScrollView(
           child: Column(
             children: list
@@ -110,12 +110,12 @@ class ShowBottomSheet extends StatelessWidget {
         Navigator.pop(context);
       },
       child: Container(
-        height: setHeight(88),
+        height: MyScreen.setHeight(88),
         alignment: Alignment.center,
         decoration: BoxDecoration(
             border: Border(
-                bottom: BorderSide(width: 1, color: Styles.borderColor))),
-        child: Text(list[index]['name'], style: Styles.f30c33),
+                bottom: BorderSide(width: 1, color: MyStyles.borderColor))),
+        child: Text(list[index]['name'], style: MyStyles.f30c33),
       ),
     );
   }
@@ -129,20 +129,20 @@ class ShowBottomSheet extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            height: setHeight(12),
-            color: Styles.borderColor,
+            height: MyScreen.setHeight(12),
+            color: MyStyles.borderColor,
           ),
           InkWell(
             onTap: () {
               Navigator.pop(context);
             },
             child: Container(
-              height: setHeight(88),
+              height: MyScreen.setHeight(88),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   border: Border(
-                      bottom: BorderSide(width: 1, color: Styles.borderColor))),
-              child: Text(closeName, style: Styles.f30c33),
+                      bottom: BorderSide(width: 1, color: MyStyles.borderColor))),
+              child: Text(closeName, style: MyStyles.f30c33),
             ),
           )
         ],

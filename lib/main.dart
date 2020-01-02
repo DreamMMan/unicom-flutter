@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:26:42
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 13:50:31
+ * @LastEditTime : 2020-01-02 14:50:59
  * @Description: 程序入口文件
  * @FilePath: /unicom_flutter/lib/main.dart
  */
@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/allProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 import 'pages/splashPage.dart';
 import 'routes/config.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -38,10 +38,10 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: Application.router.generator,
         navigatorObservers: [BotToastNavigatorObserver()],
         theme: ThemeData(
-            primaryColor: Styles.e04545,
-            scaffoldBackgroundColor: Styles.pageBg,
+            primaryColor: MyStyles.e04545,
+            scaffoldBackgroundColor: MyStyles.pageBg,
             buttonTheme:
-                ButtonThemeData(buttonColor: Styles.e04545, disabledColor: Styles.cccc)),
+                ButtonThemeData(buttonColor: MyStyles.e04545, disabledColor: MyStyles.cccc)),
         home: SplashPage(),
       ),
     );

@@ -2,18 +2,18 @@
  * @Author: liangyt
  * @Date: 2019-12-19 17:49:04
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 13:52:04
+ * @LastEditTime : 2020-01-02 14:48:36
  * @Description: 工单列表页面
  * @FilePath: /unicom_flutter/lib/pages/orderPage.dart
  */
 
 import 'package:flutter/material.dart';
+import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/pages/orderList/lifeList.dart';
 import 'package:unicom_flutter/pages/orderList/planList.dart';
-import 'package:unicom_flutter/utils/constant.dart';
 import 'package:unicom_flutter/utils/index.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/myAsset.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -49,29 +49,29 @@ class OrderPage extends StatelessWidget {
             showModal(context);
           },
           child: Container(
-            height: setHeight(88),
-            padding: setEdge(left: 30, right: 30),
+            height: MyScreen.setHeight(88),
+            padding: MyScreen.setEdge(left: 30, right: 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 MyAsset(
-                  name: Constant.userIcon,
+                  name: MyConstant.userIcon,
                   width: 34,
                 ),
                 Expanded(
                   child: Padding(
-                    padding: setEdge(left: 15),
+                    padding: MyScreen.setEdge(left: 15),
                     child: Text(
                       box.get('username'),
-                      style: Styles.f30c66,
+                      style: MyStyles.f30c66,
                     ),
                   ),
                 ),
                 Icon(
                   Icons.keyboard_arrow_right,
-                  size: setWidth(46),
-                  color: Styles.c999,
+                  size: MyScreen.setWidth(46),
+                  color: MyStyles.c999,
                 )
               ],
             ),
@@ -85,7 +85,7 @@ class OrderPage extends StatelessWidget {
   showModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
-        backgroundColor: Styles.d9DEE1,
+        backgroundColor: MyStyles.d9DEE1,
         builder: (BuildContext context) {
           return ShowBottomSheet(
             list: [

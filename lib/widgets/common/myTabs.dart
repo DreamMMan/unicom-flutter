@@ -8,8 +8,8 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 
 class MyTabs extends StatefulWidget {
   final List<String> tabs;
@@ -51,19 +51,19 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         child: Column(
           children: <Widget>[
             Container(
-              height: setWidth(88),
+              height: MyScreen.setWidth(88),
               decoration: BoxDecoration(
                   color: Colors.white,
                   border:
-                      Border(bottom: BorderSide(width: 1, color: Styles.borderColor))),
+                      Border(bottom: BorderSide(width: 1, color: MyStyles.borderColor))),
               child: TabBar(
                 controller: _tabController,
                 isScrollable: widget.isScrollable,
-                labelColor: Styles.e04545,
-                unselectedLabelColor: Styles.c666,
-                indicatorColor: Styles.e04545,
+                labelColor: MyStyles.e04545,
+                unselectedLabelColor: MyStyles.c666,
+                indicatorColor: MyStyles.e04545,
                 indicatorSize: TabBarIndicatorSize.label,
-                labelStyle: Styles.f30cff,
+                labelStyle: MyStyles.f30cff,
                 tabs: widget.tabs.map((item) {
                   return Tab(
                     text: item,

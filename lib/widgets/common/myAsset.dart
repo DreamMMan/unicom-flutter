@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
 
 class MyAsset extends StatelessWidget {
   final String name;
@@ -10,7 +10,7 @@ class MyAsset extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       name,
-      width: setWidth(width),
+      width: MyScreen.setWidth(width),
       fit: BoxFit.contain,
     );
   }

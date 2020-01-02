@@ -9,16 +9,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 
 class MyLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        height: setWidth(250),
-        width: setHeight(250),
+        height: MyScreen.setWidth(250),
+        width: MyScreen.setHeight(250),
         child: Card(
           color: Colors.black38,
           child: Column(
@@ -26,17 +26,17 @@ class MyLoading extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                width: setWidth(150),
-                height: setWidth(150),
+                width: MyScreen.setWidth(150),
+                height: MyScreen.setWidth(150),
                 child: SpinKitCircle(
                   color: Colors.white,
-                  size: setWidth(100),
+                  size: MyScreen.setWidth(100),
                 ),
               ),
               Container(
                 child: Text(
                   '正在拼命加载',
-                  style: Styles.f26cf,
+                  style: MyStyles.f26cf,
                 ),
               )
             ],

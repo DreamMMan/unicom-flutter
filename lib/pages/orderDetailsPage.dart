@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-24 14:33:30
+ * @LastEditTime : 2020-01-02 14:48:29
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
@@ -13,11 +13,11 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
+import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/models/orderDetailsModel.dart';
 import 'package:unicom_flutter/providers/orderDetailsProvide.dart';
-import 'package:unicom_flutter/utils/constant.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/myInput.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
@@ -117,10 +117,10 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   // 工单内容
   Widget orderContent(OrderDetailsModel orderData, data) {
     return Container(
-      padding: setEdge(left: 30, top: 30, right: 30, bottom: 30),
+      padding: MyScreen.setEdge(left: 30, top: 30, right: 30, bottom: 30),
       color: Colors.white,
       child: DefaultTextStyle(
-        style: Styles.f26c99,
+        style: MyStyles.f26c99,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,16 +129,16 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
               children: <Widget>[
                 Text(
                   orderData.name,
-                  style: Styles.f36c33,
+                  style: MyStyles.f36c33,
                 ),
                 Padding(
-                  padding: setEdge(left: 40),
+                  padding: MyScreen.setEdge(left: 40),
                   child: Text(orderData.ticketNo),
                 )
               ],
             ),
             Padding(
-              padding: setEdge(top: 20),
+              padding: MyScreen.setEdge(top: 20),
               child: data.isLife
                   ? Text(
                       '${DateUtil.formatDateMs(orderData.createdTime, format: "yyyy-MM-dd HH-mm-ss")}')
@@ -148,7 +148,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             data.isLife
                 ? Container()
                 : Padding(
-                    padding: setEdge(top: 20),
+                    padding: MyScreen.setEdge(top: 20),
                     child: Text('作业内容：${orderData.content}'),
                   )
           ],
@@ -172,8 +172,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         ..add(siteNumItem('已完成', orderData.completedNum));
     }
     return Container(
-      margin: setEdge(top: 10),
-      height: setHeight(150),
+      margin: MyScreen.setEdge(top: 10),
+      height: MyScreen.setHeight(150),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -190,10 +190,10 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text('$_num', style: Styles.f36c33),
+          Text('$_num', style: MyStyles.f36c33),
           Text(
             name,
-            style: Styles.f26c66,
+            style: MyStyles.f26c66,
           )
         ],
       ),
@@ -206,8 +206,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       floating: false,
       pinned: true,
       delegate: SliverAppBarDelegate(
-          maxHeight: setHeight(180),
-          minHeight: setHeight(180),
+          maxHeight: MyScreen.setHeight(180),
+          minHeight: MyScreen.setHeight(180),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,19 +219,19 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   // 列表名字
   Widget listTitle() {
     return Container(
-      height: setHeight(80),
+      height: MyScreen.setHeight(80),
       alignment: Alignment.centerLeft,
-      padding: setEdge(left: 30),
-      color: Styles.pageBg,
-      child: Text('作业站点列表', style: Styles.f30c66),
+      padding: MyScreen.setEdge(left: 30),
+      color: MyStyles.pageBg,
+      child: Text('作业站点列表', style: MyStyles.f30c66),
     );
   }
 
   // 搜索框
   Widget searchBox(context, data) {
     return Container(
-      height: setHeight(100),
-      padding: setEdge(left: 30, right: 30),
+      height: MyScreen.setHeight(100),
+      padding: MyScreen.setEdge(left: 30, right: 30),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -245,14 +245,14 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
               children: <Widget>[
                 Text(
                   data.region,
-                  style: Styles.f24c66,
+                  style: MyStyles.f24c66,
                 ),
                 Transform(
                   transform: Matrix4.identity()..rotateZ(45),
                   origin: Offset(6, 6), // 旋转的中心点
                   child: Icon(
                     Icons.arrow_right,
-                    size: setWidth(36),
+                    size: MyScreen.setWidth(36),
                   ),
                 )
               ],
@@ -260,16 +260,16 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
           ),
           Expanded(
             child: Container(
-              height: setHeight(60),
+              height: MyScreen.setHeight(60),
               alignment: Alignment.centerLeft,
-              padding: setEdge(left: 20, right: 20),
+              padding: MyScreen.setEdge(left: 20, right: 20),
               decoration: BoxDecoration(
-                  color: Styles.pageBg, borderRadius: BorderRadius.circular(5)),
+                  color: MyStyles.pageBg, borderRadius: BorderRadius.circular(5)),
               child: MyInput(
-                  iconName: Constant.searchIcon,
+                  iconName: MyConstant.searchIcon,
                   paddingHeight: 20,
                   hintText: '站点/编号/地址',
-                  hintStyle: Styles.f24c99,
+                  hintStyle: MyStyles.f24c99,
                   textInputAction: 'search',
                   fieldCallBack: (value) {
                     Provide.value<OrderDetailsProvide>(context)
@@ -289,15 +289,15 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   showModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
-        backgroundColor: Styles.d9DEE1,
+        backgroundColor: MyStyles.d9DEE1,
         builder: (BuildContext context) {
           return ShowBottomSheet(
-            list: Constant.regionList,
+            list: MyConstant.regionList,
             titleName: '请选择站点区域',
             tap: (data) async {
               Provide.value<OrderDetailsProvide>(context).setRegion(
-                  Constant.regionList[data]['name'],
-                  Constant.regionList[data]['code']);
+                  MyConstant.regionList[data]['name'],
+                  MyConstant.regionList[data]['code']);
             },
           );
         });

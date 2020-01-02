@@ -8,13 +8,13 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 
 Widget myAppBar(String title) {
   return AppBar(
     title: Text(
       title,
-      style: Styles.f36cff,
+      style: MyStyles.f36cff,
     ),
     centerTitle: true,
   );

@@ -2,21 +2,21 @@
  * @Author: liangyt
  * @Date: 2019-12-23 14:08:33
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 18:03:13
+ * @LastEditTime : 2020-01-02 14:47:41
  * @Description: 处理详情页面
  * @FilePath: /unicom_flutter/lib/pages/AlarmDetailsPage.dart
  */
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
+import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/models/alarmDetailsModel.dart';
 import 'package:unicom_flutter/providers/alarmDealProvide.dart';
 import 'package:unicom_flutter/providers/alarmDetailsProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
-import 'package:unicom_flutter/utils/constant.dart';
 import 'package:unicom_flutter/utils/index.dart';
-import 'package:unicom_flutter/utils/screenUtil.dart';
-import 'package:unicom_flutter/utils/styles.dart';
+import 'package:unicom_flutter/styles/myScreen.dart';
+import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/myAsset.dart';
 import 'package:unicom_flutter/widgets/common/myEmpty.dart';
@@ -40,7 +40,7 @@ class AlarmDetailsPage extends StatelessWidget {
           return SingleChildScrollView(
             child: Container(
               width: double.infinity,
-              padding: setEdge(bottom: 100),
+              padding: MyScreen.setEdge(bottom: 100),
               child: Column(
                 children: <Widget>[
                   topContent(data.pageData),
@@ -60,8 +60,8 @@ class AlarmDetailsPage extends StatelessWidget {
   // 顶部信息
   Widget topContent(AlarmDetailsModel pageData) {
     return Container(
-      width: setWidth(750),
-      padding: setEdge(top: 30, bottom: 30),
+      width: MyScreen.setWidth(750),
+      padding: MyScreen.setEdge(top: 30, bottom: 30),
       color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -77,30 +77,30 @@ class AlarmDetailsPage extends StatelessWidget {
       children: <Widget>[
         MyAsset(
           name: pageData.removeTime == null
-              ? Constant.alarmIcon1
-              : Constant.alarmIcon2,
+              ? MyConstant.alarmIcon1
+              : MyConstant.alarmIcon2,
           width: 360,
         ),
         Positioned(
-            top: setWidth(160),
-            width: setWidth(360),
+            top: MyScreen.setWidth(160),
+            width: MyScreen.setWidth(360),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 pageData.removeTime == null
                     ? Text(
                         '告警中',
-                        style: Styles.f36ce0,
+                        style: MyStyles.f36ce0,
                       )
                     : Text(
                         '已解除',
-                        style: Styles.f36c03,
+                        style: MyStyles.f36c03,
                       ),
                 Padding(
-                  padding: setEdge(top: 5),
+                  padding: MyScreen.setEdge(top: 5),
                   child: Text(
                     '更新时间：${DateUtil.formatDateMs(pageData.updateTime, format: "MM-dd HH:mm:ss")}',
-                    style: Styles.f24c99,
+                    style: MyStyles.f24c99,
                   ),
                 )
               ],
@@ -112,8 +112,8 @@ class AlarmDetailsPage extends StatelessWidget {
   // 告警时间栏
   Widget _alarmTime(AlarmDetailsModel pageData) {
     return Container(
-      width: setWidth(750),
-      margin: setEdge(top: 30),
+      width: MyScreen.setWidth(750),
+      margin: MyScreen.setEdge(top: 30),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -135,20 +135,20 @@ class AlarmDetailsPage extends StatelessWidget {
   Widget _alarmTimeItem(time, name) {
     return Expanded(
         child: Container(
-      constraints: BoxConstraints(minHeight: setHeight(60)),
+      constraints: BoxConstraints(minHeight: MyScreen.setHeight(60)),
       decoration: BoxDecoration(
-          border: Border(right: BorderSide(width: 1, color: Styles.f1f1f1))),
+          border: Border(right: BorderSide(width: 1, color: MyStyles.f1f1f1))),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
             time,
-            style: Styles.f26c33,
+            style: MyStyles.f26c33,
           ),
           Text(
             name,
-            style: Styles.f24c99,
+            style: MyStyles.f24c99,
           )
         ],
       ),
@@ -158,9 +158,9 @@ class AlarmDetailsPage extends StatelessWidget {
   // 告警信息
   Widget _alarmInfo1(AlarmDetailsModel pageData) {
     return Container(
-      width: setWidth(750),
-      margin: setEdge(top: 20),
-      padding: setEdge(left: 30, top: 30, right: 30),
+      width: MyScreen.setWidth(750),
+      margin: MyScreen.setEdge(top: 20),
+      padding: MyScreen.setEdge(left: 30, top: 30, right: 30),
       color: Colors.white,
       child: Column(
         children: <Widget>[
@@ -180,9 +180,9 @@ class AlarmDetailsPage extends StatelessWidget {
       return Container();
     }
     return Container(
-      width: setWidth(750),
-      margin: setEdge(top: 20),
-      padding: setEdge(left: 30, top: 30, right: 30),
+      width: MyScreen.setWidth(750),
+      margin: MyScreen.setEdge(top: 20),
+      padding: MyScreen.setEdge(left: 30, top: 30, right: 30),
       color: Colors.white,
       child: Column(
         children: <Widget>[
@@ -197,9 +197,9 @@ class AlarmDetailsPage extends StatelessWidget {
   // 告警信息item
   Widget _alarmInfoItem(String name, String txt) {
     return Container(
-      margin: setEdge(bottom: 30),
+      margin: MyScreen.setEdge(bottom: 30),
       child: DefaultTextStyle(
-        style: Styles.f26c99,
+        style: MyStyles.f26c99,
         child: Column(
           children: <Widget>[
             Row(
@@ -209,7 +209,7 @@ class AlarmDetailsPage extends StatelessWidget {
                 Expanded(
                   child: Text(
                     txt,
-                    style: TextStyle(color: Styles.c666),
+                    style: TextStyle(color: MyStyles.c666),
                   ),
                 )
               ],
@@ -227,20 +227,20 @@ class AlarmDetailsPage extends StatelessWidget {
         Application.router.navigateTo(context, '/siteDetails');
       },
       child: Container(
-        width: setWidth(750),
-        height: setHeight(98),
+        width: MyScreen.setWidth(750),
+        height: MyScreen.setHeight(98),
         color: Colors.white,
-        margin: setEdge(top: 30),
-        padding: setEdge(left: 30, right: 30),
+        margin: MyScreen.setEdge(top: 30),
+        padding: MyScreen.setEdge(left: 30, right: 30),
         alignment: Alignment.center,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
               '查看站点数据采集关系',
-              style: Styles.f26c66,
+              style: MyStyles.f26c66,
             ),
-            Icon(Icons.keyboard_arrow_right, color: Styles.c7C7CC)
+            Icon(Icons.keyboard_arrow_right, color: MyStyles.c7C7CC)
           ],
         ),
       ),
@@ -253,12 +253,12 @@ class AlarmDetailsPage extends StatelessWidget {
       return Container();
     }
     return Container(
-      width: setWidth(690),
-      height: setHeight(100),
-      margin: setEdge(top: 60),
+      width: MyScreen.setWidth(690),
+      height: MyScreen.setHeight(100),
+      margin: MyScreen.setEdge(top: 60),
       child: MySubmitBtn(
         txt: '告警处理',
-        textSty: Styles.f36cff,
+        textSty: MyStyles.f36cff,
         submit: () {
           Provide.value<AlarmDealProvide>(context).setId([pageData.id], 2);
           Application.router.navigateTo(context, '/alarmDeal');

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:50:53
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 17:02:05
+ * @LastEditTime : 2020-01-02 14:47:56
  * @Description: 首页
  * @FilePath: /unicom_flutter/lib/pages/homePage.dart
  */
@@ -11,10 +11,10 @@ import 'dart:async';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
+import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/pages/alarmPage.dart';
 import 'package:unicom_flutter/pages/orderPage.dart';
 import 'package:unicom_flutter/providers/homeProvide.dart';
-import 'package:unicom_flutter/utils/constant.dart';
 import 'package:unicom_flutter/widgets/common/myAsset.dart';
 import 'package:connectivity/connectivity.dart';
 
@@ -29,21 +29,21 @@ class _HomePageState extends State<HomePage> {
   List<BottomNavigationBarItem> tabs = [
     BottomNavigationBarItem(
         icon: MyAsset(
-          name: Constant.orderDefault,
+          name: MyConstant.orderDefault,
           width: 50,
         ),
         activeIcon: MyAsset(
-          name: Constant.orderActive,
+          name: MyConstant.orderActive,
           width: 50,
         ),
         title: Text('工单')),
     BottomNavigationBarItem(
         icon: MyAsset(
-          name: Constant.alarmDefault,
+          name: MyConstant.alarmDefault,
           width: 50,
         ),
         activeIcon: MyAsset(
-          name: Constant.alarmActive,
+          name: MyConstant.alarmActive,
           width: 50,
         ),
         title: Text('通知'))
