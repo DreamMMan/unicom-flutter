@@ -2,11 +2,12 @@
  * @Author: liangyt
  * @Date: 2019-12-20 14:12:14
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-24 10:33:12
+ * @LastEditTime : 2020-01-02 16:27:38
  * @Description: 作业计划工单
  * @FilePath: /unicom_flutter/lib/pages/orderList/planList.dart
  */
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
@@ -16,9 +17,9 @@ import 'package:unicom_flutter/providers/orderDetailsProvide.dart';
 import 'package:unicom_flutter/providers/orderProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/widgets/list/listNoMore.dart';
-import 'package:unicom_flutter/widgets/list/orderListItem.dart';
 import 'package:unicom_flutter/widgets/common/myEmpty.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
+import 'package:unicom_flutter/widgets/list/planListItem.dart';
 
 class PlanList extends StatefulWidget {
   @override
@@ -42,7 +43,7 @@ class _PlanListState extends State<PlanList>
           _controller.finishRefresh();
           _controller.finishLoad();
         }
-        return Container(
+        return CupertinoScrollbar(
           child: EasyRefresh.custom(
             header: MaterialHeader(),
             footer: MaterialFooter(),
@@ -79,10 +80,7 @@ class _PlanListState extends State<PlanList>
                           Application.router
                               .navigateTo(context, '/orderDetails');
                         },
-                        child: OrderListItem(
-                          data: data.planList[index],
-                          isPlan: true,
-                        ));
+                        child: PlanListItem(data: data.planList[index]));
                   },
                   childCount: data.planList.length,
                 ),

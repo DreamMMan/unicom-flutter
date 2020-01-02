@@ -2,11 +2,12 @@
  * @Author: liangyt
  * @Date: 2019-12-20 14:14:46
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-24 10:33:25
+ * @LastEditTime : 2020-01-02 16:27:50
  * @Description: 生命周期工单
  * @FilePath: /unicom_flutter/lib/pages/orderList/lifeList.dart
  */
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
@@ -15,8 +16,8 @@ import 'package:provide/provide.dart';
 import 'package:unicom_flutter/providers/orderDetailsProvide.dart';
 import 'package:unicom_flutter/providers/orderProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
+import 'package:unicom_flutter/widgets/list/lifeListItem.dart';
 import 'package:unicom_flutter/widgets/list/listNoMore.dart';
-import 'package:unicom_flutter/widgets/list/orderListItem.dart';
 import 'package:unicom_flutter/widgets/common/myEmpty.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
 
@@ -42,7 +43,7 @@ class _LifeListState extends State<LifeList>
           _controller.finishRefresh();
           _controller.finishLoad();
         }
-        return Container(
+        return CupertinoScrollbar(
           child: EasyRefresh.custom(
             header: MaterialHeader(),
             footer: MaterialFooter(),
@@ -79,10 +80,7 @@ class _LifeListState extends State<LifeList>
                           Application.router
                               .navigateTo(context, '/orderDetails');
                         },
-                        child: OrderListItem(
-                          data: data.lifeList[index],
-                          isPlan: false,
-                        ));
+                        child: LifeListItem(data: data.lifeList[index]));
                   },
                   childCount: data.lifeList.length,
                 ),
