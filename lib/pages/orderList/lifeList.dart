@@ -43,6 +43,9 @@ class _LifeListState extends State<LifeList>
           _controller.finishRefresh();
           _controller.finishLoad();
         }
+        if (data.lifeCallRefresh) {
+          _controller.callRefresh();
+        }
         return CupertinoScrollbar(
           child: EasyRefresh.custom(
             header: MaterialHeader(),

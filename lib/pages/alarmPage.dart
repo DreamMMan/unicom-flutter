@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 17:50:24
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 17:53:21
+ * @LastEditTime : 2020-01-02 17:19:55
  * @Description: 告警列表页
  * @FilePath: /unicom_flutter/lib/pages/alarmPage.dart
  */
@@ -19,6 +19,7 @@ import 'package:unicom_flutter/utils/index.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
+import 'package:unicom_flutter/widgets/common/myClipOval.dart';
 import 'package:unicom_flutter/widgets/common/myEmpty.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
 import 'package:unicom_flutter/widgets/common/mySubmitBtn.dart';
@@ -37,9 +38,9 @@ class AlarmPage extends StatelessWidget {
             return Container(
               child: Column(
                 children: <Widget>[
-                  labelInfo(context, data.isOpen),
-                  listBox(context, data),
-                  dealBtn(context, data)
+                  _labelInfo(context, data.isOpen),
+                  _listBox(context, data),
+                  _dealBtn(context, data)
                 ],
               ),
             );
@@ -48,7 +49,7 @@ class AlarmPage extends StatelessWidget {
   }
 
   // 顶部信息栏
-  Widget labelInfo(BuildContext context, bool isOpen) {
+  Widget _labelInfo(BuildContext context, bool isOpen) {
     return Container(
       height: MyScreen.setHeight(90),
       padding: MyScreen.setEdge(left: 30, right: 30),
@@ -62,28 +63,15 @@ class AlarmPage extends StatelessWidget {
           ),
           Padding(
             padding: MyScreen.setEdge(left: 20, right: 15),
-            child: ClipOval(
-              child: Container(
-                width: MyScreen.setWidth(14),
-                height: MyScreen.setWidth(14),
-                color: MyStyles.e04545,
-              ),
-            ),
+            child: MyClipOval(size: 14, color: MyStyles.e04545),
           ),
           Text(
             '告警中',
             style: MyStyles.f26ce0,
           ),
           Padding(
-            padding: MyScreen.setEdge(left: 40, right: 15),
-            child: ClipOval(
-              child: Container(
-                width: MyScreen.setWidth(14),
-                height: MyScreen.setWidth(14),
-                color: MyStyles.c999,
-              ),
-            ),
-          ),
+              padding: MyScreen.setEdge(left: 40, right: 15),
+              child: MyClipOval(size: 14, color: MyStyles.c999)),
           Expanded(
             child: Text(
               '已解除',
@@ -110,7 +98,7 @@ class AlarmPage extends StatelessWidget {
   }
 
   // 列表组件
-  Widget listBox(context, data) {
+  Widget _listBox(context, data) {
     if (data.isError) {
       _controller.finishRefresh();
       _controller.finishLoad();
@@ -161,7 +149,7 @@ class AlarmPage extends StatelessWidget {
   }
 
   // 批量处理
-  Widget dealBtn(BuildContext context, data) {
+  Widget _dealBtn(BuildContext context, data) {
     if (data.isOpen) {
       return Container(
         width: MyScreen.setWidth(690),

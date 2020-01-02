@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 15:34:04
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 15:25:43
+ * @LastEditTime : 2020-01-02 17:50:49
  * @Description: 报警列表item
  * @FilePath: /unicom_flutter/lib/widgets/list/alarmListItem.dart
  */
@@ -15,6 +15,7 @@ import 'package:unicom_flutter/providers/alarmProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
+import 'package:unicom_flutter/widgets/common/myClipOval.dart';
 
 class AlarmListItem extends StatelessWidget {
   final AlarmList data;
@@ -41,7 +42,7 @@ class AlarmListItem extends StatelessWidget {
       child: Container(
         width: MyScreen.setWidth(750),
         constraints: BoxConstraints(minHeight: MyScreen.setHeight(160)),
-        padding: EdgeInsets.all(MyScreen.setWidth(30)),
+        padding: MyScreen.setEdgeAll(30),
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border(
@@ -72,16 +73,12 @@ class AlarmListItem extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           Container(
-                            margin: EdgeInsets.only(right: MyScreen.setWidth(20)),
-                            child: ClipOval(
-                              child: Container(
-                                width: MyScreen.setWidth(20),
-                                height: MyScreen.setWidth(20),
+                            margin: MyScreen.setEdge(right: 20),
+                            child: MyClipOval(
+                                size: 20,
                                 color: data.removeTime != null
                                     ? MyStyles.c999
-                                    : MyStyles.e04545,
-                              ),
-                            ),
+                                    : MyStyles.e04545),
                           ),
                           Container(
                             width: MyScreen.setWidth(400),
@@ -95,11 +92,12 @@ class AlarmListItem extends StatelessWidget {
                         ],
                       ),
                       Container(
-                        width: isOpen ? MyScreen.setWidth(400) : MyScreen.setWidth(450),
-                        margin: EdgeInsets.only(
-                            top: MyScreen.setHeight(20), left: MyScreen.setWidth(40)),
-                        child:
-                            Text('${data.siteName}$str', style: MyStyles.f26c66),
+                        width: isOpen
+                            ? MyScreen.setWidth(400)
+                            : MyScreen.setWidth(450),
+                        margin: MyScreen.setEdge(top: 20, left: 40),
+                        child: Text('${data.siteName}$str',
+                            style: MyStyles.f26c66),
                       )
                     ],
                   ),
@@ -107,7 +105,7 @@ class AlarmListItem extends StatelessWidget {
               ),
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Text(

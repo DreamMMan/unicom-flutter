@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-20 14:12:14
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-02 16:27:38
+ * @LastEditTime : 2020-01-02 17:23:50
  * @Description: 作业计划工单
  * @FilePath: /unicom_flutter/lib/pages/orderList/planList.dart
  */
@@ -42,6 +42,9 @@ class _PlanListState extends State<PlanList>
         if (data.isError) {
           _controller.finishRefresh();
           _controller.finishLoad();
+        }
+        if (data.planCallRefresh) {
+          _controller.callRefresh();
         }
         return CupertinoScrollbar(
           child: EasyRefresh.custom(

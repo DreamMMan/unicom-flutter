@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-20 16:27:24
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-21 11:01:17
+ * @LastEditTime : 2020-01-02 17:27:12
  * @Description: 工单 provide
  * @FilePath: /unicom_flutter/lib/providers/orderProvide.dart
  */
@@ -18,20 +18,33 @@ class OrderProvide with ChangeNotifier {
   int planPage = 0;
   int planTotal = 0;
   bool planFirst = true;
+  bool planCallRefresh = false;
   List<MyList> planList = [];
   // 生命周期工单
   int lifePage = 0;
   int lifeTotal = 0;
   bool lifeFirst = true;
+  bool lifeCallRefresh = false;
   List<MyList> lifeList = [];
+
+  // 设置刷新
+  void setCallRefresh(bool isPlan) {
+    if (isPlan) {
+      planCallRefresh = true;
+    } else {
+      lifeCallRefresh = true;
+    }
+  }
 
   // 下拉刷新
   onRefresh(context, bool isPlan) async {
     isError = false;
     if (isPlan) {
       planFirst = false;
+      planCallRefresh = false;
     } else {
       lifeFirst = false;
+      lifeCallRefresh = false;
     }
     var params = {"page": 0, "size": size, "lifeCycle": !isPlan};
     await HttpUtil.request(context, 'orderList', data: params).then((data) {
