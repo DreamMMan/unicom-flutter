@@ -2,11 +2,12 @@
  * @Author: liangyt
  * @Date: 2019-12-21 17:14:27
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-02 15:11:59
+ * @LastEditTime : 2020-01-03 19:53:45
  * @Description: 常量
  * @FilePath: /unicom_flutter/lib/constant/myConstant.dart
  */
 
+import 'package:flutter/material.dart';
 
 class MyConstant {
   // hive的box name
@@ -27,17 +28,20 @@ class MyConstant {
   ];
 
   // 图片名字
-  static const String loginBg = 'assets/login_bg.png';
-  static const String splash = 'assets/splash.png';
-  static const String deleteIcon = 'assets/close1.png';
-  static const String phoneIcon = 'assets/phone.png';
-  static const String passwordIcon = 'assets/password.png';
-  static const String orderDefault = 'assets/order_default.png';
-  static const String orderActive = 'assets/order_active.png';
-  static const String alarmDefault = 'assets/alarm_default.png';
-  static const String alarmActive = 'assets/alarm_active.png';
-  static const String userIcon = 'assets/user_icon.png';
-  static const String searchIcon = 'assets/search.png';
-  static const String alarmIcon1 = 'assets/alarm_icon1.png';
-  static const String alarmIcon2 = 'assets/alarm_icon2.png';
+  static const String loginBg = 'assets/images/login_bg.png';
+  static const String splash = 'assets/images/splash.png';
+  static const String deleteIcon = 'assets/images/close1.png';
+  static const String phoneIcon = 'assets/images/phone.png';
+  static const String passwordIcon = 'assets/images/password.png';
+  static const String orderDefault = 'assets/images/order_default.png';
+  static const String orderActive = 'assets/images/order_active.png';
+  static const String alarmDefault = 'assets/images/alarm_default.png';
+  static const String alarmActive = 'assets/images/alarm_active.png';
+  static const String userIcon = 'assets/images/user_icon.png';
+  static const String searchIcon = 'assets/images/search.png';
+  static const String alarmIcon1 = 'assets/images/alarm_icon1.png';
+  static const String alarmIcon2 = 'assets/images/alarm_icon2.png';
+
+  // 阿里巴巴矢量图标
+  static const IconData arrowIcon = IconData(0xe775, fontFamily: 'iconfont');
 }

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 11:37:14
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-02 15:31:55
+ * @LastEditTime : 2020-01-03 19:19:50
  * @Description: 字体大小和颜色
  * @FilePath: /unicom_flutter/lib/utils/MyStyles.dart
  */
@@ -46,6 +46,8 @@ class MyStyles {
       TextStyle(fontSize: MyScreen.setSp(26), color: e04545);
   static TextStyle f26c3a =
       TextStyle(fontSize: MyScreen.setSp(26), color: c03A4EE);
+  static TextStyle f26c52 =
+      TextStyle(fontSize: MyScreen.setSp(26), color: c52C47B);
   static TextStyle f28c666 =
       TextStyle(fontSize: MyScreen.setSp(28), color: c666);
   static TextStyle f30ccc =

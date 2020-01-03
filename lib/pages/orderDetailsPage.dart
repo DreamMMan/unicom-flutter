@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-03 16:41:09
+ * @LastEditTime : 2020-01-03 19:34:02
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
@@ -22,9 +22,11 @@ import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/myInput.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
 import 'package:unicom_flutter/widgets/common/showBottomSheet.dart';
+import 'package:unicom_flutter/widgets/list/lifeSiteListItem.dart';
 import 'package:unicom_flutter/widgets/list/listNoMore.dart';
-import 'package:unicom_flutter/widgets/list/siteListItem.dart';
+import 'package:unicom_flutter/widgets/list/planSiteListItem.dart';
 import 'package:unicom_flutter/widgets/list/sliverAppBarDelegate.dart';
+import 'package:unicom_flutter/widgets/list/trfSiteListItem.dart';
 
 class OrderDetailsPage extends StatefulWidget {
   @override
@@ -37,6 +39,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: myAppBar('工单详情'),
+        resizeToAvoidBottomPadding: false,
         body: GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () {
@@ -82,17 +85,20 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
+                        Widget listIem;
+                        if (data.isLife && data.orderData.name != '设备调拨') {
+                          listIem = LifeSiteListItem(data: data.list[index]);
+                        } else if (data.isLife &&
+                            data.orderData.name == '设备调拨') {
+                          listIem = TrfSiteListItem(data: data.list[index]);
+                        } else {
+                          listIem = PlanSiteListItem(data: data.list[index]);
+                        }
                         return InkWell(
                             onTap: () {
                               print('adad');
                             },
-                            child: SiteListItem(
-                              data: data.list[index],
-                              name: data.orderData != null
-                                  ? data.orderData.name
-                                  : '',
-                              isLife: data.isLife,
-                            ));
+                            child: listIem);
                       },
                       childCount: data.list.length,
                     ),

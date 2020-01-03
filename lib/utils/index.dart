@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:42:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-02 14:49:01
+ * @LastEditTime : 2020-01-03 19:20:23
  * @Description: utils方法
  * @FilePath: /unicom_flutter/lib/utils/index.dart
  */
@@ -81,15 +81,15 @@ class Utils {
     switch (value) {
       case 0:
         str['label'] = '连接正常';
-        str['color'] = MyStyles.c52C47B;
+        str['style'] = MyStyles.f26c52;
         break;
       case 1:
         str['label'] = '未关联';
-        str['color'] = MyStyles.cccc;
+        str['style'] = MyStyles.f26ccc;
         break;
       case 2:
         str['label'] = '连接异常';
-        str['color'] = MyStyles.e04545;
+        str['style'] = MyStyles.f26ce0;
         break;
       default:
     }
