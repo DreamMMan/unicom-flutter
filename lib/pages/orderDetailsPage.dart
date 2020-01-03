@@ -2,12 +2,13 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-03 20:24:50
+ * @LastEditTime : 2020-01-03 20:49:54
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
 
 import 'package:common_utils/common_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
@@ -57,7 +58,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             if (data.isCallRefresh) {
               _controller.callRefresh();
             }
-            return Container(
+            return CupertinoScrollbar(
               child: EasyRefresh.custom(
                 header: MaterialHeader(),
                 footer: MaterialFooter(),

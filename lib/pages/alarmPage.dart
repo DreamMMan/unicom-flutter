@@ -2,11 +2,12 @@
  * @Author: liangyt
  * @Date: 2019-12-19 17:50:24
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-02 17:19:55
+ * @LastEditTime : 2020-01-03 20:50:25
  * @Description: 告警列表页
  * @FilePath: /unicom_flutter/lib/pages/alarmPage.dart
  */
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
@@ -35,7 +36,7 @@ class AlarmPage extends StatelessWidget {
         appBar: myAppBar('通知'),
         body: Provide<AlarmProvide>(
           builder: (context, child, data) {
-            return Container(
+            return CupertinoScrollbar(
               child: Column(
                 children: <Widget>[
                   _labelInfo(context, data.isOpen),

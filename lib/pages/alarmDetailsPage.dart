@@ -2,11 +2,12 @@
  * @Author: liangyt
  * @Date: 2019-12-23 14:08:33
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-02 14:47:41
+ * @LastEditTime : 2020-01-03 20:51:27
  * @Description: 处理详情页面
  * @FilePath: /unicom_flutter/lib/pages/AlarmDetailsPage.dart
  */
 import 'package:common_utils/common_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/constant/myConstant.dart';
@@ -38,6 +39,7 @@ class AlarmDetailsPage extends StatelessWidget {
             return MyLoading();
           }
           return SingleChildScrollView(
+              child: CupertinoScrollbar(
             child: Container(
               width: double.infinity,
               padding: MyScreen.setEdge(bottom: 100),
@@ -51,7 +53,7 @@ class AlarmDetailsPage extends StatelessWidget {
                 ],
               ),
             ),
-          );
+          ));
         },
       ),
     );
