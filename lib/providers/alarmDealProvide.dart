@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 14:27:18
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-24 09:20:48
+ * @LastEditTime : 2020-01-03 16:14:58
  * @Description: 告警处理
  * @FilePath: /unicom_flutter/lib/providers/alarmDealProvide.dart
  */
@@ -21,7 +21,6 @@ class AlarmDealProvide with ChangeNotifier {
   void setId(ids, _num) {
     idList = ids;
     backNum = _num;
-    checked = true;
     notifyListeners();
   }
 
@@ -43,11 +42,14 @@ class AlarmDealProvide with ChangeNotifier {
     };
     await HttpUtil.request(context, 'handAlarm', data: params).then((data) {
       if (data != null) {
+        checked = true;
+        description = '';
         Utils.showToast('处理成功！');
         Provide.value<AlarmProvide>(context).setCallRefresh();
         for (var i = 0; i < backNum; i++) {
           Navigator.pop(context);
         }
+        notifyListeners();
       }
     });
   }

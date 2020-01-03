@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 14:10:03
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-02 14:58:33
+ * @LastEditTime : 2020-01-03 16:13:03
  * @Description: 告警处理
  * @FilePath: /unicom_flutter/lib/pages/alarmDealPage.dart
  */
@@ -31,7 +31,7 @@ class AlarmDealPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   _radioWiget(context, data),
-                  _textareaWidget(context),
+                  _textareaWidget(context, data),
                   _buttonWidget(context)
                 ],
               ),
@@ -100,7 +100,7 @@ class AlarmDealPage extends StatelessWidget {
   }
 
   // 文本框
-  Widget _textareaWidget(context) {
+  Widget _textareaWidget(context, data) {
     return Container(
       width: MyScreen.setWidth(750),
       height: MyScreen.setHeight(280),
@@ -108,6 +108,7 @@ class AlarmDealPage extends StatelessWidget {
       margin: MyScreen.setEdge(top: 20),
       padding: MyScreen.setEdge(left: 30, top: 30, right: 30, bottom: 30),
       child: MyInput(
+        inintValue: data.description,
         hintText: '请输入处理说明',
         hintStyle: MyStyles.f30c99,
         paddingHeight: 0,
