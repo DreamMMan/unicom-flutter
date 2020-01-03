@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:10:50
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-03 21:16:44
+ * @LastEditTime : 2020-01-03 21:42:38
  * @Description: 生命周期站点详情
  * @FilePath: /unicom-flutter/lib/pages/lifeSitePage.dart
  */
@@ -36,7 +36,7 @@ class LifeSitePage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[_topContent(), _listTitle()],
+        children: <Widget>[_topContent(), _listTitle(), _equipment()],
       ),
     );
   }
@@ -75,6 +75,11 @@ class LifeSitePage extends StatelessWidget {
         style: MyStyles.f30c33,
       ),
     );
+  }
+
+  // 设备列表
+  Widget _equipment() {
+    return Container();
   }
 
   // 底部的固定内容
