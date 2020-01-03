@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:26:42
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-03 15:39:08
+ * @LastEditTime : 2020-01-03 16:04:54
  * @Description: 程序入口文件
  * @FilePath: /unicom_flutter/lib/main.dart
  */
@@ -67,12 +67,18 @@ class _MyAppState extends State<MyApp> {
     try {
       // 监听响应方法的编写
       jpush.addEventHandler(
-          onReceiveNotification:
-              (Map<String, dynamic> message) async {}, // 收到推送提醒回调
-          onOpenNotification:
-              (Map<String, dynamic> message) async {}, // 打开推送提醒回调
-          onReceiveMessage:
-              (Map<String, dynamic> message) async {}); // 接收自定义消息回调
+          // 收到推送提醒回调
+          onReceiveNotification: (Map<String, dynamic> message) async {
+        print('接收推送消息：$message');
+      },
+          // 打开推送提醒回调
+          onOpenNotification: (Map<String, dynamic> message) async {
+        print('点击推送消息：$message');
+      },
+          // 接收自定义消息回调
+          onReceiveMessage: (Map<String, dynamic> message) async {
+        print('接收自定义推送消息：$message');
+      });
     } on PlatformException {
       print('平台版本获取失败，请检查！');
     }
