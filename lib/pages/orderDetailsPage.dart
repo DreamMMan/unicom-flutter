@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-02 14:48:29
+ * @LastEditTime : 2020-01-03 16:41:09
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
@@ -36,68 +36,75 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar('工单详情'),
-      body: Provide<OrderDetailsProvide>(builder: (context, child, data) {
-        // 报错时 关闭刷新 关闭加载
-        if (data.isError) {
-          _controller.finishRefresh();
-          _controller.finishLoad();
-        }
-        // 触发刷新
-        if (data.isCallRefresh) {
-          _controller.callRefresh();
-        }
-        return Container(
-          child: EasyRefresh.custom(
-            header: MaterialHeader(),
-            footer: MaterialFooter(),
-            emptyWidget: null,
-            controller: _controller,
-            enableControlFinishRefresh: true,
-            enableControlFinishLoad: true,
-            firstRefresh: true,
-            firstRefreshWidget: MyLoading(),
-            onRefresh: () async {
-              await Provide.value<OrderDetailsProvide>(context)
-                  .onRefresh(context);
-              _controller.resetLoadState(); // 重置加载状态
-              _controller.finishRefresh(); // 完成刷新
-              _controller.finishLoad(
-                  noMore: data.list.length >= data.total); // 加载完和判断是否能加载
-            },
-            onLoad: () async {
-              await Provide.value<OrderDetailsProvide>(context).onLoad(context);
-              _controller.finishLoad(
-                  noMore: data.list.length >= data.total); // 加载完和判断是否能加载
-            },
-            slivers: <Widget>[
-              topContent(data.orderData, data),
-              fixContent(context, data),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    return InkWell(
-                        onTap: () {
-                          print('adad');
-                        },
-                        child: SiteListItem(
-                          data: data.list[index],
-                          name:
-                              data.orderData != null ? data.orderData.name : '',
-                          isLife: data.isLife,
-                        ));
-                  },
-                  childCount: data.list.length,
-                ),
+        appBar: myAppBar('工单详情'),
+        body: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Provide<OrderDetailsProvide>(builder: (context, child, data) {
+            // 报错时 关闭刷新 关闭加载
+            if (data.isError) {
+              _controller.finishRefresh();
+              _controller.finishLoad();
+            }
+            // 触发刷新
+            if (data.isCallRefresh) {
+              _controller.callRefresh();
+            }
+            return Container(
+              child: EasyRefresh.custom(
+                header: MaterialHeader(),
+                footer: MaterialFooter(),
+                emptyWidget: null,
+                controller: _controller,
+                enableControlFinishRefresh: true,
+                enableControlFinishLoad: true,
+                firstRefresh: true,
+                firstRefreshWidget: MyLoading(),
+                onRefresh: () async {
+                  await Provide.value<OrderDetailsProvide>(context)
+                      .onRefresh(context);
+                  _controller.resetLoadState(); // 重置加载状态
+                  _controller.finishRefresh(); // 完成刷新
+                  _controller.finishLoad(
+                      noMore: data.list.length >= data.total); // 加载完和判断是否能加载
+                },
+                onLoad: () async {
+                  await Provide.value<OrderDetailsProvide>(context)
+                      .onLoad(context);
+                  _controller.finishLoad(
+                      noMore: data.list.length >= data.total); // 加载完和判断是否能加载
+                },
+                slivers: <Widget>[
+                  topContent(data.orderData, data),
+                  fixContent(context, data),
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return InkWell(
+                            onTap: () {
+                              print('adad');
+                            },
+                            child: SiteListItem(
+                              data: data.list[index],
+                              name: data.orderData != null
+                                  ? data.orderData.name
+                                  : '',
+                              isLife: data.isLife,
+                            ));
+                      },
+                      childCount: data.list.length,
+                    ),
+                  ),
+                  ListNoMore(
+                    show: data.list.length >= data.total,
+                  )
+                ],
               ),
-              ListNoMore(
-                show: data.list.length >= data.total,
-              )
-            ],
-          ),
-        );
-      }),
-    );
+            );
+          }),
+        ));
   }
 
   // 顶部内容
@@ -108,7 +115,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
           : Column(
               children: <Widget>[
                 orderContent(orderData, data),
-                siteNum(orderData, data)
+                siteNum(orderData, data),
+                listTitle()
               ],
             ),
     );
@@ -117,7 +125,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   // 工单内容
   Widget orderContent(OrderDetailsModel orderData, data) {
     return Container(
-      padding: MyScreen.setEdge(left: 30, top: 30, right: 30, bottom: 30),
+      padding: MyScreen.setEdgeAll(30),
       color: Colors.white,
       child: DefaultTextStyle(
         style: MyStyles.f26c99,
@@ -163,12 +171,12 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     if (data.isLife) {
       list
         ..add(siteNumItem('站点总数', orderData.totalSite))
-        ..add(siteNumItem('待审核', orderData.processingNum));
+        ..add(siteNumItem('待确认', orderData.processingNum));
     } else {
       list
         ..add(siteNumItem('站点总数', orderData.totalSite))
         ..add(siteNumItem('进行中', orderData.processingNum))
-        ..add(siteNumItem('审核驳回', orderData.rejectionNum))
+        ..add(siteNumItem('确认退回', orderData.rejectionNum))
         ..add(siteNumItem('已完成', orderData.completedNum));
     }
     return Container(
@@ -206,13 +214,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       floating: false,
       pinned: true,
       delegate: SliverAppBarDelegate(
-          maxHeight: MyScreen.setHeight(180),
-          minHeight: MyScreen.setHeight(180),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[listTitle(), searchBox(context, data)],
-          )),
+          maxHeight: MyScreen.setHeight(100),
+          minHeight: MyScreen.setHeight(100),
+          child: searchBox(context, data)),
     );
   }
 
@@ -264,7 +268,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
               alignment: Alignment.centerLeft,
               padding: MyScreen.setEdge(left: 20, right: 20),
               decoration: BoxDecoration(
-                  color: MyStyles.pageBg, borderRadius: BorderRadius.circular(5)),
+                  color: MyStyles.pageBg,
+                  borderRadius: BorderRadius.circular(5)),
               child: MyInput(
                   iconName: MyConstant.searchIcon,
                   paddingHeight: 20,
