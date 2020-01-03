@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:40:16
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 16:38:44
+ * @LastEditTime : 2020-01-03 20:21:44
  * @Description: fluro 路由配置
  * @FilePath: /unicom_flutter/lib/routes/config.dart
  */
@@ -36,8 +36,17 @@ class Routes {
     // 报警处理页面
     router.define('/alarmDeal',
         handler: alarmDealHandler, transitionType: TransitionType.cupertino);
-    // 站点详情页面
+    // 常规建设站点详情 页面
     router.define('/siteDetails',
         handler: siteDetailsHandler, transitionType: TransitionType.cupertino);
+    // 生命周期工单站点详情 页面
+    router.define('/lifeSite',
+        handler: lifeSiteHandler, transitionType: TransitionType.cupertino);
+    // 常规动力站点详情页面
+    router.define('/rpIn',
+        handler: rpInHandler, transitionType: TransitionType.cupertino);
+    // 空调 蓄电池站点详情 页面
+    router.define('/airBat',
+        handler: airBatHandler, transitionType: TransitionType.cupertino);
   }
 }

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-03 19:34:02
+ * @LastEditTime : 2020-01-03 20:24:50
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
@@ -16,8 +16,10 @@ import 'package:provide/provide.dart';
 import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/models/orderDetailsModel.dart';
 import 'package:unicom_flutter/providers/orderDetailsProvide.dart';
+import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
+import 'package:unicom_flutter/utils/index.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/myInput.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
@@ -96,7 +98,28 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                         }
                         return InkWell(
                             onTap: () {
-                              print('adad');
+                              if (data.isLife) {
+                                Application.router
+                                    .navigateTo(context, '/lifeSite');
+                              } else {
+                                switch (Utils.orderType(data.orderData.name)) {
+                                  case 0:
+                                    Application.router
+                                        .navigateTo(context, '/siteDetails');
+                                    break;
+                                  case 1:
+                                    Application.router
+                                        .navigateTo(context, '/rpIn');
+                                    break;
+                                  case 2:
+                                    Application.router
+                                        .navigateTo(context, '/airBat');
+                                    break;
+                                  default:
+                                    Application.router
+                                        .navigateTo(context, '/siteDetails');
+                                }
+                              }
                             },
                             child: listIem);
                       },

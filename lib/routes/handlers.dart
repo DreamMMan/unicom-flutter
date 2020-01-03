@@ -2,17 +2,20 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:40:26
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 16:38:22
+ * @LastEditTime : 2020-01-03 20:20:15
  * @Description: fluro handler配置集合
  * @FilePath: /unicom_flutter/lib/routes/handlers.dart
  */
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
+import 'package:unicom_flutter/pages/airBatPage.dart';
 import 'package:unicom_flutter/pages/alarmDealPage.dart';
 import 'package:unicom_flutter/pages/alarmDetailsPage.dart';
 import 'package:unicom_flutter/pages/homePage.dart';
+import 'package:unicom_flutter/pages/lifeSitePage.dart';
 import 'package:unicom_flutter/pages/loginPage.dart';
 import 'package:unicom_flutter/pages/orderDetailsPage.dart';
+import 'package:unicom_flutter/pages/rpinsPage.dart';
 import 'package:unicom_flutter/pages/siteDetailsPage.dart';
 import 'package:unicom_flutter/pages/splashPage.dart';
 import 'package:unicom_flutter/pages/webViewPage.dart';
@@ -59,9 +62,26 @@ Handler alarmDealHandler =
   return AlarmDealPage();
 });
 
-// 站点详情 页面
+// 常规建设站点详情 页面
 Handler siteDetailsHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   return SiteDetailsPage();
 });
 
+// 生命周期工单站点详情 页面
+Handler lifeSiteHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return LifeSitePage();
+});
+
+// 常规动力站点详情 页面
+Handler rpInHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return RpInPage();
+});
+
+// 空调 蓄电池站点详情 页面
+Handler airBatHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return AirBatPage();
+});

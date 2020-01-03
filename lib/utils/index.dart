@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:42:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-03 19:20:23
+ * @LastEditTime : 2020-01-03 20:09:12
  * @Description: utils方法
  * @FilePath: /unicom_flutter/lib/utils/index.dart
  */
@@ -46,6 +46,25 @@ class Utils {
             child: MyLoading(),
           );
         });
+  }
+
+  // 工单类型
+  static orderType(String name) {
+    switch (name) {
+      case '数据采集建设':
+        return 0;
+        break;
+      case '常规动力巡检作业':
+        return 1;
+        break;
+      case '空调清洗作业':
+        return 2;
+      case '蓄电池放电测试作业':
+        return 2;
+        break;
+      default:
+        return 0;
+    }
   }
 
   // 持续时间 时间戳转小时和分钟
