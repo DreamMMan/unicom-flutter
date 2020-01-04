@@ -2,16 +2,21 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:10:50
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-04 15:40:03
+ * @LastEditTime : 2020-01-04 17:02:53
  * @Description: 生命周期站点详情
  * @FilePath: /unicom-flutter/lib/pages/lifeSitePage.dart
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provide/provide.dart';
+import 'package:unicom_flutter/models/LifeSiteDetailsModel.dart';
+import 'package:unicom_flutter/providers/lifeSiteDetailsProvide.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/MyExpansionPanel.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
+import 'package:unicom_flutter/widgets/common/myEmpty.dart';
+import 'package:unicom_flutter/widgets/common/myLoading.dart';
 import 'package:unicom_flutter/widgets/common/mySubmitBtn.dart';
 
 class LifeSitePage extends StatefulWidget {
@@ -28,10 +33,20 @@ class _LifeSitePageState extends State<LifeSitePage> {
       appBar: myAppBar('新增设备'),
       body: CupertinoScrollbar(
         child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[_content(), _bottom()],
+          child: Provide<LifeSiteDetailsProvide>(
+            builder: (BuildContext context, child, data) {
+              if (data.isLoad && data.siteData == null) {
+                return MyEmpty();
+              }
+              if (!data.isLoad && data.siteData == null) {
+                return MyLoading();
+              }
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[_content(data), _bottom(data.siteData)],
+              );
+            },
           ),
         ),
       ),
@@ -39,14 +54,18 @@ class _LifeSitePageState extends State<LifeSitePage> {
   }
 
   // 非底部固定内容
-  Widget _content() {
+  Widget _content(LifeSiteDetailsProvide data) {
     return Expanded(
       child: SingleChildScrollView(
         child: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[_topContent(), _listTitle(), _equipment()],
+            children: <Widget>[
+              _topContent(data.siteData),
+              _listTitle(data),
+              _equipment()
+            ],
           ),
         ),
       ),
@@ -54,7 +73,7 @@ class _LifeSitePageState extends State<LifeSitePage> {
   }
 
   // 站点名称和地址
-  Widget _topContent() {
+  Widget _topContent(LifeSiteDetailsModel siteData) {
     return Container(
       width: double.infinity,
       padding: MyScreen.setEdgeAll(30),
@@ -63,13 +82,13 @@ class _LifeSitePageState extends State<LifeSitePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            '富临',
+            siteData.name,
             style: MyStyles.f36c33,
           ),
           Padding(
             padding: MyScreen.setEdge(top: 20),
             child: Text(
-              '深圳市和平路1085号富临酒店',
+              siteData.address,
               style: MyStyles.f26c66,
             ),
           )
@@ -79,11 +98,11 @@ class _LifeSitePageState extends State<LifeSitePage> {
   }
 
   // 列表名称
-  Widget _listTitle() {
+  Widget _listTitle(LifeSiteDetailsProvide data) {
     return Container(
       padding: MyScreen.setEdge(left: 30, top: 20, bottom: 24),
       child: Text(
-        '新建设备',
+        data.title,
         style: MyStyles.f30c33,
       ),
     );
@@ -173,7 +192,10 @@ class _LifeSitePageState extends State<LifeSitePage> {
   }
 
   // 底部的固定内容
-  Widget _bottom() {
+  Widget _bottom(LifeSiteDetailsModel siteData) {
+    if (siteData.status != 3) {
+      return Container();
+    }
     return Container(
       width: MyScreen.setWidth(750),
       height: MyScreen.setHeight(100),
@@ -188,7 +210,9 @@ class _LifeSitePageState extends State<LifeSitePage> {
             padding: MyScreen.setEdge(left: 40),
             child: Text.rich(TextSpan(children: <TextSpan>[
               TextSpan(text: '设备数量： ', style: MyStyles.f30c66),
-              TextSpan(text: '7', style: MyStyles.f30ce2),
+              TextSpan(
+                  text: '${siteData.deviceList.length}',
+                  style: MyStyles.f30ce2),
             ])),
           ),
           InkWell(
@@ -196,10 +220,10 @@ class _LifeSitePageState extends State<LifeSitePage> {
               width: MyScreen.setWidth(450),
               height: MyScreen.setHeight(100),
               child: MySubmitBtn(
-                txt: '审核',
+                txt: '确认',
                 textSty: MyStyles.f32cff,
                 submit: () {
-                  print('审核');
+                  print('确认');
                 },
               ),
             ),

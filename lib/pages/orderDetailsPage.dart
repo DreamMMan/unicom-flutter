@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-03 20:49:54
+ * @LastEditTime : 2020-01-04 16:41:22
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
@@ -16,6 +16,7 @@ import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/models/orderDetailsModel.dart';
+import 'package:unicom_flutter/providers/lifeSiteDetailsProvide.dart';
 import 'package:unicom_flutter/providers/orderDetailsProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
@@ -100,19 +101,25 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                         return InkWell(
                             onTap: () {
                               if (data.isLife) {
+                                // 生命周期站点详情
+                                Provide.value<LifeSiteDetailsProvide>(context)
+                                    .setId(context, data.list[index].id, data.orderData.name);
                                 Application.router
                                     .navigateTo(context, '/lifeSite');
                               } else {
                                 switch (Utils.orderType(data.orderData.name)) {
                                   case 0:
+                                    // 数据采集建设站点详情
                                     Application.router
                                         .navigateTo(context, '/siteDetails');
                                     break;
                                   case 1:
+                                    // 动力设备站点详情
                                     Application.router
                                         .navigateTo(context, '/rpIn');
                                     break;
                                   case 2:
+                                    // 空调蓄电池站点详情
                                     Application.router
                                         .navigateTo(context, '/airBat');
                                     break;
