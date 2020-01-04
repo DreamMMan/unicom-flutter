@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:10:50
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-03 21:42:38
+ * @LastEditTime : 2020-01-04 15:40:03
  * @Description: 生命周期站点详情
  * @FilePath: /unicom-flutter/lib/pages/lifeSitePage.dart
  */
@@ -10,10 +10,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
+import 'package:unicom_flutter/widgets/common/MyExpansionPanel.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/mySubmitBtn.dart';
 
-class LifeSitePage extends StatelessWidget {
+class LifeSitePage extends StatefulWidget {
+  @override
+  _LifeSitePageState createState() => _LifeSitePageState();
+}
+
+class _LifeSitePageState extends State<LifeSitePage> {
+  int _index = -1;
+  List _list = [0, 1, 2, 3, 4];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +29,7 @@ class LifeSitePage extends StatelessWidget {
       body: CupertinoScrollbar(
         child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[_content(), _bottom()],
           ),
@@ -32,11 +40,15 @@ class LifeSitePage extends StatelessWidget {
 
   // 非底部固定内容
   Widget _content() {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[_topContent(), _listTitle(), _equipment()],
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[_topContent(), _listTitle(), _equipment()],
+          ),
+        ),
       ),
     );
   }
@@ -79,7 +91,85 @@ class LifeSitePage extends StatelessWidget {
 
   // 设备列表
   Widget _equipment() {
-    return Container();
+    return Container(
+        child: Column(
+      children: _list.asMap().keys.map((index) {
+        return Padding(
+          padding: MyScreen.setEdge(bottom: 20),
+          child: MyExpansionPanel(
+              isExpanded: _index == index,
+              expansionCallback: () {
+                setState(() {
+                  _index = index == _index ? -1 : index;
+                });
+              },
+              title: _panelTitle(),
+              body: _panelContent()),
+        );
+      }).toList(),
+    ));
+  }
+
+  // 面板title
+  Widget _panelTitle() {
+    return Container(
+      child: Text.rich(TextSpan(children: <TextSpan>[
+        TextSpan(text: '空调', style: MyStyles.f30c33),
+        TextSpan(text: '  (2)', style: MyStyles.f30c99)
+      ])),
+    );
+  }
+
+  // 面板内容
+  Widget _panelContent() {
+    List panelList = [0, 1, 2];
+    return Container(
+      child: Column(
+        children: panelList.asMap().keys.map((index) {
+          return _panelContentItem();
+        }).toList(),
+      ),
+    );
+  }
+
+  // 面板内容Item
+  Widget _panelContentItem() {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Text('adasd'),
+              ),
+              Expanded(
+                child: Text('adasd'),
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Text('adasd'),
+              ),
+              Expanded(
+                child: Text('adasd'),
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Text('adasd'),
+              ),
+              Expanded(
+                child: Text('adasd'),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   // 底部的固定内容
