@@ -86,7 +86,7 @@ class DeviceList {
   int moduleNum;
   bool canN1;
   int num;
-  int moduleModel;
+  String moduleModel;
   String nename;
 
   DeviceList(

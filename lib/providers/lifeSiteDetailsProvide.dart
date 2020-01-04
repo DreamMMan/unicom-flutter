@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-04 15:59:01
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-04 18:16:02
+ * @LastEditTime : 2020-01-04 20:47:23
  * @Description: 生命周期工单站点线详情
  * @FilePath: /unicom_flutter/lib/providers/lifeSiteDetailsProvide.dart
  */
@@ -16,7 +16,7 @@ class LifeSiteDetailsProvide with ChangeNotifier {
   bool isLoad = false;
   String title;
   LifeSiteDetailsModel siteData;
-  var deviceList = [];
+  List deviceList = [];
 
   void setId(context, int myId, String name) async {
     id = myId;
@@ -34,15 +34,39 @@ class LifeSiteDetailsProvide with ChangeNotifier {
   }
 
   // 修改设备列表
-  void changeDevice(deviceList) {
-    List<dynamic> list = [];
-    // deviceList.forEach((item) {
-    //   list..add({'name': item.deviceType, 'list': item});
-    //   print(list.firstWhere((item=> item.));
-    // });
-    // print(list);
-    // deviceList = list;
-    // print(list);
-    // notifyListeners();
+  void changeDevice(list) {
+    List myDeviceList = [
+      {'name': '空调', 'code': 'air-conditioner', 'list': []},
+      {'name': '开关电源', 'code': 'switch-power', 'list': []},
+      {'name': '蓄电池', 'code': 'battery', 'list': []},
+      {'name': '动环监控', 'code': 'ring-monitoring', 'list': []},
+      {'name': '交流配电箱', 'code': 'distribution-box', 'list': []},
+      {'name': '油机转换箱', 'code': 'cross-box', 'list': []}
+    ];
+    list.forEach((item) {
+      switch (item.deviceType) {
+        case '空调':
+          myDeviceList[0]['list']..add(item);
+          break;
+        case '开关电源':
+          myDeviceList[1]['list']..add(item);
+          break;
+        case '蓄电池':
+          myDeviceList[2]['list']..add(item);
+          break;
+        case '动环监控':
+          myDeviceList[3]['list']..add(item);
+          break;
+        case '交流配电箱':
+          myDeviceList[4]['list']..add(item);
+          break;
+        case '油机转换箱':
+          myDeviceList[5]['list']..add(item);
+          break;
+        default:
+      }
+    });
+    deviceList = myDeviceList;
+    notifyListeners();
   }
 }
