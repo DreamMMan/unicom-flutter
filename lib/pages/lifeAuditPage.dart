@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-06 19:42:20
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-06 22:04:20
+ * @LastEditTime : 2020-01-06 23:15:49
  * @Description: 生命周期工单审核
  * @FilePath: /unicom-flutter/lib/pages/lifeAuditPage.dart
  */
@@ -11,7 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/constant/myConstant.dart';
+import 'package:unicom_flutter/providers/imageProvide.dart';
 import 'package:unicom_flutter/providers/lifeAuditProivde.dart';
+import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
@@ -149,6 +151,9 @@ class LifeAuditPage extends StatelessWidget {
   Widget _oddContent(context, LifeAuditProvide data) {
     return Container(
       height: MyScreen.setHeight(90),
+      decoration: BoxDecoration(
+          border: Border(
+              bottom: BorderSide(width: 1, color: MyStyles.borderColor))),
       child: Row(
         children: <Widget>[
           Text.rich(TextSpan(children: <TextSpan>[
@@ -179,42 +184,47 @@ class LifeAuditPage extends StatelessWidget {
 
   // 上传图片
   Widget _uploadBox(context, LifeAuditProvide data) {
-    if (Provide.value<LifeAuditProvide>(context).oddImage != null) {
-      return Container(
-        width: MyScreen.setWidth(130),
-        height: MyScreen.setWidth(130),
-        color: MyStyles.f1f1f1,
-        child: Image.file(
-          Provide.value<LifeAuditProvide>(context).oddImage,
-          width: MyScreen.setWidth(130),
-          height: MyScreen.setWidth(130),
-        ),
-      );
-    }
     return Container(
       padding: MyScreen.setEdge(top: 30, bottom: 30),
-      decoration: BoxDecoration(
-          border:
-              Border(top: BorderSide(width: 1, color: MyStyles.borderColor))),
-      child: InkWell(
-        onTap: () async {
-          File image = await ImagePicker.pickImage(source: ImageSource.camera);
-          Provide.value<LifeAuditProvide>(context).setData(oddIcon: image);
-        },
-        child: Container(
-          width: MyScreen.setWidth(130),
-          height: MyScreen.setWidth(130),
-          color: MyStyles.f1f1f1,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              MyAsset(name: MyConstant.upload, width: 60),
-              Text('入库照片', style: MyStyles.f22c99)
-            ],
-          ),
-        ),
-      ),
+      child: Provide.value<LifeAuditProvide>(context).oddImage != null
+          ? InkWell(
+              onTap: () {
+                Provide.value<ImageProvide>(context)
+                    .setFile(Provide.value<LifeAuditProvide>(context).oddImage);
+                Application.router.navigateTo(context, '/image');
+              },
+              child: Container(
+                width: MyScreen.setWidth(130),
+                height: MyScreen.setWidth(130),
+                color: MyStyles.f1f1f1,
+                child: Image.file(
+                  Provide.value<LifeAuditProvide>(context).oddImage,
+                  width: MyScreen.setWidth(130),
+                  height: MyScreen.setWidth(130),
+                ),
+              ),
+            )
+          : InkWell(
+              onTap: () async {
+                File image =
+                    await ImagePicker.pickImage(source: ImageSource.camera);
+                Provide.value<LifeAuditProvide>(context)
+                    .setData(oddIcon: image);
+              },
+              child: Container(
+                width: MyScreen.setWidth(130),
+                height: MyScreen.setWidth(130),
+                color: MyStyles.f1f1f1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    MyAsset(name: MyConstant.upload, width: 60),
+                    Text('入库照片', style: MyStyles.f22c99)
+                  ],
+                ),
+              ),
+            ),
     );
   }
 

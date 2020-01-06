@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-06 19:45:55
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-06 22:07:57
+ * @LastEditTime : 2020-01-06 23:40:10
  * @Description: 生命周期工单
  * @FilePath: /unicom-flutter/lib/providers/lifeAuditProivde.dart
  */
@@ -38,6 +38,11 @@ class LifeAuditProvide with ChangeNotifier {
     notifyListeners();
   }
 
+  void removeImage() {
+    oddImage = null;
+    notifyListeners();
+  }
+
   void submit(context) async {
     var params = {
       "id": id,
@@ -46,13 +51,14 @@ class LifeAuditProvide with ChangeNotifier {
       'odd': odd,
       'oddIamge': oddImage
     };
-    await HttpUtil.request(context, 'handAlarm', data: params).then((data) {
+    if (isOdd && odd.trim() == '') {
+      Utils.showToast('请输入入库单号');
+      return;
+    }
+    await HttpUtil.request(context, 'examine', data: params, isFormData: true)
+        .then((data) {
       if (data != null) {
         Utils.showToast('处理成功！');
-        // Provide.value<AlarmProvide>(context).setCallRefresh();
-        // for (var i = 0; i < backNum; i++) {
-        //   Navigator.pop(context);
-        // }
         notifyListeners();
       }
     });
