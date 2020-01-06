@@ -49,12 +49,12 @@ class HttpUtil {
     dio.interceptors.add(LogInterceptor(responseBody: true));
 
     // 开启代理 本地连接
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (client) {
-      client.findProxy = (uri) {
-        return "PROXY localhost:7001";
-      };
-    };
+    // (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+    //     (client) {
+    //   client.findProxy = (uri) {
+    //     return "PROXY localhost:7001";
+    //   };
+    // };
 
     try {
       var params = data;

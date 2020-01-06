@@ -2,11 +2,12 @@
  * @Author: liangyt
  * @Date: 2020-01-06 19:45:55
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-06 20:04:46
+ * @LastEditTime : 2020-01-06 22:07:57
  * @Description: 生命周期工单
  * @FilePath: /unicom-flutter/lib/providers/lifeAuditProivde.dart
  */
 
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:unicom_flutter/http/httpUtil.dart';
 import 'package:unicom_flutter/utils/index.dart';
@@ -17,11 +18,15 @@ class LifeAuditProvide with ChangeNotifier {
   String description = '';
   bool adopt = true;
   String odd = '';
-  String oddImage = '';
+  File oddImage;
 
   void setId(int myId, bool isOd) {
     id = myId;
     isOdd = isOd;
+    description = '';
+    adopt = true;
+    odd = '';
+    oddImage = null;
     notifyListeners();
   }
 
@@ -43,10 +48,6 @@ class LifeAuditProvide with ChangeNotifier {
     };
     await HttpUtil.request(context, 'handAlarm', data: params).then((data) {
       if (data != null) {
-        description = '';
-        adopt = true;
-        odd = '';
-        oddImage = '';
         Utils.showToast('处理成功！');
         // Provide.value<AlarmProvide>(context).setCallRefresh();
         // for (var i = 0; i < backNum; i++) {
