@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 17:14:27
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-03 19:53:45
+ * @LastEditTime : 2020-01-06 20:58:06
  * @Description: 常量
  * @FilePath: /unicom_flutter/lib/constant/myConstant.dart
  */
@@ -41,6 +41,7 @@ class MyConstant {
   static const String searchIcon = 'assets/images/search.png';
   static const String alarmIcon1 = 'assets/images/alarm_icon1.png';
   static const String alarmIcon2 = 'assets/images/alarm_icon2.png';
+  static const String upload = 'assets/images/upload.png';
 
   // 阿里巴巴矢量图标
   static const IconData arrowIcon = IconData(0xe775, fontFamily: 'iconfont');

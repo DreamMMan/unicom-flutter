@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:40:16
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-03 20:21:44
+ * @LastEditTime : 2020-01-06 19:45:29
  * @Description: fluro 路由配置
  * @FilePath: /unicom_flutter/lib/routes/config.dart
  */
@@ -48,5 +48,8 @@ class Routes {
     // 空调 蓄电池站点详情 页面
     router.define('/airBat',
         handler: airBatHandler, transitionType: TransitionType.cupertino);
+    // 生命周期工单审核页面
+    router.define('/lifeAudit',
+        handler: lifeAuditHandler, transitionType: TransitionType.cupertino);
   }
 }

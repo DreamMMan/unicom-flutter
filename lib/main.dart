@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:26:42
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-03 16:04:54
+ * @LastEditTime : 2020-01-06 20:50:44
  * @Description: 程序入口文件
  * @FilePath: /unicom_flutter/lib/main.dart
  */
@@ -98,17 +98,23 @@ class _MyAppState extends State<MyApp> {
     Routes.configRoutes(router);
     Application.router = router;
 
-    return BotToastInit(
-      child: MaterialApp(
-          title: '智慧机房',
-          onGenerateRoute: Application.router.generator,
-          navigatorObservers: [BotToastNavigatorObserver()],
-          theme: ThemeData(
-              primaryColor: MyStyles.e04545,
-              scaffoldBackgroundColor: MyStyles.pageBg,
-              buttonTheme: ButtonThemeData(
-                  buttonColor: MyStyles.e04545, disabledColor: MyStyles.cccc)),
-          home: SplashPage()),
-    );
+    return GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: BotToastInit(
+          child: MaterialApp(
+              title: '智慧机房',
+              onGenerateRoute: Application.router.generator,
+              navigatorObservers: [BotToastNavigatorObserver()],
+              theme: ThemeData(
+                  primaryColor: MyStyles.e04545,
+                  scaffoldBackgroundColor: MyStyles.pageBg,
+                  buttonTheme: ButtonThemeData(
+                      buttonColor: MyStyles.e04545,
+                      disabledColor: MyStyles.cccc)),
+              home: SplashPage()),
+        ));
   }
 }

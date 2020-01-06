@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:10:50
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-04 21:12:51
+ * @LastEditTime : 2020-01-06 21:02:48
  * @Description: 生命周期站点详情
  * @FilePath: /unicom-flutter/lib/pages/lifeSitePage.dart
  */
@@ -12,7 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/models/LifeSiteDetailsModel.dart';
+import 'package:unicom_flutter/providers/lifeAuditProivde.dart';
 import 'package:unicom_flutter/providers/lifeSiteDetailsProvide.dart';
+import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/utils/index.dart';
@@ -319,7 +321,9 @@ class _LifeSitePageState extends State<LifeSitePage> {
                 txt: '确认',
                 textSty: MyStyles.f32cff,
                 submit: () {
-                  print('确认');
+                  Provide.value<LifeAuditProvide>(context)
+                      .setId(siteData.id, siteData.targetType == 0);
+                  Application.router.navigateTo(context, '/lifeAudit');
                 },
               ),
             ),

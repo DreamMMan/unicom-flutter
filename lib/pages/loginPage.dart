@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:09:16
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-02 15:37:12
+ * @LastEditTime : 2020-01-06 20:51:28
  * @Description: 登录页
  * @FilePath: /unicom_flutter/lib/pages/loginPage.dart
  */
@@ -23,30 +23,25 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomPadding: false,
-        body: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () {
-              FocusScope.of(context).requestFocus(FocusNode());
-            },
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.topCenter,
-                  child: MyAsset(
-                    name: MyConstant.loginBg,
-                    width: 750,
-                    height: 430,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Positioned(
-                  top: MyScreen.setHeight(170),
-                  left: 0,
-                  width: MyScreen.setWidth(750),
-                  child: _content(context),
-                )
-              ],
-            )));
+        body: Stack(
+          children: <Widget>[
+            Container(
+              alignment: Alignment.topCenter,
+              child: MyAsset(
+                name: MyConstant.loginBg,
+                width: 750,
+                height: 430,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Positioned(
+              top: MyScreen.setHeight(170),
+              left: 0,
+              width: MyScreen.setWidth(750),
+              child: _content(context),
+            )
+          ],
+        ));
   }
 
   // 内容

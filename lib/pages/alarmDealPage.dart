@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 14:10:03
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-03 16:13:03
+ * @LastEditTime : 2020-01-06 20:50:56
  * @Description: 告警处理
  * @FilePath: /unicom_flutter/lib/pages/alarmDealPage.dart
  */

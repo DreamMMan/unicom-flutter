@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-04 16:41:22
+ * @LastEditTime : 2020-01-06 20:52:15
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
@@ -42,106 +42,98 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: myAppBar('工单详情'),
-        resizeToAvoidBottomPadding: false,
-        body: GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: Provide<OrderDetailsProvide>(builder: (context, child, data) {
-            // 报错时 关闭刷新 关闭加载
-            if (data.isError) {
-              _controller.finishRefresh();
-              _controller.finishLoad();
-            }
-            // 触发刷新
-            if (data.isCallRefresh) {
-              _controller.callRefresh();
-            }
-            return CupertinoScrollbar(
-              child: EasyRefresh.custom(
-                header: MaterialHeader(),
-                footer: MaterialFooter(),
-                emptyWidget: null,
-                controller: _controller,
-                enableControlFinishRefresh: true,
-                enableControlFinishLoad: true,
-                firstRefresh: true,
-                firstRefreshWidget: MyLoading(),
-                onRefresh: () async {
-                  await Provide.value<OrderDetailsProvide>(context)
-                      .onRefresh(context);
-                  _controller.resetLoadState(); // 重置加载状态
-                  _controller.finishRefresh(); // 完成刷新
-                  _controller.finishLoad(
-                      noMore: data.list.length >= data.total); // 加载完和判断是否能加载
-                },
-                onLoad: () async {
-                  await Provide.value<OrderDetailsProvide>(context)
-                      .onLoad(context);
-                  _controller.finishLoad(
-                      noMore: data.list.length >= data.total); // 加载完和判断是否能加载
-                },
-                slivers: <Widget>[
-                  topContent(data.orderData, data),
-                  fixContent(context, data),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        Widget listIem;
-                        if (data.isLife && data.orderData.name != '设备调拨') {
-                          listIem = LifeSiteListItem(data: data.list[index]);
-                        } else if (data.isLife &&
-                            data.orderData.name == '设备调拨') {
-                          listIem = TrfSiteListItem(data: data.list[index]);
-                        } else {
-                          listIem = PlanSiteListItem(data: data.list[index]);
-                        }
-                        return InkWell(
-                            onTap: () {
-                              if (data.isLife) {
-                                // 生命周期站点详情
-                                Provide.value<LifeSiteDetailsProvide>(context)
-                                    .setId(context, data.list[index].id, data.orderData.name);
+      appBar: myAppBar('工单详情'),
+      resizeToAvoidBottomPadding: false,
+      body: Provide<OrderDetailsProvide>(builder: (context, child, data) {
+        // 报错时 关闭刷新 关闭加载
+        if (data.isError) {
+          _controller.finishRefresh();
+          _controller.finishLoad();
+        }
+        // 触发刷新
+        if (data.isCallRefresh) {
+          _controller.callRefresh();
+        }
+        return CupertinoScrollbar(
+          child: EasyRefresh.custom(
+            header: MaterialHeader(),
+            footer: MaterialFooter(),
+            emptyWidget: null,
+            controller: _controller,
+            enableControlFinishRefresh: true,
+            enableControlFinishLoad: true,
+            firstRefresh: true,
+            firstRefreshWidget: MyLoading(),
+            onRefresh: () async {
+              await Provide.value<OrderDetailsProvide>(context)
+                  .onRefresh(context);
+              _controller.resetLoadState(); // 重置加载状态
+              _controller.finishRefresh(); // 完成刷新
+              _controller.finishLoad(
+                  noMore: data.list.length >= data.total); // 加载完和判断是否能加载
+            },
+            onLoad: () async {
+              await Provide.value<OrderDetailsProvide>(context).onLoad(context);
+              _controller.finishLoad(
+                  noMore: data.list.length >= data.total); // 加载完和判断是否能加载
+            },
+            slivers: <Widget>[
+              topContent(data.orderData, data),
+              fixContent(context, data),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    Widget listIem;
+                    if (data.isLife && data.orderData.name != '设备调拨') {
+                      listIem = LifeSiteListItem(data: data.list[index]);
+                    } else if (data.isLife && data.orderData.name == '设备调拨') {
+                      listIem = TrfSiteListItem(data: data.list[index]);
+                    } else {
+                      listIem = PlanSiteListItem(data: data.list[index]);
+                    }
+                    return InkWell(
+                        onTap: () {
+                          if (data.isLife) {
+                            // 生命周期站点详情
+                            Provide.value<LifeSiteDetailsProvide>(context)
+                                .setId(context, data.list[index].id,
+                                    data.orderData.name);
+                            Application.router.navigateTo(context, '/lifeSite');
+                          } else {
+                            switch (Utils.orderType(data.orderData.name)) {
+                              case 0:
+                                // 数据采集建设站点详情
                                 Application.router
-                                    .navigateTo(context, '/lifeSite');
-                              } else {
-                                switch (Utils.orderType(data.orderData.name)) {
-                                  case 0:
-                                    // 数据采集建设站点详情
-                                    Application.router
-                                        .navigateTo(context, '/siteDetails');
-                                    break;
-                                  case 1:
-                                    // 动力设备站点详情
-                                    Application.router
-                                        .navigateTo(context, '/rpIn');
-                                    break;
-                                  case 2:
-                                    // 空调蓄电池站点详情
-                                    Application.router
-                                        .navigateTo(context, '/airBat');
-                                    break;
-                                  default:
-                                    Application.router
-                                        .navigateTo(context, '/siteDetails');
-                                }
-                              }
-                            },
-                            child: listIem);
-                      },
-                      childCount: data.list.length,
-                    ),
-                  ),
-                  ListNoMore(
-                    show: data.list.length >= data.total,
-                  )
-                ],
+                                    .navigateTo(context, '/siteDetails');
+                                break;
+                              case 1:
+                                // 动力设备站点详情
+                                Application.router.navigateTo(context, '/rpIn');
+                                break;
+                              case 2:
+                                // 空调蓄电池站点详情
+                                Application.router
+                                    .navigateTo(context, '/airBat');
+                                break;
+                              default:
+                                Application.router
+                                    .navigateTo(context, '/siteDetails');
+                            }
+                          }
+                        },
+                        child: listIem);
+                  },
+                  childCount: data.list.length,
+                ),
               ),
-            );
-          }),
-        ));
+              ListNoMore(
+                show: data.list.length >= data.total,
+              )
+            ],
+          ),
+        );
+      }),
+    );
   }
 
   // 顶部内容

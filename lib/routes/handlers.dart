@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:40:26
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-03 20:20:15
+ * @LastEditTime : 2020-01-06 19:44:42
  * @Description: fluro handler配置集合
  * @FilePath: /unicom_flutter/lib/routes/handlers.dart
  */
@@ -12,6 +12,7 @@ import 'package:unicom_flutter/pages/airBatPage.dart';
 import 'package:unicom_flutter/pages/alarmDealPage.dart';
 import 'package:unicom_flutter/pages/alarmDetailsPage.dart';
 import 'package:unicom_flutter/pages/homePage.dart';
+import 'package:unicom_flutter/pages/lifeAuditPage.dart';
 import 'package:unicom_flutter/pages/lifeSitePage.dart';
 import 'package:unicom_flutter/pages/loginPage.dart';
 import 'package:unicom_flutter/pages/orderDetailsPage.dart';
@@ -84,4 +85,10 @@ Handler rpInHandler =
 Handler airBatHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   return AirBatPage();
+});
+
+// 生命周期工单审核 页面
+Handler lifeAuditHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return LifeAuditPage();
 });
