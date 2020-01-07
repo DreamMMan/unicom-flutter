@@ -2,12 +2,13 @@
  * @Author: liangyt
  * @Date: 2020-01-02 15:03:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-07 14:37:05
+ * @LastEditTime : 2020-01-07 17:50:20
  * @Description: provide 集合
  * @FilePath: /unicom_flutter/lib/utils/myProvide.dart
  */
 
 import 'package:provide/provide.dart';
+import 'package:unicom_flutter/providers/airBatProvide.dart';
 import 'package:unicom_flutter/providers/alarmDealProvide.dart';
 import 'package:unicom_flutter/providers/alarmDetailsProvide.dart';
 import 'package:unicom_flutter/providers/alarmProvide.dart';
@@ -33,6 +34,7 @@ myProvide() {
     ..provide(Provider<LifeSiteDetailsProvide>.value(LifeSiteDetailsProvide()))
     ..provide(Provider<LifeAuditProvide>.value(LifeAuditProvide()))
     ..provide(Provider<ImageProvide>.value(ImageProvide()))
-    ..provide(Provider<RpinsProvide>.value(RpinsProvide()));
+    ..provide(Provider<RpinsProvide>.value(RpinsProvide()))
+    ..provide(Provider<AirBatProvide>.value(AirBatProvide()));
   return provides;
 }

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:14:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-07 15:38:34
+ * @LastEditTime : 2020-01-07 18:01:45
  * @Description: 常规动力巡检作业
  * @FilePath: /unicom-flutter/lib/pages/rpinsPage.dart
  */
@@ -11,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/models/rpisnModel.dart';
+import 'package:unicom_flutter/providers/airBatProvide.dart';
 import 'package:unicom_flutter/providers/rpinsProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
@@ -110,6 +111,8 @@ class RpInPage extends StatelessWidget {
                     children: siteData.jobList.asMap().keys.map((index) {
                       return InkWell(
                         onTap: () {
+                          Provide.value<AirBatProvide>(context)
+                                    .getData(context, siteData.jobList[index].id);
                           Application.router.navigateTo(context, '/airBat');
                         },
                         child: _listItem(siteData.jobList[index]),
@@ -162,9 +165,9 @@ class RpInPage extends StatelessWidget {
   Widget _submitBox(BuildContext context, RpinsModel siteData) {
     return Container(
       width: MyScreen.setWidth(750),
-      height: MyScreen.setHeight(220),
+      height: MyScreen.setHeight(100),
       color: Colors.white,
-      padding: MyScreen.setEdge(left: 30, top: 60, right: 60, bottom: 60),
+      margin: MyScreen.setEdge(left: 30, top: 60, right: 60, bottom: 60),
       child: Container(
         child: MySubmitBtn(
           txt: '回单',
