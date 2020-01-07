@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-06 20:52:15
+ * @LastEditTime : 2020-01-07 14:38:10
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
@@ -18,6 +18,7 @@ import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/models/orderDetailsModel.dart';
 import 'package:unicom_flutter/providers/lifeSiteDetailsProvide.dart';
 import 'package:unicom_flutter/providers/orderDetailsProvide.dart';
+import 'package:unicom_flutter/providers/rpinsProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
@@ -108,6 +109,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                 break;
                               case 1:
                                 // 动力设备站点详情
+                                Provide.value<RpinsProvide>(context)
+                                    .getData(context, data.list[index].id);
                                 Application.router.navigateTo(context, '/rpIn');
                                 break;
                               case 2:
@@ -127,7 +130,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                 ),
               ),
               ListNoMore(
-                show: data.list.length >= data.total,
+                show: data.isLoaded && data.list.length >= data.total,
               )
             ],
           ),
@@ -186,7 +189,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                 ? Container()
                 : Padding(
                     padding: MyScreen.setEdge(top: 20),
-                    child: Text('作业内容：${orderData.content}'),
+                    child: Text('作业内��：${orderData.content}'),
                   )
           ],
         ),

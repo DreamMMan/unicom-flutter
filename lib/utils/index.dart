@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:42:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-03 20:09:12
+ * @LastEditTime : 2020-01-07 15:20:23
  * @Description: utils方法
  * @FilePath: /unicom_flutter/lib/utils/index.dart
  */
@@ -32,7 +32,7 @@ class Utils {
   }
 
   // 加载中
-  static showLoading(_context) {
+  static showLoading(_context, {title: '正在处理中，请勿退出页面'}) {
     showDialog(
         context: _context,
         barrierDismissible: false,
@@ -40,7 +40,7 @@ class Utils {
           return WillPopScope(
             // 禁止手动后退
             onWillPop: () async {
-              BotToast.showText(text: '正在处理中，请勿退出页面');
+              BotToast.showText(text: title);
               return false;
             },
             child: MyLoading(),

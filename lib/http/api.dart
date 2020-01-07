@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 14:53:50
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 15:27:41
+ * @LastEditTime : 2020-01-07 15:23:54
  * @Description: 后台接口列表
  * @FilePath: /unicom_flutter/lib/http/api.dart
  */
@@ -28,4 +28,5 @@ const apiConfig = {
   'linkDevice':{'method': 'POST', 'url': '/system/appSite/linkDevice'}, // 关联设备
   'uploadImage':{'method': 'POST', 'url': '/system/appJob/uploadImage'}, // 上传图片
   'examine':{'method': 'POST', 'url': '/system/appSite/examine'}, // 生命周期审核
+  'receipt':{'method': 'POST', 'url': '/system/appSite/receipt'}, // 常规动力回单
 };

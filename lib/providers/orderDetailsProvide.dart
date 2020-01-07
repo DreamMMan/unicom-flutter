@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 09:27:49
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-24 11:03:30
+ * @LastEditTime : 2020-01-07 14:05:49
  * @Description: 站点详情provide
  * @FilePath: /unicom_flutter/lib/providers/orderDetailsProvide.dart
  */
@@ -23,6 +23,7 @@ class OrderDetailsProvide with ChangeNotifier {
   int total = 0;
   bool isError = false;
   bool isCallRefresh = false;
+  bool isLoaded = false;
   List<SiteList> list = [];
   OrderDetailsModel orderData;
 
@@ -37,6 +38,7 @@ class OrderDetailsProvide with ChangeNotifier {
     total = 0;
     list = [];
     orderData = null;
+    isLoaded = false;
     notifyListeners();
   }
 
@@ -64,6 +66,7 @@ class OrderDetailsProvide with ChangeNotifier {
   onRefresh(context) async {
     isError = false;
     isCallRefresh = false;
+    isLoaded = true;
     var params = {
       "page": 0,
       "size": size,

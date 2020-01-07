@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 11:37:14
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-06 21:09:10
+ * @LastEditTime : 2020-01-07 15:06:29
  * @Description: 字体大小和颜色
  * @FilePath: /unicom_flutter/lib/utils/MyStyles.dart
  */
@@ -12,6 +12,7 @@ import 'package:unicom_flutter/styles/myScreen.dart';
 
 class MyStyles {
   // 颜色
+  static Color e0454501 = Color.fromRGBO(224, 69, 69, 0.1);
   static Color e04545 = Color(0xFFE04545);
   static Color boxShadow = Color.fromRGBO(51, 51, 51, 0.08);
   static Color cccc = Color(0xFFCCCCCC);
@@ -23,6 +24,7 @@ class MyStyles {
   static Color d9DEE1 = Color(0xFFD9DEE1);
   static Color f8f8f8 = Color(0xFFF8F8F8);
   static Color c03A4EE = Color(0xFF03A4EE);
+  static Color c03A4EE01 = Color.fromRGBO(3, 164, 238, 0.1);
   static Color c52C47B = Color(0xFF52C47B);
   static Color f1f1f1 = Color(0xFFf1f1f1);
   static Color c7C7CC = Color(0xFFC7C7CC);
@@ -75,6 +77,8 @@ class MyStyles {
       TextStyle(fontSize: MyScreen.setSp(36), color: Colors.white);
   static TextStyle f36c33 =
       TextStyle(fontSize: MyScreen.setSp(36), color: c333);
+  static TextStyle f36c99 =
+      TextStyle(fontSize: MyScreen.setSp(36), color: c999);
   static TextStyle f36c03 =
       TextStyle(fontSize: MyScreen.setSp(36), color: c03A4EE);
 }
