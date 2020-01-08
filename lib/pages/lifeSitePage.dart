@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:10:50
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-06 21:02:48
+ * @LastEditTime : 2020-01-08 11:09:26
  * @Description: 生命周期站点详情
  * @FilePath: /unicom-flutter/lib/pages/lifeSitePage.dart
  */
@@ -37,10 +37,14 @@ class _LifeSitePageState extends State<LifeSitePage> {
     return Provide<LifeSiteDetailsProvide>(
       builder: (BuildContext context, child, data) {
         if (data.isLoad && data.siteData == null) {
-          return MyEmpty();
+          return Scaffold(
+            body: MyEmpty(),
+          );
         }
         if (!data.isLoad && data.siteData == null) {
-          return MyLoading();
+          return Scaffold(
+            body: MyLoading(),
+          );
         }
         return Scaffold(
           appBar: myAppBar(data.title),
