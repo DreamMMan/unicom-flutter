@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:16:01
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-13 15:03:22
+ * @LastEditTime : 2020-01-13 15:31:36
  * @Description: 空调清洗作业 蓄电池放电测试作业
  * @FilePath: /unicom-flutter/lib/pages/airBatPage.dart
  */
