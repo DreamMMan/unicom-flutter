@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 16:36:39
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-13 22:33:07
+ * @LastEditTime : 2020-01-13 23:10:37
  * @Description: 站点详情
  * @FilePath: /unicom_flutter/lib/pages/siteDetailsPage.dart
  */
@@ -33,6 +33,8 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
             onPressed: () async {
               if (await Utils.requestPermission()) {
                 final location = await AmapLocation.fetchLocation();
+                var address = await location.address;
+                print('==========>$address');
                 setState(() => _location = location);
               }
             },
