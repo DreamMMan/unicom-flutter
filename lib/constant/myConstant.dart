@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 17:14:27
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-06 20:58:06
+ * @LastEditTime : 2020-01-13 21:30:54
  * @Description: 常量
  * @FilePath: /unicom_flutter/lib/constant/myConstant.dart
  */
@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 class MyConstant {
   // hive的box name
   static const String hiveName = 'unicomBox';
+  //  高德地图key
+  static const String mapKey = '88be2968c8302b3fbb7740fbfd577849';
 
   // 区域列表
   static const List regionList = [

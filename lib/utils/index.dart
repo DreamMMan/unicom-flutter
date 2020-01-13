@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:42:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-07 15:20:23
+ * @LastEditTime : 2020-01-13 21:33:22
  * @Description: utils方法
  * @FilePath: /unicom_flutter/lib/utils/index.dart
  */
@@ -11,6 +11,7 @@ import 'package:common_utils/common_utils.dart';
 import 'package:hive/hive.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/models/deviceList_model.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
@@ -46,6 +47,18 @@ class Utils {
             child: MyLoading(),
           );
         });
+  }
+
+  static Future<bool> requestPermission() async {
+    final permissions = await PermissionHandler()
+        .requestPermissions([PermissionGroup.location]);
+
+    if (permissions[PermissionGroup.location] == PermissionStatus.granted) {
+      return true;
+    } else {
+      showToast('需要定位权限!');
+      return false;
+    }
   }
 
   // 工单类型

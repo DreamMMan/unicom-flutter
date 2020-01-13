@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:16:01
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-13 15:31:36
+ * @LastEditTime : 2020-01-13 21:40:56
  * @Description: 空调清洗作业 蓄电池放电测试作业
  * @FilePath: /unicom-flutter/lib/pages/airBatPage.dart
  */
@@ -24,26 +24,28 @@ class AirBatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBar('作业详情'),
-      body: SingleChildScrollView(
-        child: CupertinoScrollbar(child: Provide<AirBatProvide>(
-          builder: (BuildContext context, child, data) {
-            if (data.isLoad && data.siteData == null) {
-              return MyEmpty();
-            }
-            if (!data.isLoad && data.siteData == null) {
-              return MyLoading();
-            }
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                _topContent(data.siteData),
-                _uploadImage(),
-                _listContent(),
-                _submitBox(context, data.siteData)
-              ],
-            );
-          },
-        )),
+      body: Provide<AirBatProvide>(
+        builder: (BuildContext context, child, data) {
+          if (data.isLoad && data.siteData == null) {
+            return MyEmpty();
+          }
+          if (!data.isLoad && data.siteData == null) {
+            return MyLoading();
+          }
+          return SingleChildScrollView(
+            child: CupertinoScrollbar(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  _topContent(data.siteData),
+                  _uploadImage(),
+                  _listContent(),
+                  _submitBox(context, data.siteData)
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
