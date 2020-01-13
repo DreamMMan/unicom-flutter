@@ -2,12 +2,12 @@
  * @Author: liangyt
  * @Date: 2019-12-23 16:36:39
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-13 21:53:40
+ * @LastEditTime : 2020-01-13 22:33:07
  * @Description: 站点详情
  * @FilePath: /unicom_flutter/lib/pages/siteDetailsPage.dart
  */
 
-import 'package:amap_all_fluttify/amap_all_fluttify.dart';
+import 'package:amap_location_fluttify/amap_location_fluttify.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:unicom_flutter/utils/index.dart';
@@ -63,7 +63,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                   builder: (_, ss) =>
                       Center(child: Text('address: ${ss.data}' ?? '')),
                 )
-              : Container,
+              : Container(),
           _location != null
               ? FutureBuilder<String>(
                   initialData: '',
@@ -71,7 +71,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                   builder: (_, ss) =>
                       Center(child: Text('country: ${ss.data}' ?? '')),
                 )
-              : Container,
+              : Container(),
           _location != null
               ? FutureBuilder<String>(
                   initialData: '',
@@ -79,7 +79,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                   builder: (_, ss) =>
                       Center(child: Text('province: ${ss.data}' ?? '')),
                 )
-              : Container,
+              : Container(),
           _location != null
               ? FutureBuilder<String>(
                   initialData: '',
@@ -87,7 +87,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                   builder: (_, ss) =>
                       Center(child: Text('city: ${ss.data}' ?? '')),
                 )
-              : Container,
+              : Container(),
           _location != null
               ? FutureBuilder<String>(
                   initialData: '',
@@ -95,7 +95,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                   builder: (_, ss) =>
                       Center(child: Text('district: ${ss.data}' ?? '')),
                 )
-              : Container,
+              : Container(),
           _location != null
               ? FutureBuilder<String>(
                   initialData: '',
@@ -103,7 +103,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                   builder: (_, ss) =>
                       Center(child: Text('poiName: ${ss.data}' ?? '')),
                 )
-              : Container,
+              : Container(),
           _location != null
               ? FutureBuilder<String>(
                   initialData: '',
@@ -111,7 +111,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                   builder: (_, ss) =>
                       Center(child: Text('street: ${ss.data}' ?? '')),
                 )
-              : Container,
+              : Container(),
           _location != null
               ? FutureBuilder<String>(
                   initialData: '',
@@ -119,7 +119,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                   builder: (_, ss) =>
                       Center(child: Text('aoiName: ${ss.data}' ?? '')),
                 )
-              : Container,
+              : Container(),
           _location != null
               ? FutureBuilder<double>(
                   initialData: 0.0,
@@ -127,7 +127,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                   builder: (_, ss) =>
                       Center(child: Text('latitude: ${ss.data}' ?? '')),
                 )
-              : Container,
+              : Container(),
           _location != null
               ? FutureBuilder<double>(
                   initialData: 0.0,
@@ -135,7 +135,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                   builder: (_, ss) =>
                       Center(child: Text('longitude: ${ss.data}' ?? '')),
                 )
-              : Container,
+              : Container(),
           _location != null
               ? FutureBuilder<double>(
                   initialData: 0.0,
@@ -143,7 +143,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                   builder: (_, ss) =>
                       Center(child: Text('altitude: ${ss.data}' ?? '')),
                 )
-              : Container,
+              : Container(),
           _location != null
               ? FutureBuilder<double>(
                   initialData: 0.0,
@@ -151,7 +151,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                   builder: (_, ss) =>
                       Center(child: Text('bearing: ${ss.data}' ?? '')),
                 )
-              : Container,
+              : Container(),
           _location != null
               ? FutureBuilder<double>(
                   initialData: 0.0,
@@ -159,7 +159,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                   builder: (_, ss) =>
                       Center(child: Text('accuracy: ${ss.data}' ?? '')),
                 )
-              : Container,
+              : Container(),
         ],
       ),
     );
