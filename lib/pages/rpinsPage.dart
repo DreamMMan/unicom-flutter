@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:14:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-07 18:01:45
+ * @LastEditTime : 2020-01-14 14:29:58
  * @Description: 常规动力巡检作业
  * @FilePath: /unicom-flutter/lib/pages/rpinsPage.dart
  */
@@ -111,8 +111,9 @@ class RpInPage extends StatelessWidget {
                     children: siteData.jobList.asMap().keys.map((index) {
                       return InkWell(
                         onTap: () {
+                          List _list = [siteData.name, siteData.address, siteData.status, siteData.description];
                           Provide.value<AirBatProvide>(context)
-                                    .getData(context, siteData.jobList[index].id);
+                                    .getData(context, siteData.jobList[index].id, _list);
                           Application.router.navigateTo(context, '/airBat');
                         },
                         child: _listItem(siteData.jobList[index]),

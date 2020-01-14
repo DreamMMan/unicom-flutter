@@ -2,14 +2,13 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:16:01
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-14 09:38:08
+ * @LastEditTime : 2020-01-14 18:04:25
  * @Description: 空调清洗作业 蓄电池放电测试作业
  * @FilePath: /unicom-flutter/lib/pages/airBatPage.dart
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
-import 'package:unicom_flutter/models/rpisnModel.dart';
 import 'package:unicom_flutter/providers/airBatProvide.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
@@ -26,10 +25,10 @@ class AirBatPage extends StatelessWidget {
       appBar: myAppBar('作业详情'),
       body: Provide<AirBatProvide>(
         builder: (BuildContext context, child, data) {
-          if (data.isLoad && data.siteData == null) {
+          if (data.isLoad && data.pageData == null) {
             return MyEmpty();
           }
-          if (!data.isLoad && data.siteData == null) {
+          if (!data.isLoad && data.pageData == null) {
             return MyLoading();
           }
           return SingleChildScrollView(
@@ -37,10 +36,10 @@ class AirBatPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  _topContent(data.siteData),
+                  _topContent(data.lastData),
                   _uploadImage(),
                   _listContent(),
-                  _submitBox(context, data.siteData)
+                  _submitBox(context)
                 ],
               ),
             ),
@@ -51,7 +50,7 @@ class AirBatPage extends StatelessWidget {
   }
 
   // 顶部内容
-  Widget _topContent(RpinsModel siteData) {
+  Widget _topContent(List lastData) {
     return Container(
       width: MyScreen.setWidth(750),
       padding: MyScreen.setEdgeAll(30),
@@ -61,17 +60,17 @@ class AirBatPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            '${siteData.name}${siteData.serialNumber}',
+            '${lastData[0]}',
             style: MyStyles.f36c33,
           ),
           Padding(
             padding: MyScreen.setEdge(top: 20),
             child: Text(
-              '${siteData.address}',
+              '${lastData[1]}',
               style: MyStyles.f26c66,
             ),
           ),
-          siteData.status == 4
+          lastData[2] == 4
               ? Container(
                   width: MyScreen.setWidth(690),
                   padding: MyScreen.setEdge(top: 30),
@@ -80,8 +79,7 @@ class AirBatPage extends StatelessWidget {
                       border: Border(
                           top: BorderSide(
                               width: 1, color: MyStyles.borderColor))),
-                  child: Text('审核驳回：${siteData.description}',
-                      style: MyStyles.f26ce0),
+                  child: Text('审核驳回：${lastData[3]}', style: MyStyles.f26ce0),
                 )
               : Container()
         ],
@@ -272,7 +270,7 @@ class AirBatPage extends StatelessWidget {
   }
 
   // 回单按钮
-  Widget _submitBox(BuildContext context, RpinsModel siteData) {
+  Widget _submitBox(BuildContext context) {
     return Container(
       width: MyScreen.setWidth(750),
       height: MyScreen.setHeight(100),
