@@ -8,10 +8,12 @@
  */
 
 import 'dart:async';
+import 'package:amap_all_fluttify/amap_all_fluttify.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provide/provide.dart';
+import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/utils/myProvide.dart';
@@ -21,7 +23,9 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:jpush_flutter/jpush_flutter.dart';
 import 'package:connectivity/connectivity.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AmapCore.init(MyConstant.mapKey);
   runApp(ProviderNode(
     child: MyApp(),
     providers: myProvide(),

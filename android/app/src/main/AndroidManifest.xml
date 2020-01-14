@@ -9,6 +9,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="智慧机房"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="88be2968c8302b3fbb7740fbfd577849"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
