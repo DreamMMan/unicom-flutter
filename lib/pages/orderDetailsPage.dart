@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-13 23:15:20
+ * @LastEditTime : 2020-01-07 14:38:10
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
@@ -189,7 +189,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                 ? Container()
                 : Padding(
                     padding: MyScreen.setEdge(top: 20),
-                    child: Text('作业内容：${orderData.content}'),
+                    child: Text('作业内��：${orderData.content}'),
                   )
           ],
         ),

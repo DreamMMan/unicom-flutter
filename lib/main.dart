@@ -2,18 +2,16 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:26:42
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-13 21:33:50
+ * @LastEditTime : 2020-01-06 20:50:44
  * @Description: 程序入口文件
  * @FilePath: /unicom_flutter/lib/main.dart
  */
 
 import 'dart:async';
-import 'package:amap_all_fluttify/amap_all_fluttify.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provide/provide.dart';
-import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/utils/myProvide.dart';
@@ -23,9 +21,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:jpush_flutter/jpush_flutter.dart';
 import 'package:connectivity/connectivity.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await AmapCore.init(MyConstant.mapKey);
+void main() {
   runApp(ProviderNode(
     child: MyApp(),
     providers: myProvide(),
