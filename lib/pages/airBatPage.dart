@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:16:01
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-15 11:32:46
+ * @LastEditTime : 2020-01-15 11:41:11
  * @Description: 空调清洗作业 蓄电池放电测试作业
  * @FilePath: /unicom-flutter/lib/pages/airBatPage.dart
  */
@@ -231,6 +231,7 @@ class AirBatPage extends StatelessWidget {
                     ),
                     hintText: type == 0 ? '可用于备注设置位置，便于查找设备' : '如有其他隐患请输入',
                     hintStyle: MyStyles.f30c99,
+                    paddingHeight: 38,
                     fieldCallBack: (val) {
                       type == 0
                           ? deviceList[index].description = val
