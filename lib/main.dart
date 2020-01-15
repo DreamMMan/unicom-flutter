@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:26:42
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-06 20:50:44
+ * @LastEditTime : 2020-01-15 18:04:33
  * @Description: 程序入口文件
  * @FilePath: /unicom_flutter/lib/main.dart
  */
@@ -25,7 +25,10 @@ import 'package:connectivity/connectivity.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // 初始化高德地图
   await AmapCore.init(MyConstant.mapKey);
+  // 关闭高德地图引擎的日志
+  await enableFluttifyLog(false);
   runApp(ProviderNode(
     child: MyApp(),
     providers: myProvide(),

@@ -15,4 +15,4 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-# 缺少 常规动力设备修改时上传图片和添加水印
+# 缺少 空调、蓄电池、常规动力、设备修改时上传图片和添加水印和页面某些元素的显示和隐藏问题
