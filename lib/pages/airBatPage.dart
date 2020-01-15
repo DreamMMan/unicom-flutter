@@ -2,8 +2,8 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:16:01
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-15 16:11:47
- * @Description: 空调清洗作业 蓄电池放电测试作业
+ * @LastEditTime : 2020-01-15 16:36:08
+ * @Description: 空调清洗 蓄电池放电测试 和 常规作业作业 的设备修改页面
  * @FilePath: /unicom-flutter/lib/pages/airBatPage.dart
  */
 import 'package:flutter/cupertino.dart';

@@ -2,8 +2,8 @@
  * @Author: liangyt
  * @Date: 2020-01-06 19:45:55
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-15 16:04:54
- * @Description: 生命周期工单
+ * @LastEditTime : 2020-01-15 16:37:34
+ * @Description: 生命周期工单审核
  * @FilePath: /unicom-flutter/lib/providers/lifeAuditProivde.dart
  */
 

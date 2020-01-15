@@ -2,8 +2,8 @@
  * @Author: liangyt
  * @Date: 2019-12-23 09:27:49
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-07 14:05:49
- * @Description: 站点详情provide
+ * @LastEditTime : 2020-01-15 16:38:08
+ * @Description: 工单详情页面
  * @FilePath: /unicom_flutter/lib/providers/orderDetailsProvide.dart
  */
 

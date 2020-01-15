@@ -2,8 +2,8 @@
  * @Author: liangyt
  * @Date: 2019-12-19 13:52:35
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 10:21:32
- * @Description: login Provide
+ * @LastEditTime : 2020-01-15 16:37:53
+ * @Description: 登录页面
  * @FilePath: /unicom_flutter/lib/providers/loginProvide.dart
  */
 import 'package:flutter/material.dart';
