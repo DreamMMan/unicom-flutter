@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 10:28:55
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-02 15:35:39
+ * @LastEditTime : 2020-01-15 11:22:10
  * @Description: 输入框组件
  * @FilePath: /unicom_flutter/lib/widgets/myInput.dart
  */
@@ -34,6 +34,7 @@ class MyInput extends StatefulWidget {
   final String textInputAction;
   final double paddingHeight;
   final double iconWidth;
+  final Widget prefix;
 
   MyInput(
       {this.inintValue = '',
@@ -52,7 +53,8 @@ class MyInput extends StatefulWidget {
       this.blackEegExp,
       this.paddingHeight = 0,
       this.textInputAction = 'none',
-      this.iconWidth = 22});
+      this.iconWidth = 22,
+      this.prefix});
 
   @override
   _MyInputState createState() => _MyInputState();
@@ -140,6 +142,7 @@ class _MyInputState extends State<MyInput> {
       obscureText: widget.keyboardType == 'password' ? true : false,
       textInputAction: _getTextInputAction(),
       decoration: InputDecoration(
+          prefix: widget.prefix,
           contentPadding: EdgeInsets.only(
             top: MyScreen.setHeight(widget.paddingHeight),
             bottom: MyScreen.setHeight(widget.paddingHeight),

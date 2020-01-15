@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/adapter.dart';
@@ -47,14 +48,15 @@ class HttpUtil {
 
     // 开启请求日志
     dio.interceptors.add(LogInterceptor(responseBody: true));
-
-    // 开启代理 本地连接
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (client) {
-      client.findProxy = (uri) {
-        return "PROXY localhost:7001";
+    if (Platform.isIOS) {
+      // 开启代理 本地连接
+      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+          (client) {
+        client.findProxy = (uri) {
+          return "PROXY localhost:7001";
+        };
       };
-    };
+    }
 
     try {
       var params = data;

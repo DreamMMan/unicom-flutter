@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:16:01
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-15 11:17:15
+ * @LastEditTime : 2020-01-15 11:32:46
  * @Description: 空调清洗作业 蓄电池放电测试作业
  * @FilePath: /unicom-flutter/lib/pages/airBatPage.dart
  */
@@ -205,26 +205,32 @@ class AirBatPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            width: MyScreen.setWidth(170),
-            height: MyScreen.setHeight(100),
-            alignment: Alignment.centerLeft,
-            child: Text.rich(TextSpan(children: <TextSpan>[
-              TextSpan(text: label, style: MyStyles.f30c33),
-              TextSpan(text: isRequired ? '*' : '', style: MyStyles.f36ce0)
-            ])),
-          ),
+          type == 1 || type == 2
+              ? Container(
+                  width: MyScreen.setWidth(170),
+                  height: MyScreen.setHeight(100),
+                  alignment: Alignment.centerLeft,
+                  child: Text.rich(TextSpan(children: <TextSpan>[
+                    TextSpan(text: label, style: MyStyles.f30c33),
+                    TextSpan(
+                        text: isRequired ? '*' : '', style: MyStyles.f36ce0)
+                  ])),
+                )
+              : Container(),
           type == 0 || type == 3
               ? Container(
-                  width: MyScreen.setWidth(520),
+                  width: MyScreen.setWidth(690),
                   height: MyScreen.setHeight(100),
                   child: MyInput(
                     inintValue: type == 0
                         ? deviceList[index].description
                         : deviceList[index].otherDanger,
+                    prefix: Container(
+                      width: MyScreen.setWidth(170),
+                      child: Text(label, style: MyStyles.f30c33),
+                    ),
                     hintText: type == 0 ? '可用于备注设置位置，便于查找设备' : '如有其他隐患请输入',
                     hintStyle: MyStyles.f30c99,
-                    paddingHeight: 35,
                     fieldCallBack: (val) {
                       type == 0
                           ? deviceList[index].description = val
