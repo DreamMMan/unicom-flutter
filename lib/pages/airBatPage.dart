@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:16:01
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-15 11:41:11
+ * @LastEditTime : 2020-01-15 15:08:18
  * @Description: 空调清洗作业 蓄电池放电测试作业
  * @FilePath: /unicom-flutter/lib/pages/airBatPage.dart
  */
@@ -14,6 +14,7 @@ import 'package:unicom_flutter/providers/airBatProvide.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
+import 'package:unicom_flutter/widgets/common/myDialogImage.dart';
 import 'package:unicom_flutter/widgets/common/myEmpty.dart';
 import 'package:unicom_flutter/widgets/common/myInput.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
@@ -38,7 +39,7 @@ class AirBatPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   _topContent(data.lastData),
-                  _uploadImage(),
+                  _uploadImage(context, data.nameList),
                   _listContent(context, data.deviceList),
                   _submitBox(context, data.pageData.submit)
                 ],
@@ -89,7 +90,7 @@ class AirBatPage extends StatelessWidget {
   }
 
 // 上传图片
-  Widget _uploadImage() {
+  Widget _uploadImage(BuildContext context, List<String> nameList) {
     return Container(
       width: MyScreen.setWidth(750),
       padding: MyScreen.setEdgeAll(30),
@@ -106,24 +107,40 @@ class AirBatPage extends StatelessWidget {
           Wrap(
             spacing: MyScreen.setWidth(10),
             runSpacing: MyScreen.setWidth(10),
-            children: <Widget>[
-              _imageItem(),
-              _imageItem(),
-              _imageItem(),
-              _imageItem(),
-              _imageItem(),
-            ],
+            children: nameList.asMap().keys.map((index) {
+              return InkWell(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext contetx) {
+                        return MyDialogImage(
+                          index: index,
+                          list: nameList,
+                          isLook: false,
+                          delete: (int index){
+                            nameList.removeAt(index);
+                            Provide.value<AirBatProvide>(context).setnameList(nameList);
+                          },
+                        );
+                      });
+                },
+                child: _imageItem(nameList[index]),
+              );
+            }).toList(),
           )
         ],
       ),
     );
   }
 
-  Widget _imageItem() {
+  Widget _imageItem(String url) {
     return Container(
       width: MyScreen.setWidth(130),
       height: MyScreen.setWidth(130),
-      color: Colors.grey,
+      child: Image.network(
+        url,
+        fit: BoxFit.contain,
+      ),
     );
   }
 
@@ -294,7 +311,7 @@ class AirBatPage extends StatelessWidget {
 
   Widget _listItemRightBtn(String name, bool isCheck) {
     return Container(
-      width: MyScreen.setWidth(name.length > 6 ? 520 : 245),
+      width: MyScreen.setWidth(name.length > 6 ? 520 : 244),
       height: MyScreen.setHeight(60),
       alignment: Alignment.center,
       decoration: BoxDecoration(

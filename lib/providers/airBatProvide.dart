@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-07 17:47:50
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-15 11:14:38
+ * @LastEditTime : 2020-01-15 15:06:24
  * @Description: 空调 蓄电池，常规动力设备详情
  * @FilePath: /unicom_flutter/lib/providers/airBatProvide.dart
  */
@@ -42,6 +42,12 @@ class AirBatProvide with ChangeNotifier {
   // 设置输入
   void setDeviceList(list) {
     deviceList = list;
+    notifyListeners();
+  }
+
+  // 设置图片
+  void setnameList(list) {
+    nameList = list;
     notifyListeners();
   }
 
