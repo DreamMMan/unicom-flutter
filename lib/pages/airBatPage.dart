@@ -2,13 +2,14 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:16:01
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-14 18:04:25
+ * @LastEditTime : 2020-01-15 11:17:15
  * @Description: 空调清洗作业 蓄电池放电测试作业
  * @FilePath: /unicom-flutter/lib/pages/airBatPage.dart
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
+import 'package:unicom_flutter/models/airBatModel.dart';
 import 'package:unicom_flutter/providers/airBatProvide.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
@@ -38,8 +39,8 @@ class AirBatPage extends StatelessWidget {
                 children: <Widget>[
                   _topContent(data.lastData),
                   _uploadImage(),
-                  _listContent(),
-                  _submitBox(context)
+                  _listContent(context, data.deviceList),
+                  _submitBox(context, data.pageData.submit)
                 ],
               ),
             ),
@@ -127,69 +128,74 @@ class AirBatPage extends StatelessWidget {
   }
 
   // 列表内容
-  Widget _listContent() {
-    List list = [0, 1, 2, 3, 4];
+  Widget _listContent(BuildContext context, List<DeviceList> deviceList) {
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: list.asMap().keys.map((index) {
-          return _listItem();
+        children: deviceList.asMap().keys.map((index) {
+          return _listItem(context, deviceList, index);
         }).toList(),
       ),
     );
   }
 
   // 列表
-  Widget _listItem() {
+  Widget _listItem(
+      BuildContext context, List<DeviceList> deviceList, int index) {
     return Container(
       width: MyScreen.setWidth(750),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[_listItemTitle(), _listItemContent()],
+        children: <Widget>[
+          _listItemTitle(deviceList[index]),
+          _listItemContent(context, deviceList, index)
+        ],
       ),
     );
   }
 
   // 品牌名和 设备号
-  Widget _listItemTitle() {
+  Widget _listItemTitle(DeviceList deviceData) {
     return Container(
       height: MyScreen.setHeight(80),
       padding: MyScreen.setEdge(left: 30),
       child: Row(
         children: <Widget>[
           Text(
-            'KAS111',
+            deviceData.name,
             style: MyStyles.f30c33,
           ),
           Container(
             margin: MyScreen.setEdge(left: 20),
             padding: MyScreen.setEdgeAll(2),
             color: MyStyles.d6E2E8,
-            child: Text('格里', style: MyStyles.f24c33),
+            child: Text(deviceData.brandName, style: MyStyles.f24c33),
           )
         ],
       ),
     );
   }
 
-  Widget _listItemContent() {
+  Widget _listItemContent(
+      BuildContext context, List<DeviceList> deviceList, int index) {
     return Container(
       padding: MyScreen.setEdge(left: 30, right: 30),
       color: Colors.white,
       child: Column(
         children: <Widget>[
-          _listItemContentItem('备注', false, 0),
-          _listItemContentItem('运行状态', true, 1),
-          _listItemContentItem('隐患类型', false, 2),
-          _listItemContentItem('其他隐患', false, 3)
+          _listItemContentItem(context, '备注', false, 0, deviceList, index),
+          _listItemContentItem(context, '运行状态', true, 1, deviceList, index),
+          _listItemContentItem(context, '隐患类型', false, 2, deviceList, index),
+          _listItemContentItem(context, '其他隐患', false, 3, deviceList, index)
         ],
       ),
     );
   }
 
-  Widget _listItemContentItem(String label, bool isRequired, int type) {
+  Widget _listItemContentItem(BuildContext context, String label,
+      bool isRequired, int type, List<DeviceList> deviceList, int index) {
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
@@ -201,7 +207,7 @@ class AirBatPage extends StatelessWidget {
         children: <Widget>[
           Container(
             width: MyScreen.setWidth(170),
-            padding: MyScreen.setEdge(top: 35),
+            height: MyScreen.setHeight(100),
             alignment: Alignment.centerLeft,
             child: Text.rich(TextSpan(children: <TextSpan>[
               TextSpan(text: label, style: MyStyles.f30c33),
@@ -213,41 +219,69 @@ class AirBatPage extends StatelessWidget {
                   width: MyScreen.setWidth(520),
                   height: MyScreen.setHeight(100),
                   child: MyInput(
-                    inintValue: '',
+                    inintValue: type == 0
+                        ? deviceList[index].description
+                        : deviceList[index].otherDanger,
                     hintText: type == 0 ? '可用于备注设置位置，便于查找设备' : '如有其他隐患请输入',
                     hintStyle: MyStyles.f30c99,
                     paddingHeight: 35,
                     fieldCallBack: (val) {
-                      print(val);
+                      type == 0
+                          ? deviceList[index].description = val
+                          : deviceList[index].otherDanger = val;
+                      Provide.value<AirBatProvide>(context)
+                          .setDeviceList(deviceList);
                     },
                   ),
                 )
-              : _listItemRight(type)
+              : Container(
+                  width: MyScreen.setWidth(520),
+                  padding: MyScreen.setEdge(top: 25, bottom: 25),
+                  child: _listItemRight(context, type, deviceList, index),
+                )
         ],
       ),
     );
   }
 
-  Widget _listItemRight(int type) {
-    List<Widget> _list = [];
+  Widget _listItemRight(
+      BuildContext context, int type, List<DeviceList> deviceList, int index) {
     if (type == 1) {
-      _list.add(_listItemRightBtn('良好', true));
-      _list.add(_listItemRightBtn('已坏', false));
-    }
-    if (type == 2) {
-      _list.add(_listItemRightBtn('空调孔洞未封堵或封堵不良', true));
-      _list.add(_listItemRightBtn('空调孔洞未封堵或封堵不良', true));
-      _list.add(_listItemRightBtn('空调孔洞未封堵或封堵不良', true));
-      _list.add(_listItemRightBtn('空调孔洞未封堵或封堵不良', true));
-    }
-    return Container(
-      width: MyScreen.setWidth(520),
-      padding: MyScreen.setEdge(top: 25, bottom: 25),
-      child: Wrap(
+      return Wrap(
         runSpacing: MyScreen.setWidth(40),
         spacing: MyScreen.setWidth(30),
-        children: _list,
-      ),
+        children: [
+          InkWell(
+            onTap: () {
+              deviceList[index].status = 1;
+              Provide.value<AirBatProvide>(context).setDeviceList(deviceList);
+            },
+            child: _listItemRightBtn('良好', deviceList[index].status == 1),
+          ),
+          InkWell(
+            onTap: () {
+              deviceList[index].status = 0;
+              Provide.value<AirBatProvide>(context).setDeviceList(deviceList);
+            },
+            child: _listItemRightBtn('已坏', deviceList[index].status == 0),
+          )
+        ],
+      );
+    }
+    return Wrap(
+      runSpacing: MyScreen.setWidth(40),
+      spacing: MyScreen.setWidth(30),
+      children: deviceList[index].dangerList.asMap().keys.map((btnIndex) {
+        return InkWell(
+          onTap: () {
+            deviceList[index].dangerList[btnIndex].enable =
+                !deviceList[index].dangerList[btnIndex].enable;
+            Provide.value<AirBatProvide>(context).setDeviceList(deviceList);
+          },
+          child: _listItemRightBtn(deviceList[index].dangerList[btnIndex].name,
+              deviceList[index].dangerList[btnIndex].enable),
+        );
+      }).toList(),
     );
   }
 
@@ -270,7 +304,10 @@ class AirBatPage extends StatelessWidget {
   }
 
   // 回单按钮
-  Widget _submitBox(BuildContext context) {
+  Widget _submitBox(BuildContext context, bool submit) {
+    if (submit) {
+      return Container();
+    }
     return Container(
       width: MyScreen.setWidth(750),
       height: MyScreen.setHeight(100),
@@ -278,7 +315,7 @@ class AirBatPage extends StatelessWidget {
       margin: MyScreen.setEdge(left: 30, top: 60, right: 60, bottom: 60),
       child: Container(
         child: MySubmitBtn(
-          txt: '回单',
+          txt: '提交',
           textSty: MyStyles.f36cff,
           submit: () {
             Provide.value<AirBatProvide>(context).submit(context);

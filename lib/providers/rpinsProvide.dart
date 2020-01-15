@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-07 14:35:00
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-07 15:36:52
+ * @LastEditTime : 2020-01-15 11:13:42
  * @Description: 常规动力站点详情
  * @FilePath: /unicom_flutter/lib/providers/rpinsProvide.dart
  */
@@ -18,6 +18,8 @@ class RpinsProvide with ChangeNotifier {
   int id;
   bool isLoad = false;
   RpinsModel siteData;
+
+  // 获取数据
   void getData(BuildContext context, int myId) async {
     id = myId;
     isLoad = false;
@@ -30,6 +32,17 @@ class RpinsProvide with ChangeNotifier {
     notifyListeners();
   }
 
+  // 刷新数据
+  void callRefresh(BuildContext context) async {
+    var params = {"id": id};
+    await HttpUtil.request(context, 'appSiteDetail', data: params).then((data) {
+      RpinsModel dataInfo = RpinsModel.fromJson(data);
+      siteData = dataInfo;
+    });
+    notifyListeners();
+  }
+
+  // 提交数据
   void submit(context) async {
     var unfinished;
     for (int i = 0; i < siteData.jobList.length; i++) {
