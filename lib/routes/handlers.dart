@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:40:26
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-06 23:10:33
+ * @LastEditTime : 2020-01-15 16:02:29
  * @Description: fluro handler配置集合
  * @FilePath: /unicom_flutter/lib/routes/handlers.dart
  */
@@ -12,7 +12,6 @@ import 'package:unicom_flutter/pages/airBatPage.dart';
 import 'package:unicom_flutter/pages/alarmDealPage.dart';
 import 'package:unicom_flutter/pages/alarmDetailsPage.dart';
 import 'package:unicom_flutter/pages/homePage.dart';
-import 'package:unicom_flutter/pages/imagePage.dart';
 import 'package:unicom_flutter/pages/lifeAuditPage.dart';
 import 'package:unicom_flutter/pages/lifeSitePage.dart';
 import 'package:unicom_flutter/pages/loginPage.dart';
@@ -94,8 +93,3 @@ Handler lifeAuditHandler =
   return LifeAuditPage();
 });
 
-// 图片浏览 页面
-Handler imageHandler =
-    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-  return ImagePage();
-});

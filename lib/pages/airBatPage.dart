@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:16:01
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-15 15:08:18
+ * @LastEditTime : 2020-01-15 16:11:47
  * @Description: 空调清洗作业 蓄电池放电测试作业
  * @FilePath: /unicom-flutter/lib/pages/airBatPage.dart
  */
@@ -117,9 +117,11 @@ class AirBatPage extends StatelessWidget {
                           index: index,
                           list: nameList,
                           isLook: false,
-                          delete: (int index){
+                          type: 1,
+                          delete: (int index) {
                             nameList.removeAt(index);
-                            Provide.value<AirBatProvide>(context).setnameList(nameList);
+                            Provide.value<AirBatProvide>(context)
+                                .setnameList(nameList);
                           },
                         );
                       });

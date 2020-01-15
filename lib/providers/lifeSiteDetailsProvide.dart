@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-04 15:59:01
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-04 20:47:23
+ * @LastEditTime : 2020-01-15 16:09:06
  * @Description: 生命周期工单站点线详情
  * @FilePath: /unicom_flutter/lib/providers/lifeSiteDetailsProvide.dart
  */
@@ -24,6 +24,18 @@ class LifeSiteDetailsProvide with ChangeNotifier {
     siteData = null;
     isLoad = false;
     var params = {"id": myId};
+    await HttpUtil.request(context, 'appSiteDetail', data: params).then((data) {
+      LifeSiteDetailsModel dataInfo = LifeSiteDetailsModel.fromJson(data);
+      isLoad = true;
+      siteData = dataInfo;
+      changeDevice(dataInfo.deviceList);
+    });
+    notifyListeners();
+  }
+
+  // 刷新数据
+  void callRefresh(BuildContext context) async {
+    var params = {"id": id};
     await HttpUtil.request(context, 'appSiteDetail', data: params).then((data) {
       LifeSiteDetailsModel dataInfo = LifeSiteDetailsModel.fromJson(data);
       isLoad = true;

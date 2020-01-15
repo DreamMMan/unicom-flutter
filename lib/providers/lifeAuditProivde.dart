@@ -2,14 +2,16 @@
  * @Author: liangyt
  * @Date: 2020-01-06 19:45:55
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-06 23:40:10
+ * @LastEditTime : 2020-01-15 16:04:54
  * @Description: 生命周期工单
  * @FilePath: /unicom-flutter/lib/providers/lifeAuditProivde.dart
  */
 
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:provide/provide.dart';
 import 'package:unicom_flutter/http/httpUtil.dart';
+import 'package:unicom_flutter/providers/lifeSiteDetailsProvide.dart';
 import 'package:unicom_flutter/utils/index.dart';
 
 class LifeAuditProvide with ChangeNotifier {
@@ -58,6 +60,8 @@ class LifeAuditProvide with ChangeNotifier {
     await HttpUtil.request(context, 'examine', data: params, isFormData: true)
         .then((data) {
       if (data != null) {
+        Provide.value<LifeSiteDetailsProvide>(context).callRefresh(context);
+        Navigator.pop(context);
         Utils.showToast('处理成功！');
         notifyListeners();
       }

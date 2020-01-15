@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:40:16
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-06 23:21:25
+ * @LastEditTime : 2020-01-15 16:02:56
  * @Description: fluro 路由配置
  * @FilePath: /unicom_flutter/lib/routes/config.dart
  */
@@ -51,8 +51,5 @@ class Routes {
     // 生命周期工单审核页面
     router.define('/lifeAudit',
         handler: lifeAuditHandler, transitionType: TransitionType.cupertino);
-    // 图片浏览页面
-    router.define('/image',
-        handler: imageHandler, transitionType: TransitionType.cupertino);
   }
 }

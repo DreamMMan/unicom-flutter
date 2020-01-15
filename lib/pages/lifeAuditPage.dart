@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-06 19:42:20
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-06 23:15:49
+ * @LastEditTime : 2020-01-15 16:01:09
  * @Description: 生命周期工单审核
  * @FilePath: /unicom-flutter/lib/pages/lifeAuditPage.dart
  */
@@ -11,13 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/constant/myConstant.dart';
-import 'package:unicom_flutter/providers/imageProvide.dart';
 import 'package:unicom_flutter/providers/lifeAuditProivde.dart';
-import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/myAsset.dart';
+import 'package:unicom_flutter/widgets/common/myDialogImage.dart';
 import 'package:unicom_flutter/widgets/common/myInput.dart';
 import 'package:unicom_flutter/widgets/common/mySubmitBtn.dart';
 
@@ -189,9 +188,23 @@ class LifeAuditPage extends StatelessWidget {
       child: Provide.value<LifeAuditProvide>(context).oddImage != null
           ? InkWell(
               onTap: () {
-                Provide.value<ImageProvide>(context)
-                    .setFile(Provide.value<LifeAuditProvide>(context).oddImage);
-                Application.router.navigateTo(context, '/image');
+                showDialog(
+                    context: context,
+                    builder: (BuildContext contetx) {
+                      return MyDialogImage(
+                        index: 0,
+                        list: [
+                          Provide.value<LifeAuditProvide>(context).oddImage
+                        ],
+                        isLook: false,
+                        type: 0,
+                        delete: (int index) {
+                          Provide.value<LifeAuditProvide>(context)
+                              .removeImage();
+                          Navigator.pop(context);
+                        },
+                      );
+                    });
               },
               child: Container(
                 width: MyScreen.setWidth(130),
