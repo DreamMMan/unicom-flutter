@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 16:36:39
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-16 17:35:07
+ * @LastEditTime : 2020-01-16 18:26:09
  * @Description: 数据采集建设站点详情
  * @FilePath: /unicom_flutter/lib/pages/siteDetailsPage.dart
  */
@@ -23,8 +23,9 @@ import 'package:unicom_flutter/utils/index.dart';
 import 'package:unicom_flutter/widgets/common/myAmapView.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/myAsset.dart';
-import 'package:unicom_flutter/widgets/common/myCuperDialog.dart';
+import 'package:unicom_flutter/widgets/common/myDialog.dart';
 import 'package:unicom_flutter/widgets/common/myEmpty.dart';
+import 'package:unicom_flutter/widgets/common/myInput.dart';
 import 'package:unicom_flutter/widgets/common/myListBtn.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
 import 'package:unicom_flutter/widgets/common/mySubmitBtn.dart';
@@ -193,6 +194,16 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
     return InkWell(
       onTap: () {
         if (disabled) return;
+        showCupertinoDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return MyDialog(
+                title: '添加DTU',
+                submit: () {
+                  Navigator.pop(context);
+                },
+              );
+            });
       },
       child: Container(
         margin: MyScreen.setEdge(top: 20),
@@ -456,7 +467,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
               showCupertinoDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return MyCuperDialog(
+                    return MyDialog(
                       title: '是否确定回单',
                       content: Container(
                         padding: MyScreen.setEdgeAll(30),
