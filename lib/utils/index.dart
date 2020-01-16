@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:42:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-14 09:54:16
+ * @LastEditTime : 2020-01-16 11:15:29
  * @Description: utils方法
  * @FilePath: /unicom_flutter/lib/utils/index.dart
  */
@@ -123,6 +123,27 @@ class Utils {
       case 2:
         str['label'] = '连接异常';
         str['style'] = MyStyles.f26ce0;
+        break;
+      default:
+    }
+    return str;
+  }
+
+  // 表状态
+  static meterStatus(value) {
+    var str = {};
+    switch (value) {
+      case 0:
+        str['label'] = '正常';
+        str['style'] = MyStyles.f30c52;
+        break;
+      case 1:
+        str['label'] = '未关联';
+        str['style'] = MyStyles.f30ccc;
+        break;
+      case 2:
+        str['label'] = '异常';
+        str['style'] = MyStyles.f30ce0;
         break;
       default:
     }
