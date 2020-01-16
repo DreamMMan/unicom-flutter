@@ -8,6 +8,9 @@ class SiteDetailsModel {
   String targetAddress;
   int status;
   int deviceStatus;
+  String latitude;
+  String longitude;
+  int siteId;
   int deviceNum;
   int linkNum;
   List<DtuList> dtuList;
@@ -23,6 +26,9 @@ class SiteDetailsModel {
       this.targetAddress,
       this.status,
       this.deviceStatus,
+      this.latitude,
+      this.longitude,
+      this.siteId,
       this.deviceNum,
       this.linkNum,
       this.dtuList,
@@ -38,6 +44,9 @@ class SiteDetailsModel {
     targetAddress = json['targetAddress'];
     status = json['status'];
     deviceStatus = json['deviceStatus'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
+    siteId = json['siteId'];
     deviceNum = json['deviceNum'];
     linkNum = json['linkNum'];
     if (json['dtuList'] != null) {
@@ -60,6 +69,9 @@ class SiteDetailsModel {
     data['targetAddress'] = this.targetAddress;
     data['status'] = this.status;
     data['deviceStatus'] = this.deviceStatus;
+    data['latitude'] = this.latitude;
+    data['longitude'] = this.longitude;
+    data['siteId'] = this.siteId;
     data['deviceNum'] = this.deviceNum;
     data['linkNum'] = this.linkNum;
     if (this.dtuList != null) {
@@ -73,22 +85,27 @@ class SiteDetailsModel {
 class DtuList {
   int id;
   String name;
+  double rssi;
   bool online;
   String imei;
   List<AmmeterList> ammeterList;
   int updateTime;
+  bool wiredOnline;
 
   DtuList(
       {this.id,
       this.name,
+      this.rssi,
       this.online,
       this.imei,
       this.ammeterList,
-      this.updateTime});
+      this.updateTime,
+      this.wiredOnline});
 
   DtuList.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    rssi = json['rssi'];
     online = json['online'];
     imei = json['imei'];
     if (json['ammeterList'] != null) {
@@ -98,18 +115,21 @@ class DtuList {
       });
     }
     updateTime = json['updateTime'];
+    wiredOnline = json['wiredOnline'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
+    data['rssi'] = this.rssi;
     data['online'] = this.online;
     data['imei'] = this.imei;
     if (this.ammeterList != null) {
       data['ammeterList'] = this.ammeterList.map((v) => v.toJson()).toList();
     }
     data['updateTime'] = this.updateTime;
+    data['wiredOnline'] = this.wiredOnline;
     return data;
   }
 }
@@ -117,14 +137,37 @@ class DtuList {
 class AmmeterList {
   int id;
   String name;
+  String deviceCode;
+  double temperature;
+  double humidity;
+  double used;
+  bool alarming;
   String sn;
   List<LineList> lineList;
+  String ammeterName;
+  int status;
 
-  AmmeterList({this.id, this.name, this.sn, this.lineList});
+  AmmeterList(
+      {this.id,
+      this.name,
+      this.deviceCode,
+      this.temperature,
+      this.humidity,
+      this.used,
+      this.alarming,
+      this.sn,
+      this.lineList,
+      this.ammeterName,
+      this.status});
 
   AmmeterList.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    deviceCode = json['deviceCode'];
+    temperature = json['temperature'];
+    humidity = json['humidity'];
+    used = json['used'];
+    alarming = json['alarming'];
     sn = json['sn'];
     if (json['lineList'] != null) {
       lineList = new List<LineList>();
@@ -132,16 +175,25 @@ class AmmeterList {
         lineList.add(new LineList.fromJson(v));
       });
     }
+    ammeterName = json['ammeterName'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
+    data['deviceCode'] = this.deviceCode;
+    data['temperature'] = this.temperature;
+    data['humidity'] = this.humidity;
+    data['used'] = this.used;
+    data['alarming'] = this.alarming;
     data['sn'] = this.sn;
     if (this.lineList != null) {
       data['lineList'] = this.lineList.map((v) => v.toJson()).toList();
     }
+    data['ammeterName'] = this.ammeterName;
+    data['status'] = this.status;
     return data;
   }
 }
@@ -150,14 +202,30 @@ class LineList {
   int id;
   String name;
   int status;
+  double voltage;
+  double current;
+  double pt;
+  double ct;
   List<DeviceList> deviceList;
 
-  LineList({this.id, this.name, this.status, this.deviceList});
+  LineList(
+      {this.id,
+      this.name,
+      this.status,
+      this.voltage,
+      this.current,
+      this.pt,
+      this.ct,
+      this.deviceList});
 
   LineList.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     status = json['status'];
+    voltage = json['voltage'];
+    current = json['current'];
+    pt = json['pt'];
+    ct = json['ct'];
     if (json['deviceList'] != null) {
       deviceList = new List<DeviceList>();
       json['deviceList'].forEach((v) {
@@ -171,6 +239,10 @@ class LineList {
     data['id'] = this.id;
     data['name'] = this.name;
     data['status'] = this.status;
+    data['voltage'] = this.voltage;
+    data['current'] = this.current;
+    data['pt'] = this.pt;
+    data['ct'] = this.ct;
     if (this.deviceList != null) {
       data['deviceList'] = this.deviceList.map((v) => v.toJson()).toList();
     }

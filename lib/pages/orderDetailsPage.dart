@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 16:17:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-14 09:44:02
+ * @LastEditTime : 2020-01-16 13:48:30
  * @Description: 工单详情
  * @FilePath: /unicom_flutter/lib/pages/orderDetails.dart
  */
@@ -19,6 +19,7 @@ import 'package:unicom_flutter/models/orderDetailsModel.dart';
 import 'package:unicom_flutter/providers/lifeSiteDetailsProvide.dart';
 import 'package:unicom_flutter/providers/orderDetailsProvide.dart';
 import 'package:unicom_flutter/providers/rpinsProvide.dart';
+import 'package:unicom_flutter/providers/siteDetailProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
@@ -104,6 +105,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                             switch (Utils.orderType(data.orderData.name)) {
                               case 0:
                                 // 数据采集建设站点详情
+                                Provide.value<SiteDetailProvide>(context)
+                                    .setData(data.list[index].id, false);
                                 Application.router
                                     .navigateTo(context, '/siteDetails');
                                 break;
@@ -119,6 +122,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                     .navigateTo(context, '/airBat');
                                 break;
                               default:
+                                Provide.value<SiteDetailProvide>(context)
+                                    .setData(data.list[index].id, false);
                                 Application.router
                                     .navigateTo(context, '/siteDetails');
                             }

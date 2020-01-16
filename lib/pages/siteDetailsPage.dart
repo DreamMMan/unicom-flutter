@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 16:36:39
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-16 11:15:38
+ * @LastEditTime : 2020-01-16 17:09:23
  * @Description: 数据采集建设站点详情
  * @FilePath: /unicom_flutter/lib/pages/siteDetailsPage.dart
  */
@@ -13,7 +13,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
+import 'package:provide/provide.dart';
 import 'package:unicom_flutter/constant/myConstant.dart';
+import 'package:unicom_flutter/models/siteDetailsModel.dart';
+import 'package:unicom_flutter/providers/siteDetailProvide.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/utils/index.dart';
@@ -24,6 +27,7 @@ import 'package:unicom_flutter/widgets/common/myEmpty.dart';
 import 'package:unicom_flutter/widgets/common/myListBtn.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
 import 'package:unicom_flutter/widgets/common/mySubmitBtn.dart';
+import 'package:unicom_flutter/widgets/common/signal.dart';
 
 class SiteDetailsPage extends StatefulWidget {
   @override
@@ -37,49 +41,58 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
     return Scaffold(
       appBar: myAppBar('站点详情'),
       body: SafeArea(
-        child: CupertinoScrollbar(
-            child: Column(
-          children: <Widget>[_content(), _fixContent()],
+        child: CupertinoScrollbar(child: Provide<SiteDetailProvide>(
+          builder: (BuildContext context, child, data) {
+            if (data.isError) {
+              _controller.finishRefresh();
+            }
+            if (data.callRefresh) {
+              _controller.callRefresh();
+            }
+            return Column(
+              children: <Widget>[_content(data), _fixContent(data)],
+            );
+          },
         )),
       ),
     );
   }
 
   // 非固定内容
-  Widget _content() {
+  Widget _content(SiteDetailProvide data) {
+    List<Widget> _list = [];
+    if (data.siteData != null) {
+      _list..addAll([_sliverTop(data), _sliverList(data.siteData)]);
+    }
     return Expanded(
       child: EasyRefresh.custom(
         header: MaterialHeader(),
         footer: MaterialFooter(),
-        emptyWidget: false ? MyEmpty() : null,
+        emptyWidget: data.isLoad && data.siteData == null ? MyEmpty() : null,
         controller: _controller,
         enableControlFinishRefresh: true,
-        // firstRefresh: true,
-        // firstRefreshWidget: MyLoading(),
+        firstRefresh: true,
+        firstRefreshWidget: MyLoading(),
         onRefresh: () async {
-          // await Provide.value<OrderProvide>(context)
-          //     .onRefresh(context, false);
-          // _controller.resetLoadState(); // 重置加载状态
-          // _controller.finishRefresh(); // 完成刷新
-          // _controller.finishLoad(
-          //     noMore: data.lifeList.length >= data.lifeTotal); // 加载完和判断是否能加载
+          await Provide.value<SiteDetailProvide>(context).onRefresh(context);
+          _controller.finishRefresh(); // 完成刷新
         },
-        slivers: <Widget>[_sliverTop(), _sliverList()],
+        slivers: _list,
       ),
     );
   }
 
   // 站点顶部内容
-  Widget _sliverTop() {
+  Widget _sliverTop(SiteDetailProvide data) {
     return SliverToBoxAdapter(
       child: Column(
-        children: <Widget>[_siteTop(), _addDtu()],
+        children: <Widget>[_siteTop(data.siteData), _addDtu(data.disabled)],
       ),
     );
   }
 
   // 站点名称、地址
-  Widget _siteTop() {
+  Widget _siteTop(SiteDetailsModel siteData) {
     return Container(
       padding: MyScreen.setEdge(left: 30, right: 30),
       color: Colors.white,
@@ -94,7 +107,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Expanded(
-                  child: Text('站点名称', style: MyStyles.f30c33),
+                  child: Text(siteData.name, style: MyStyles.f30c33),
                 ),
                 Row(
                   children: <Widget>[
@@ -112,6 +125,9 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
             ),
           ),
           InkWell(
+            onTap: () {
+              print('点击了地址');
+            },
             child: Container(
               width: MyScreen.setWidth(480),
               padding: MyScreen.setEdge(left: 10, top: 5, right: 10, bottom: 5),
@@ -130,7 +146,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                     child: Container(
                       padding: MyScreen.setEdge(left: 10),
                       child: Text(
-                        '深圳市和平路1085号富临酒店',
+                        siteData.address,
                         style: MyStyles.f26c99,
                       ),
                     ),
@@ -139,38 +155,44 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
               ),
             ),
           ),
-          Container(
-            padding: MyScreen.setEdge(top: 20, bottom: 20),
-            decoration: BoxDecoration(
-                border: Border(
-                    top: BorderSide(width: 1, color: MyStyles.borderColor))),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                MyListBtn(
-                  name: '确认退回',
-                  style: MyStyles.f26ce0,
-                ),
-                Expanded(
-                  child: Container(
-                    padding: MyScreen.setEdge(left: 10, top: 10),
-                    child: Text(
-                      '有设备未连接',
-                      style: MyStyles.f26c66,
-                    ),
+          siteData.status == 4
+              ? Container(
+                  padding: MyScreen.setEdge(top: 20, bottom: 20),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          top: BorderSide(
+                              width: 1, color: MyStyles.borderColor))),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      MyListBtn(
+                        name: '确认退回',
+                        style: MyStyles.f26ce0,
+                      ),
+                      Expanded(
+                        child: Container(
+                          padding: MyScreen.setEdge(left: 10, top: 10),
+                          child: Text(
+                            siteData.description,
+                            style: MyStyles.f26c66,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 )
-              ],
-            ),
-          )
+              : Container()
         ],
       ),
     );
   }
 
   // 添加DTU
-  Widget _addDtu() {
+  Widget _addDtu(bool disabled) {
     return InkWell(
+      onTap: () {
+        if (disabled) return;
+      },
       child: Container(
         margin: MyScreen.setEdge(top: 20),
         height: MyScreen.setHeight(88),
@@ -197,7 +219,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
   }
 
   // Sliver列表
-  Widget _sliverList() {
+  Widget _sliverList(SiteDetailsModel siteData) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
@@ -207,15 +229,15 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                 //     .setIdAndIslife(data.planList[index].id, true);
                 // Application.router.navigateTo(context, '/orderDetails');
               },
-              child: _dtuList());
+              child: _dtuList(siteData.dtuList[index]));
         },
-        childCount: 5,
+        childCount: siteData.dtuList.length,
       ),
     );
   }
 
   // dtu列表
-  Widget _dtuList() {
+  Widget _dtuList(DtuList dtuData) {
     return Container(
       padding: MyScreen.setEdge(left: 30, right: 30),
       margin: MyScreen.setEdge(top: 10),
@@ -230,7 +252,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
             Container(
               padding: MyScreen.setEdge(top: 30),
               child: Text(
-                'DTU1',
+                'DTU${dtuData.id}',
                 style: TextStyle(
                     color: MyStyles.c333, fontWeight: FontWeight.w800),
               ),
@@ -249,7 +271,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                         Text('IMEI:', style: MyStyles.f26c99),
                         Expanded(
                           child: Text(
-                            'asdasdasdasdasdsad',
+                            dtuData.imei,
                             style: MyStyles.f26c99,
                           ),
                         )
@@ -261,9 +283,11 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                       child: Row(
                         children: <Widget>[
                           Text('无线:'),
-                          Icon(
-                            Icons.signal_cellular_connected_no_internet_4_bar,
-                            size: 15,
+                          Padding(
+                            padding: MyScreen.setEdge(left: 10),
+                            child: Signal(
+                              signal: dtuData.rssi ?? 0,
+                            ),
                           )
                         ],
                       ),
@@ -274,9 +298,14 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                       child: Row(
                         children: <Widget>[
                           Text('有线:'),
-                          Text(
-                            '  离线',
-                            style: MyStyles.f26ce0,
+                          Padding(
+                            padding: MyScreen.setEdge(left: 20),
+                            child: Text(
+                              dtuData.wiredOnline ? '在线' : '离线',
+                              style: dtuData.wiredOnline
+                                  ? MyStyles.f26c52
+                                  : MyStyles.f26ce0,
+                            ),
                           )
                         ],
                       ),
@@ -285,7 +314,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
                 ],
               ),
             ),
-            _meterList()
+            _meterList(dtuData.ammeterList, dtuData.online)
           ],
         ),
       ),
@@ -293,15 +322,49 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
   }
 
   // 表列表
-  Widget _meterList() {
-    List list = [0, 1, 2, 3, 4, 5];
+  Widget _meterList(List<AmmeterList> ammeterList, bool online) {
+    if (ammeterList.length == 0) {
+      return Container(
+        height: MyScreen.setHeight(85),
+        child: DefaultTextStyle(
+          style: MyStyles.f24c99,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('未关联传感器/表，'),
+              InkWell(
+                onTap: () {
+                  print('关联表');
+                },
+                child: Text('去关联',
+                    style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        color: MyStyles.c666)),
+              )
+            ],
+          ),
+        ),
+      );
+    }
     return Container(
       padding: MyScreen.setEdge(top: 30),
       decoration: BoxDecoration(
           border:
               Border(top: BorderSide(width: 1, color: MyStyles.borderColor))),
       child: Column(
-        children: list.map((item) {
+        children: ammeterList.map((item) {
+          String _name = item.name + item.sn;
+          String _used = item.name.contains('表')
+              ? item.used.toString() ?? ''
+              : item.name.contains('水浸')
+                  ? item.alarming ? '水浸' : '未水浸'
+                  : item.temperature != null
+                      ? '${item.temperature}℃/${item.humidity}%'
+                      : '';
+          int _status = item.status;
+          if (!online && item.status == 0) {
+            _status = 2;
+          }
           return Container(
             margin: MyScreen.setEdge(bottom: 30),
             child: Row(
@@ -309,17 +372,17 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  width: MyScreen.setWidth(250),
-                  child: Text('三相四线表2'),
+                  width: MyScreen.setWidth(390),
+                  child: Text(_name),
                 ),
                 Container(
-                  width: MyScreen.setWidth(300),
-                  child: Text('234324234'),
+                  width: MyScreen.setWidth(200),
+                  child: Text(_used),
                 ),
                 Expanded(
                   child: Text(
-                    Utils.meterStatus(0)['label'],
-                    style: Utils.meterStatus(0)['style'],
+                    Utils.meterStatus(_status)['label'],
+                    style: Utils.meterStatus(_status)['style'],
                   ),
                 )
               ],
@@ -331,7 +394,10 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
   }
 
   // 底部固定内容
-  Widget _fixContent() {
+  Widget _fixContent(SiteDetailProvide data) {
+    if (data.siteData == null || data.isAlarm) {
+      return Container();
+    }
     return Container(
       width: double.infinity,
       height: MyScreen.setHeight(100),
@@ -343,9 +409,10 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          _fixLeftItem('设备总数', 10),
-          _fixLeftItem('已关联', 10),
-          _fixRightBtn()
+          _fixLeftItem('设备总数', data.siteData.deviceNum),
+          _fixLeftItem('已关联', data.siteData.linkNum),
+          _fixRightBtn(
+              data.disabled, data.siteData.canReceipt, data.siteData.linkNum)
         ],
       ),
     );
@@ -373,16 +440,24 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
   }
 
   // 底部固定内容右边按钮
-  Widget _fixRightBtn() {
-    return Container(
-      width: MyScreen.setWidth(250),
-      height: MyScreen.setHeight(99),
-      child: MySubmitBtn(
-        txt: '回单',
-        textSty: MyStyles.f32cff,
-        submit: () {
-          print('点击回单');
-        },
+  Widget _fixRightBtn(bool disabled, bool canReceipt, int linkNum) {
+    return InkWell(
+      child: Container(
+        width: MyScreen.setWidth(250),
+        height: MyScreen.setHeight(99),
+        child: MySubmitBtn(
+          txt: disabled ? '已回单' : canReceipt ? '回单' : '不可回单',
+          textSty: MyStyles.f32cff,
+          buttonColor: disabled || !canReceipt ? Colors.grey : null,
+          submit: () {
+            if (disabled) return;
+            if (canReceipt) {
+              print('点击回单');
+            } else {
+              if (linkNum == 0) Utils.showToast('请先关联设备');
+            }
+          },
+        ),
       ),
     );
   }
