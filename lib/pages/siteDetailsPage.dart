@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 16:36:39
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-16 17:09:23
+ * @LastEditTime : 2020-01-16 17:35:07
  * @Description: 数据采集建设站点详情
  * @FilePath: /unicom_flutter/lib/pages/siteDetailsPage.dart
  */
@@ -23,6 +23,7 @@ import 'package:unicom_flutter/utils/index.dart';
 import 'package:unicom_flutter/widgets/common/myAmapView.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/myAsset.dart';
+import 'package:unicom_flutter/widgets/common/myCuperDialog.dart';
 import 'package:unicom_flutter/widgets/common/myEmpty.dart';
 import 'package:unicom_flutter/widgets/common/myListBtn.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
@@ -452,7 +453,25 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
           submit: () {
             if (disabled) return;
             if (canReceipt) {
-              print('点击回单');
+              showCupertinoDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return MyCuperDialog(
+                      title: '是否确定回单',
+                      content: Container(
+                        padding: MyScreen.setEdgeAll(30),
+                        child: Text(
+                          '回单后将无法修改设备关联信息，请确定',
+                          style: MyStyles.f28c666,
+                        ),
+                      ),
+                      submit: () {
+                        Navigator.pop(context);
+                        Provide.value<SiteDetailProvide>(context)
+                            .submit(context);
+                      },
+                    );
+                  });
             } else {
               if (linkNum == 0) Utils.showToast('请先关联设备');
             }
