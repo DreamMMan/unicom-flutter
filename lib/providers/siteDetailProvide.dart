@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-16 11:46:48
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-17 10:26:20
+ * @LastEditTime : 2020-01-17 11:17:45
  * @Description: 数据采集建设站点详情
  * @FilePath: /unicom_flutter/lib/providers/siteDetailProvide.dart
  */
@@ -29,6 +29,7 @@ class SiteDetailProvide with ChangeNotifier {
     isLoad = false;
     siteData = null;
     isError = false;
+    callRefresh = false;
     notifyListeners();
   }
 

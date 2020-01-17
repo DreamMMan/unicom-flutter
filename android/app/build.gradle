@@ -57,6 +57,7 @@ android {
             JPUSH_APPKEY : "43fcd5146424e91db2dacf3b", // NOTE: JPush 上注册的包名对应的 Appkey.
             JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
         ]
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -83,4 +84,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    implementation 'com.android.support:multidex:1.0.3'
 }
