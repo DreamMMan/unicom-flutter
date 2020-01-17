@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 11:37:14
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-16 18:08:59
+ * @LastEditTime : 2020-01-17 16:08:33
  * @Description: 字体大小和颜色
  * @FilePath: /unicom_flutter/lib/utils/MyStyles.dart
  */
@@ -92,4 +92,15 @@ class MyStyles {
       TextStyle(fontSize: MyScreen.setSp(36), color: c03A4EE);
   static TextStyle f36c52 =
       TextStyle(fontSize: MyScreen.setSp(36), color: c52C47B);
+
+  // border
+  static Border borderTop =
+      Border(top: BorderSide(width: 1, color: borderColor));
+  static Border borderLeft =
+      Border(left: BorderSide(width: 1, color: borderColor));
+  static Border borderRight =
+      Border(right: BorderSide(width: 1, color: borderColor));
+  static Border borderBottom =
+      Border(bottom: BorderSide(width: 1, color: borderColor));
+  static Border borderAll = Border.all(width: 1, color: borderColor);
 }

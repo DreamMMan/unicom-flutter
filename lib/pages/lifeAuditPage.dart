@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-06 19:42:20
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-15 16:01:09
+ * @LastEditTime : 2020-01-17 16:11:02
  * @Description: 生命周期工单审核
  * @FilePath: /unicom-flutter/lib/pages/lifeAuditPage.dart
  */
@@ -150,9 +150,7 @@ class LifeAuditPage extends StatelessWidget {
   Widget _oddContent(context, LifeAuditProvide data) {
     return Container(
       height: MyScreen.setHeight(90),
-      decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(width: 1, color: MyStyles.borderColor))),
+      decoration: BoxDecoration(border: MyStyles.borderBottom),
       child: Row(
         children: <Widget>[
           Text.rich(TextSpan(children: <TextSpan>[

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 16:36:39
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-17 14:26:12
+ * @LastEditTime : 2020-01-17 16:15:18
  * @Description: 数据采集建设站点详情
  * @FilePath: /unicom_flutter/lib/pages/siteDetailsPage.dart
  */
@@ -219,10 +219,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
           siteData.status == 4
               ? Container(
                   padding: MyScreen.setEdge(top: 20, bottom: 20),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          top: BorderSide(
-                              width: 1, color: MyStyles.borderColor))),
+                  decoration: BoxDecoration(border: MyStyles.borderTop),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -408,9 +405,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
     }
     return Container(
       padding: MyScreen.setEdge(top: 30),
-      decoration: BoxDecoration(
-          border:
-              Border(top: BorderSide(width: 1, color: MyStyles.borderColor))),
+      decoration: BoxDecoration(border: MyStyles.borderTop),
       child: Column(
         children: ammeterList.map((item) {
           String _name = item.name + item.sn;
@@ -461,10 +456,8 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
     return Container(
       width: double.infinity,
       height: MyScreen.setHeight(100),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          border:
-              Border(top: BorderSide(width: 1, color: MyStyles.borderColor))),
+      decoration:
+          BoxDecoration(color: Colors.white, border: MyStyles.borderTop),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,

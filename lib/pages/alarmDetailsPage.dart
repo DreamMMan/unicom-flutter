@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 14:08:33
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-03 20:51:27
+ * @LastEditTime : 2020-01-17 16:10:37
  * @Description: 处理详情页面
  * @FilePath: /unicom_flutter/lib/pages/AlarmDetailsPage.dart
  */
@@ -138,8 +138,7 @@ class AlarmDetailsPage extends StatelessWidget {
     return Expanded(
         child: Container(
       constraints: BoxConstraints(minHeight: MyScreen.setHeight(60)),
-      decoration: BoxDecoration(
-          border: Border(right: BorderSide(width: 1, color: MyStyles.f1f1f1))),
+      decoration: BoxDecoration(border: MyStyles.borderRight),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:10:50
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-08 11:09:26
+ * @LastEditTime : 2020-01-17 16:11:36
  * @Description: 生命周期站点详情
  * @FilePath: /unicom-flutter/lib/pages/lifeSitePage.dart
  */
@@ -206,10 +206,8 @@ class _LifeSitePageState extends State<LifeSitePage> {
   Widget _panelContentItem(String name, DeviceList listData) {
     return Container(
       padding: MyScreen.setEdge(left: 30, top: 30, right: 30),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(
-              bottom: BorderSide(width: 1, color: MyStyles.borderColor))),
+      decoration:
+          BoxDecoration(color: Colors.white, border: MyStyles.borderBottom),
       child: Wrap(
         children: <Widget>[
           _lineItem('设备  I  D：', listData.deviceSn),
@@ -241,7 +239,7 @@ class _LifeSitePageState extends State<LifeSitePage> {
                   width: 0,
                 ),
           name == '开关电源'
-              ? _lineItem('是否满足N+1配置：', listData.canN1 ? '是' : '否')
+              ? _lineItem('是否满足N+1配���：', listData.canN1 ? '是' : '否')
               : Container(
                   width: 0,
                 ),
@@ -301,10 +299,8 @@ class _LifeSitePageState extends State<LifeSitePage> {
     return Container(
       width: MyScreen.setWidth(750),
       height: MyScreen.setHeight(100),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          border:
-              Border(top: BorderSide(width: 1, color: MyStyles.borderColor))),
+      decoration:
+          BoxDecoration(color: Colors.white, border: MyStyles.borderTop),
       child: Row(
         children: <Widget>[
           Container(

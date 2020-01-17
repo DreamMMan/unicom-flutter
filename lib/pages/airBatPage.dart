@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:16:01
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-15 16:36:08
+ * @LastEditTime : 2020-01-17 16:09:55
  * @Description: 空调清洗 蓄电池放电测试 和 常规作业作业 的设备修改页面
  * @FilePath: /unicom-flutter/lib/pages/airBatPage.dart
  */
@@ -77,10 +77,7 @@ class AirBatPage extends StatelessWidget {
                   width: MyScreen.setWidth(690),
                   padding: MyScreen.setEdge(top: 30),
                   margin: MyScreen.setEdge(top: 30),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          top: BorderSide(
-                              width: 1, color: MyStyles.borderColor))),
+                  decoration: BoxDecoration(border: MyStyles.borderTop),
                   child: Text('审核驳回：${lastData[3]}', style: MyStyles.f26ce0),
                 )
               : Container()
@@ -216,10 +213,8 @@ class AirBatPage extends StatelessWidget {
   Widget _listItemContentItem(BuildContext context, String label,
       bool isRequired, int type, List<DeviceList> deviceList, int index) {
     return Container(
-      decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(
-              bottom: BorderSide(width: 1, color: MyStyles.borderColor))),
+      decoration:
+          BoxDecoration(color: Colors.white, border: MyStyles.borderBottom),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

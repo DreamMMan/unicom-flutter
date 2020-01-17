@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-03 20:14:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-14 14:29:58
+ * @LastEditTime : 2020-01-17 16:12:26
  * @Description: 常规动力巡检作业
  * @FilePath: /unicom-flutter/lib/pages/rpinsPage.dart
  */
@@ -75,10 +75,7 @@ class RpInPage extends StatelessWidget {
                   width: MyScreen.setWidth(690),
                   padding: MyScreen.setEdge(top: 30),
                   margin: MyScreen.setEdge(top: 30),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          top: BorderSide(
-                              width: 1, color: MyStyles.borderColor))),
+                  decoration: BoxDecoration(border: MyStyles.borderTop),
                   child: Text('审核驳回：${siteData.description}',
                       style: MyStyles.f26ce0),
                 )
@@ -111,9 +108,14 @@ class RpInPage extends StatelessWidget {
                     children: siteData.jobList.asMap().keys.map((index) {
                       return InkWell(
                         onTap: () {
-                          List _list = [siteData.name, siteData.address, siteData.status, siteData.description];
-                          Provide.value<AirBatProvide>(context)
-                                    .getData(context, siteData.jobList[index].id, _list);
+                          List _list = [
+                            siteData.name,
+                            siteData.address,
+                            siteData.status,
+                            siteData.description
+                          ];
+                          Provide.value<AirBatProvide>(context).getData(
+                              context, siteData.jobList[index].id, _list);
                           Application.router.navigateTo(context, '/airBat');
                         },
                         child: _listItem(siteData.jobList[index]),
@@ -134,9 +136,7 @@ class RpInPage extends StatelessWidget {
     return Container(
       margin: MyScreen.setEdge(left: 30, right: 30),
       height: MyScreen.setHeight(120),
-      decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(width: 1, color: MyStyles.borderColor))),
+      decoration: BoxDecoration(border: MyStyles.borderBottom),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
