@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-16 17:19:20
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-17 10:20:15
+ * @LastEditTime : 2020-01-17 11:47:12
  * @Description: ios 弹窗
  * @FilePath: /unicom_flutter/lib/widgets/common/myCuperDialog.dart
  */
@@ -71,26 +71,36 @@ class MyDialog extends Dialog {
   // 按钮
   Widget _actions(context) {
     List<Widget> _list = [
-      MaterialButton(
-        onPressed: submit,
-        child: Text('确定', style: MyStyles.f36c03),
+      Expanded(
+        child: Container(
+          height: double.infinity,
+          decoration: BoxDecoration(
+              border: Border(
+                  left: BorderSide(width: 1, color: MyStyles.borderColor))),
+          child: MaterialButton(
+            onPressed: submit,
+            child: Text('确定', style: MyStyles.f36c03),
+          ),
+        ),
       )
     ];
     if (!isOnly) {
       _list
         ..insert(
             0,
-            MaterialButton(
-              onPressed: () {
-                if (cancel == null) {
-                  Navigator.pop(context);
-                } else {
-                  cancel();
-                }
-              },
-              child: Text(
-                '取消',
-                style: MyStyles.f36c66,
+            Expanded(
+              child: MaterialButton(
+                onPressed: () {
+                  if (cancel == null) {
+                    Navigator.pop(context);
+                  } else {
+                    cancel();
+                  }
+                },
+                child: Text(
+                  '取消',
+                  style: MyStyles.f36c66,
+                ),
               ),
             ));
     }

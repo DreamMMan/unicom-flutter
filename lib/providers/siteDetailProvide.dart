@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-16 11:46:48
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-17 11:17:45
+ * @LastEditTime : 2020-01-17 11:52:07
  * @Description: 数据采集建设站点详情
  * @FilePath: /unicom_flutter/lib/providers/siteDetailProvide.dart
  */
@@ -30,6 +30,7 @@ class SiteDetailProvide with ChangeNotifier {
     siteData = null;
     isError = false;
     callRefresh = false;
+    imei = '';
     notifyListeners();
   }
 
@@ -41,6 +42,7 @@ class SiteDetailProvide with ChangeNotifier {
 
   // 下拉刷新
   onRefresh(context) async {
+    isError = false;
     var params = {"id": id};
     await HttpUtil.request(context, 'appSiteDetail', data: params).then((data) {
       SiteDetailsModel dataInfo = SiteDetailsModel.fromJson(data);
@@ -49,12 +51,11 @@ class SiteDetailProvide with ChangeNotifier {
         disabled = true;
       }
       isLoad = true;
-      notifyListeners();
+      callRefresh = false;
     }).catchError((onError) {
-      print(onError);
       isError = true;
-      notifyListeners();
     });
+    notifyListeners();
   }
 
   // 设置imei
@@ -74,10 +75,12 @@ class SiteDetailProvide with ChangeNotifier {
     await HttpUtil.request(context, 'addDtu', data: params).then((data) {
       Navigator.pop(context);
       Navigator.pop(context);
+      imei = '';
       if (data != null) {
         Utils.showToast('添加DTU成功');
         isCallRefresh();
       }
+      notifyListeners();
     });
   }
 

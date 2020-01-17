@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 16:36:39
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-17 11:23:04
+ * @LastEditTime : 2020-01-17 11:37:11
  * @Description: 数据采集建设站点详情
  * @FilePath: /unicom_flutter/lib/pages/siteDetailsPage.dart
  */
@@ -24,13 +24,12 @@ import 'package:unicom_flutter/widgets/common/myAmapView.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/myAsset.dart';
 import 'package:unicom_flutter/widgets/common/myDialog.dart';
+import 'package:unicom_flutter/widgets/common/myDtuDialog.dart';
 import 'package:unicom_flutter/widgets/common/myEmpty.dart';
-import 'package:unicom_flutter/widgets/common/myInput.dart';
 import 'package:unicom_flutter/widgets/common/myListBtn.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
 import 'package:unicom_flutter/widgets/common/mySubmitBtn.dart';
 import 'package:unicom_flutter/widgets/common/signal.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
 
 class SiteDetailsPage extends StatefulWidget {
   @override
@@ -45,50 +44,24 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return MyDialog(
-            title: '添加DTU',
-            content: Container(
-              padding: MyScreen.setEdge(top: 80, bottom: 80),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    width: MyScreen.setWidth(500),
-                    height: MyScreen.setHeight(100),
-                    padding: MyScreen.setEdge(left: 60, right: 30),
-                    child: MyInput(
-                      inintValue: imei,
-                      hintText: '请扫码或输入设备IMEI',
-                      hintStyle: MyStyles.f30c99,
-                      blackEegExp: ' ',
-                      paddingHeight: 25,
-                      fieldCallBack: (val) {
-                        Provide.value<SiteDetailProvide>(context).setImei(val);
-                      },
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      String cameraScanResult = await scanner.scan();
-                      Provide.value<SiteDetailProvide>(context)
-                          .setImei(cameraScanResult);
-                      Navigator.pop(context);
-                      showAddDtu(cameraScanResult);
-                    },
-                    child: MyAsset(name: MyConstant.scan, width: 36),
-                  )
-                ],
-              ),
-            ),
-            cancel: () {
-              Provide.value<SiteDetailProvide>(context).setImei('');
-              Navigator.pop(context);
-            },
-            submit: () {
-              Provide.value<SiteDetailProvide>(context).addDtu(context);
-            },
-          );
+          return MyDtuDialog(
+              name: '添加DTU',
+              imei: imei,
+              fieldCallBack: (val) {
+                Provide.value<SiteDetailProvide>(context).setImei(val);
+              },
+              scan: (val) {
+                Provide.value<SiteDetailProvide>(context).setImei(val);
+                Navigator.pop(context);
+                showAddDtu(val);
+              },
+              cancel: () {
+                Provide.value<SiteDetailProvide>(context).setImei('');
+                Navigator.pop(context);
+              },
+              submit: () {
+                Provide.value<SiteDetailProvide>(context).addDtu(context);
+              });
         });
   }
 
