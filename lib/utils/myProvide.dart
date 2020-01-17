@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-02 15:03:13
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-16 11:48:03
+ * @LastEditTime : 2020-01-17 14:31:04
  * @Description: provide 集合
  * @FilePath: /unicom_flutter/lib/utils/myProvide.dart
  */
@@ -12,10 +12,12 @@ import 'package:unicom_flutter/providers/airBatProvide.dart';
 import 'package:unicom_flutter/providers/alarmDealProvide.dart';
 import 'package:unicom_flutter/providers/alarmDetailsProvide.dart';
 import 'package:unicom_flutter/providers/alarmProvide.dart';
+import 'package:unicom_flutter/providers/dtuDetailProvide.dart';
 import 'package:unicom_flutter/providers/homeProvide.dart';
 import 'package:unicom_flutter/providers/lifeAuditProivde.dart';
 import 'package:unicom_flutter/providers/lifeSiteDetailsProvide.dart';
 import 'package:unicom_flutter/providers/loginProvide.dart';
+import 'package:unicom_flutter/providers/meterProvide.dart';
 import 'package:unicom_flutter/providers/orderDetailsProvide.dart';
 import 'package:unicom_flutter/providers/orderProvide.dart';
 import 'package:unicom_flutter/providers/rpinsProvide.dart';
@@ -35,6 +37,8 @@ myProvide() {
     ..provide(Provider<LifeAuditProvide>.value(LifeAuditProvide()))
     ..provide(Provider<RpinsProvide>.value(RpinsProvide()))
     ..provide(Provider<AirBatProvide>.value(AirBatProvide()))
-    ..provide(Provider<SiteDetailProvide>.value(SiteDetailProvide()));
+    ..provide(Provider<SiteDetailProvide>.value(SiteDetailProvide()))
+    ..provide(Provider<DtuDetailProvide>.value(DtuDetailProvide()))
+    ..provide(Provider<MeterProvide>.value(MeterProvide()));
   return provides;
 }

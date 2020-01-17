@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:40:26
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-15 16:02:29
+ * @LastEditTime : 2020-01-17 14:23:32
  * @Description: fluro handler配置集合
  * @FilePath: /unicom_flutter/lib/routes/handlers.dart
  */
@@ -11,10 +11,12 @@ import 'package:fluro/fluro.dart';
 import 'package:unicom_flutter/pages/airBatPage.dart';
 import 'package:unicom_flutter/pages/alarmDealPage.dart';
 import 'package:unicom_flutter/pages/alarmDetailsPage.dart';
+import 'package:unicom_flutter/pages/dtuDetailPage.dart';
 import 'package:unicom_flutter/pages/homePage.dart';
 import 'package:unicom_flutter/pages/lifeAuditPage.dart';
 import 'package:unicom_flutter/pages/lifeSitePage.dart';
 import 'package:unicom_flutter/pages/loginPage.dart';
+import 'package:unicom_flutter/pages/meterPage.dart';
 import 'package:unicom_flutter/pages/orderDetailsPage.dart';
 import 'package:unicom_flutter/pages/rpinsPage.dart';
 import 'package:unicom_flutter/pages/siteDetailsPage.dart';
@@ -92,4 +94,13 @@ Handler lifeAuditHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   return LifeAuditPage();
 });
-
+// DTU详情
+Handler dtuDetailHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return DtuDetailPage();
+});
+// 设定表/传感器
+Handler meterHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return MeterPage();
+});

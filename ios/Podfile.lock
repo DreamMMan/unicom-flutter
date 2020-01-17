@@ -48,6 +48,8 @@ PODS:
     - Flutter
   - permission_handler (4.1.0):
     - Flutter
+  - qrscan (0.0.1):
+    - Flutter
   - Reachability (3.2)
   - url_launcher (0.0.1):
     - Flutter
@@ -70,6 +72,7 @@ DEPENDENCIES:
   - jpush_flutter (from `.symlinks/plugins/jpush_flutter/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - qrscan (from `.symlinks/plugins/qrscan/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
   - url_launcher_macos (from `.symlinks/plugins/url_launcher_macos/ios`)
   - url_launcher_web (from `.symlinks/plugins/url_launcher_web/ios`)
@@ -111,6 +114,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
   permission_handler:
     :path: ".symlinks/plugins/permission_handler/ios"
+  qrscan:
+    :path: ".symlinks/plugins/qrscan/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
   url_launcher_macos:
@@ -138,6 +143,7 @@ SPEC CHECKSUMS:
   jpush_flutter: d7e3a79466eb9447fd940233f02661b514f137c6
   path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
   permission_handler: b41310bab60fffbf8b5732cd9b4f565671d14762
+  qrscan: 42f49ba37d3c423a3b140434003e821135cfc4c3
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   url_launcher: a1c0cc845906122c4784c542523d8cacbded5626
   url_launcher_macos: fd7894421cd39320dce5f292fc99ea9270b2a313

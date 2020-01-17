@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:40:16
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-15 16:02:56
+ * @LastEditTime : 2020-01-17 14:24:25
  * @Description: fluro 路由配置
  * @FilePath: /unicom_flutter/lib/routes/config.dart
  */
@@ -51,5 +51,11 @@ class Routes {
     // 生命周期工单审核页面
     router.define('/lifeAudit',
         handler: lifeAuditHandler, transitionType: TransitionType.cupertino);
+    // dtu详情
+    router.define('/dtuDetail',
+        handler: dtuDetailHandler, transitionType: TransitionType.cupertino);
+    // 设定表/传感器
+    router.define('/meter',
+        handler: meterHandler, transitionType: TransitionType.cupertino);
   }
 }

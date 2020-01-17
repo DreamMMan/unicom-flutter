@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 16:36:39
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-17 11:37:11
+ * @LastEditTime : 2020-01-17 14:26:12
  * @Description: 数据采集建设站点详情
  * @FilePath: /unicom_flutter/lib/pages/siteDetailsPage.dart
  */
@@ -17,6 +17,7 @@ import 'package:provide/provide.dart';
 import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/models/siteDetailsModel.dart';
 import 'package:unicom_flutter/providers/siteDetailProvide.dart';
+import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/utils/index.dart';
@@ -29,6 +30,7 @@ import 'package:unicom_flutter/widgets/common/myEmpty.dart';
 import 'package:unicom_flutter/widgets/common/myListBtn.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
 import 'package:unicom_flutter/widgets/common/mySubmitBtn.dart';
+import 'package:unicom_flutter/widgets/common/showBottomSheet.dart';
 import 'package:unicom_flutter/widgets/common/signal.dart';
 
 class SiteDetailsPage extends StatefulWidget {
@@ -62,6 +64,33 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
               submit: () {
                 Provide.value<SiteDetailProvide>(context).addDtu(context);
               });
+        });
+  }
+
+  // 地图选项卡
+  showModal(latitude, longitude) {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: MyStyles.d9DEE1,
+        builder: (BuildContext context) {
+          return ShowBottomSheet(
+            list: [
+              {'name': '查看地图'},
+              {'name': '更新定位'}
+            ],
+            tap: (data) {
+              Future.delayed(Duration(milliseconds: 200)).then((val) {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return MyAmapView(
+                        latLng: LatLng(
+                            double.parse(latitude), double.parse(longitude)),
+                      );
+                    });
+              });
+            },
+          );
         });
   }
 
@@ -158,7 +187,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
           ),
           InkWell(
             onTap: () {
-              print('点击了地址');
+              showModal(siteData.latitude, siteData.longitude);
             },
             child: Container(
               width: MyScreen.setWidth(480),
@@ -258,9 +287,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
         (context, index) {
           return InkWell(
               onTap: () {
-                // Provide.value<OrderDetailsProvide>(context)
-                //     .setIdAndIslife(data.planList[index].id, true);
-                // Application.router.navigateTo(context, '/orderDetails');
+                Application.router.navigateTo(context, '/dtuDetail');
               },
               child: _dtuList(siteData.dtuList[index]));
         },
@@ -367,7 +394,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
               Text('未关联传感器/表，'),
               InkWell(
                 onTap: () {
-                  print('关联表');
+                  Application.router.navigateTo(context, 'meter');
                 },
                 child: Text('去关联',
                     style: TextStyle(
