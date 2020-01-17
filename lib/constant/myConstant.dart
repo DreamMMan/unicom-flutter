@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 17:14:27
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-16 10:14:11
+ * @LastEditTime : 2020-01-17 09:57:57
  * @Description: 常量
  * @FilePath: /unicom_flutter/lib/constant/myConstant.dart
  */
@@ -51,6 +51,7 @@ class MyConstant {
   static const String noPosition = 'assets/images/noPosition.png';
   static const String replace = 'assets/images/replace.png';
   static const String stop = 'assets/images/stop.png';
+  static const String scan = 'assets/images/scan.png';
 
   // 阿里巴巴矢量图标
   static const IconData arrowIcon = IconData(0xe775, fontFamily: 'iconfont');

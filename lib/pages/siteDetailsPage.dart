@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 16:36:39
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-16 18:26:09
+ * @LastEditTime : 2020-01-17 10:27:44
  * @Description: 数据采集建设站点详情
  * @FilePath: /unicom_flutter/lib/pages/siteDetailsPage.dart
  */
@@ -38,6 +38,7 @@ class SiteDetailsPage extends StatefulWidget {
 
 class _SiteDetailsPageState extends State<SiteDetailsPage> {
   EasyRefreshController _controller = EasyRefreshController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +89,10 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
   Widget _sliverTop(SiteDetailProvide data) {
     return SliverToBoxAdapter(
       child: Column(
-        children: <Widget>[_siteTop(data.siteData), _addDtu(data.disabled)],
+        children: <Widget>[
+          _siteTop(data.siteData),
+          _addDtu(data.disabled, data.imei)
+        ],
       ),
     );
   }
@@ -190,17 +194,47 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
   }
 
   // 添加DTU
-  Widget _addDtu(bool disabled) {
+  Widget _addDtu(bool disabled, String imei) {
     return InkWell(
       onTap: () {
         if (disabled) return;
-        showCupertinoDialog(
+        showDialog(
             context: context,
             builder: (BuildContext context) {
               return MyDialog(
                 title: '添加DTU',
-                submit: () {
+                content: Container(
+                  padding: MyScreen.setEdge(top: 80, bottom: 80),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        width: MyScreen.setWidth(500),
+                        height: MyScreen.setHeight(100),
+                        padding: MyScreen.setEdge(left: 60, right: 30),
+                        child: MyInput(
+                          inintValue: imei,
+                          hintText: '请扫码或输入设备IMEI',
+                          hintStyle: MyStyles.f30c99,
+                          blackEegExp: ' ',
+                          paddingHeight: 25,
+                          fieldCallBack: (val) {
+                            Provide.value<SiteDetailProvide>(context)
+                                .setImei(val);
+                          },
+                        ),
+                      ),
+                      MyAsset(name: MyConstant.scan, width: 36)
+                    ],
+                  ),
+                ),
+                cancel: () {
+                  Provide.value<SiteDetailProvide>(context).setImei('');
                   Navigator.pop(context);
+                },
+                submit: () {
+                  Provide.value<SiteDetailProvide>(context).addDtu(context);
                 },
               );
             });

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-07 17:47:50
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-15 15:06:24
+ * @LastEditTime : 2020-01-17 10:29:25
  * @Description: 空调 蓄电池，常规动力设备详情
  * @FilePath: /unicom_flutter/lib/providers/airBatProvide.dart
  */
@@ -61,9 +61,9 @@ class AirBatProvide with ChangeNotifier {
       'updateHiddenDanger': true
     };
     await HttpUtil.request(context, 'submit', data: params).then((data) {
+      Navigator.pop(context);
       if (data != null) {
         Provide.value<RpinsProvide>(context).callRefresh(context);
-        Navigator.pop(context);
         Utils.showToast('提交成功');
       }
     });

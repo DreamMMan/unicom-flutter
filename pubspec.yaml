@@ -82,6 +82,7 @@ flutter:
    - assets/images/replace.png
    - assets/images/stop.png
    - assets/images/noPosition.png
+   - assets/images/scan.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

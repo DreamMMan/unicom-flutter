@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 13:52:35
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-15 16:37:53
+ * @LastEditTime : 2020-01-17 10:30:59
  * @Description: 登录页面
  * @FilePath: /unicom_flutter/lib/providers/loginProvide.dart
  */
@@ -37,11 +37,11 @@ class LoginProvide with ChangeNotifier {
     Utils.showLoading(context);
     var params = {'username': username, 'password': password};
     HttpUtil.request(context, 'login', data: params).then((value) {
+      Navigator.pop(context);
       if (value != null) {
         box.put('token', value);
         box.put('username', username);
         password = '';
-        Navigator.pop(context);
         Application.router.navigateTo(context, '/', replace: true);
         notifyListeners();
       }

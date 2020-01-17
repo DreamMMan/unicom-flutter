@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-16 17:19:20
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-16 18:20:51
+ * @LastEditTime : 2020-01-17 10:20:15
  * @Description: ios 弹窗
  * @FilePath: /unicom_flutter/lib/widgets/common/myCuperDialog.dart
  */
@@ -17,11 +17,13 @@ class MyDialog extends Dialog {
   final bool isOnly;
   final bool hasHead;
   final Function submit;
+  final Function cancel;
   MyDialog(
       {this.title,
       this.content,
       this.isOnly = false,
       this.hasHead = true,
+      this.cancel,
       @required this.submit});
   @override
   Widget build(BuildContext context) {
@@ -80,7 +82,11 @@ class MyDialog extends Dialog {
             0,
             MaterialButton(
               onPressed: () {
-                Navigator.pop(context);
+                if (cancel == null) {
+                  Navigator.pop(context);
+                } else {
+                  cancel();
+                }
               },
               child: Text(
                 '取消',
