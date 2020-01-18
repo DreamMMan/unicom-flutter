@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-17 14:19:31
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-18 11:29:53
+ * @LastEditTime : 2020-01-18 14:07:25
  * @Description: DTU详情
  * @FilePath: /unicom_flutter/lib/pages/dtuDetailPage.dart
  */
@@ -349,20 +349,73 @@ class DtuDetailPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[_lineItem()],
+        children: <Widget>[_lineItem(), _lineItem(), _lineItem()],
       ),
     );
   }
 
   // 表线路item
   Widget _lineItem() {
-    return Container(
-      width: MyScreen.setWidth(690),
-      margin: MyScreen.setEdge(bottom: 30),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[_lineItemLeft(), _lineItemStatus(), _lineDevice()],
+    if (true == true) {
+      return IntrinsicHeight(
+        child: Container(
+          width: MyScreen.setWidth(690),
+          margin: MyScreen.setEdge(bottom: 30),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              _lineItemLeft(),
+              _lineItemStatus(),
+              _lineDevice()
+            ],
+          ),
+        ),
+      );
+    }
+    return IntrinsicHeight(
+      child: Container(
+        width: MyScreen.setWidth(690),
+        margin: MyScreen.setEdge(bottom: 30),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              child: Column(
+                children: <Widget>[
+                  IntrinsicHeight(
+                    child: Container(
+                      margin: MyScreen.setEdge(bottom: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          _lineItemLeft(),
+                          _lineItemStatus(),
+                        ],
+                      ),
+                    ),
+                  ),
+                  IntrinsicHeight(
+                    child: Container(
+                      margin: MyScreen.setEdge(bottom: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          _lineItemLeft(),
+                          _lineItemStatus(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            _lineDevice()
+          ],
+        ),
       ),
     );
   }
@@ -371,7 +424,7 @@ class DtuDetailPage extends StatelessWidget {
   Widget _lineItemLeft() {
     return Container(
       width: MyScreen.setWidth(110),
-      height: MyScreen.setWidth(110),
+      constraints: BoxConstraints(minHeight: MyScreen.setWidth(110)),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         border: MyStyles.borderAll,
@@ -387,7 +440,7 @@ class DtuDetailPage extends StatelessWidget {
   Widget _lineItemStatus() {
     return Container(
       width: MyScreen.setWidth(140),
-      height: MyScreen.setWidth(110),
+      constraints: BoxConstraints(minHeight: MyScreen.setWidth(110)),
       margin: MyScreen.setEdge(left: 20, right: 20),
       child: DefaultTextStyle(
         style: MyStyles.f26c52,
@@ -401,7 +454,7 @@ class DtuDetailPage extends StatelessWidget {
               width: 120,
               height: 15,
             ),
-            Text('36v/5A')
+            Text('36v/5A36v/5A36v/5A36v/5A36v/5A')
           ],
         ),
       ),
@@ -412,16 +465,12 @@ class DtuDetailPage extends StatelessWidget {
   Widget _lineDevice() {
     return Expanded(
       child: Container(
-        height: MyScreen.setWidth(110),
         padding: MyScreen.setEdge(top: 20, bottom: 20),
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(border: MyStyles.borderAll),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            _lineDeviceText(),
-            _lineDeviceIcon()
-          ],
+          children: <Widget>[_lineDeviceText(), _lineDeviceIcon()],
         ),
       ),
     );
@@ -429,13 +478,43 @@ class DtuDetailPage extends StatelessWidget {
 
   // 设备
   Widget _lineDeviceText() {
+    Widget _device = Text(
+      '点击关联设备',
+      style: MyStyles.f26c99,
+    );
+    _device = Text(
+      '动力设备（2）',
+      style: MyStyles.f26c33,
+    );
+    _device = Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text.rich(TextSpan(children: <TextSpan>[
+          TextSpan(
+            text: '动力设备类型',
+            style: MyStyles.f26c33,
+          ),
+          TextSpan(
+            text: ' 设备ID设备ID设备ID设备ID',
+            style: MyStyles.f22c33,
+          )
+        ])),
+        Padding(
+          padding: MyScreen.setEdge(top: 15),
+          child: Text(
+            '品牌-匹数/标称容量/规格型号',
+            style: MyStyles.f22c99,
+          ),
+        ),
+      ],
+    );
+
     return Expanded(
       child: Container(
         padding: MyScreen.setEdge(left: 30),
-        child: Text(
-          '点击关联设备',
-          style: MyStyles.f26c99,
-        ),
+        decoration: BoxDecoration(border: MyStyles.borderRight),
+        child: _device,
       ),
     );
   }
@@ -444,7 +523,6 @@ class DtuDetailPage extends StatelessWidget {
   Widget _lineDeviceIcon() {
     return Container(
       width: MyScreen.setWidth(75),
-      decoration: BoxDecoration(border: MyStyles.borderLeft),
       child: Icon(
         Icons.keyboard_arrow_right,
         color: MyStyles.c999,
