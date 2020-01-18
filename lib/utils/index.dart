@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:42:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-16 11:15:29
+ * @LastEditTime : 2020-01-18 16:35:49
  * @Description: utils方法
  * @FilePath: /unicom_flutter/lib/utils/index.dart
  */
@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/models/deviceList_model.dart';
+import 'package:unicom_flutter/models/dtuDetailModel.dart' as dtuDetailModel;
 import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
 import 'dart:convert' as convert;
@@ -253,4 +254,24 @@ class Utils {
       return newList;
     }
   }
+
+  // dtu 表的线路组合
+  // static regroup(List<dtuDetailModel.LineList> array) {
+  //   print(array.length);
+  //   List _list = [];
+  //   var _obj = {'list': [], 'deviceList': [], "flag": false};
+  //   List index = [];
+  //   bool falg = false;
+  //   for (int i = 0; i < array.length; i++) {
+  //     if (array[i + 1] != null &&
+  //         array[i].deviceList.length > 0 &&
+  //         array[i + 1].deviceList.length > 0 &&
+  //         array[i].deviceList == array[i + 1].deviceList) {
+  //           _obj['flag'] = true;
+  //           if(falg){
+  //             _obj['list']..add(array[i + 1]);
+  //           }
+  //         }
+  //   }
+  // }
 }

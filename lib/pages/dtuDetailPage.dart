@@ -19,6 +19,7 @@ import 'package:unicom_flutter/providers/dtuDetailProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
+import 'package:unicom_flutter/utils/index.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/myAsset.dart';
 import 'package:unicom_flutter/widgets/common/myDialog.dart';
@@ -452,6 +453,7 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
 
   // 表线路
   Widget _meterLine(AmmeterList merterData) {
+    // Utils.regroup(merterData.lineList);
     return Container(
       padding: MyScreen.setEdge(left: 30, top: 30, right: 30),
       color: Colors.white,
