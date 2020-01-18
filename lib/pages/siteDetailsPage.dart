@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-23 16:36:39
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-17 16:15:18
+ * @LastEditTime : 2020-01-18 15:19:19
  * @Description: 数据采集建设站点详情
  * @FilePath: /unicom_flutter/lib/pages/siteDetailsPage.dart
  */
@@ -16,6 +16,7 @@ import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/models/siteDetailsModel.dart';
+import 'package:unicom_flutter/providers/dtuDetailProvide.dart';
 import 'package:unicom_flutter/providers/siteDetailProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
@@ -120,7 +121,8 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
   Widget _content(SiteDetailProvide data) {
     List<Widget> _list = [];
     if (data.siteData != null) {
-      _list..addAll([_sliverTop(data), _sliverList(data.siteData)]);
+      _list
+        ..addAll([_sliverTop(data), _sliverList(data.siteData, data.disabled)]);
     }
     return Expanded(
       child: EasyRefresh.custom(
@@ -278,12 +280,14 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
   }
 
   // Sliver列表
-  Widget _sliverList(SiteDetailsModel siteData) {
+  Widget _sliverList(SiteDetailsModel siteData, bool disabled) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
           return InkWell(
               onTap: () {
+                Provide.value<DtuDetailProvide>(context)
+                    .setData(siteData.dtuList[index].id, disabled);
                 Application.router.navigateTo(context, '/dtuDetail');
               },
               child: _dtuList(siteData.dtuList[index]));
@@ -505,7 +509,7 @@ class _SiteDetailsPageState extends State<SiteDetailsPage> {
           submit: () {
             if (disabled) return;
             if (canReceipt) {
-              showCupertinoDialog(
+              showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return MyDialog(

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 14:53:50
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-17 10:06:32
+ * @LastEditTime : 2020-01-18 14:34:40
  * @Description: 后台接口列表
  * @FilePath: /unicom_flutter/lib/http/api.dart
  */
@@ -19,6 +19,9 @@ const apiConfig = {
   'appSiteReceipt':{'method': 'POST', 'url': '/system/appSite/receipt'}, // 用于数据采集建设和常规巡检 回单
   'getDeviceCategory':{'method': 'POST', 'url': '/system/appSite/getDeviceCategory'}, // 获取电表类型
   'addDtu':{'method': 'POST', 'url': '/system/appSite/addDtu'}, // 添加dtu
+  'dtuDetail':{'method': 'POST', 'url': '/system/appSite/dtuDetail'}, // dtu详情
+  'upData':{'method': 'POST', 'url': '/system/appSite/getData'}, // dtu上报数据
+  'saveCoord':{'method': 'POST', 'url': '/system/appSite/saveCoord'}, // 保存站点坐标
   'removeDtu':{'method': 'POST', 'url': '/system/appSite/removeDtu'}, // 删除dtu
   'replaceDtu':{'method': 'POST', 'url': '/system/appSite/replaceDtu'}, // 更换dtu
   'addAmmeter':{'method': 'POST', 'url': '/system/appSite/addAmmeter'}, // 添加电表

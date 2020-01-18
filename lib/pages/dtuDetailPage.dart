@@ -2,10 +2,11 @@
  * @Author: liangyt
  * @Date: 2020-01-17 14:19:31
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-18 14:07:25
+ * @LastEditTime : 2020-01-18 15:55:55
  * @Description: DTU详情
  * @FilePath: /unicom_flutter/lib/pages/dtuDetailPage.dart
  */
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -13,18 +14,101 @@ import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/constant/myConstant.dart';
+import 'package:unicom_flutter/models/dtuDetailModel.dart';
 import 'package:unicom_flutter/providers/dtuDetailProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
 import 'package:unicom_flutter/widgets/common/myAsset.dart';
+import 'package:unicom_flutter/widgets/common/myDialog.dart';
+import 'package:unicom_flutter/widgets/common/myDtuDialog.dart';
 import 'package:unicom_flutter/widgets/common/myEmpty.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
 import 'package:unicom_flutter/widgets/common/signal.dart';
 
-class DtuDetailPage extends StatelessWidget {
+class DtuDetailPage extends StatefulWidget {
+  @override
+  _DtuDetailPageState createState() => _DtuDetailPageState();
+}
+
+class _DtuDetailPageState extends State<DtuDetailPage> {
   final EasyRefreshController _controller = EasyRefreshController();
+  TimerUtil mTimerUtil;
+  int countdown = 60;
+
+  // 倒计时
+  void countTime() {
+    mTimerUtil = new TimerUtil(mInterval: 1000, mTotalTime: 60000);
+    mTimerUtil.setOnTimerTickCallback((int tick) {
+      double _tick = tick / 1000;
+      setState(() {
+        countdown = _tick.toInt();
+      });
+      if (_tick.toInt() == 0) {
+        setState(() {
+          countdown = 60;
+        });
+        mTimerUtil.cancel();
+      }
+    });
+    mTimerUtil.startCountDown();
+  }
+
+  // 更换dtu
+  showAddDtu(String imei) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MyDtuDialog(
+              name: '更换DTU',
+              imei: imei,
+              fieldCallBack: (val) {
+                Provide.value<DtuDetailProvide>(context).setImei(val);
+              },
+              scan: (val) {
+                Provide.value<DtuDetailProvide>(context).setImei(val);
+                Navigator.pop(context);
+                showAddDtu(val);
+              },
+              cancel: () {
+                Provide.value<DtuDetailProvide>(context).setImei('');
+                Navigator.pop(context);
+              },
+              submit: () {
+                Provide.value<DtuDetailProvide>(context).addDtu(context);
+              });
+        });
+  }
+
+  // 停用DTU
+  stopDtu() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MyDialog(
+            title: '停用DTU',
+            content: Container(
+              padding: MyScreen.setEdgeAll(30),
+              child: Text(
+                '停用后，DTU下的表以及表各路与设备的关联关系将被清除。如果要保留关联关系，请使用“更换DTU”操作',
+                style: MyStyles.f28c666,
+              ),
+            ),
+            submit: () {
+              Navigator.pop(context);
+              Provide.value<DtuDetailProvide>(context).stopDtu(context);
+            },
+          );
+        });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (mTimerUtil != null) mTimerUtil.cancel();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +116,13 @@ class DtuDetailPage extends StatelessWidget {
       body: CupertinoScrollbar(
         child: Provide<DtuDetailProvide>(
           builder: (BuildContext context, child, data) {
-            return _content(context);
+            if (data.isError) {
+              _controller.finishRefresh();
+            }
+            if (data.callRefresh) {
+              _controller.callRefresh();
+            }
+            return _content(context, data);
           },
         ),
       ),
@@ -40,39 +130,42 @@ class DtuDetailPage extends StatelessWidget {
   }
 
   // 内容
-  Widget _content(context) {
+  Widget _content(context, DtuDetailProvide data) {
     List<Widget> _list = [];
-    // if (data.siteData != null) {
-    //   _list..addAll([_sliverTop(data), _sliverList(data.siteData)]);
-    // }
-    _list..addAll([_sliverTop(context), _sliverList()]);
+    if (data.dtuData != null) {
+      _list..addAll([_sliverTop(context, data), _sliverList()]);
+    }
     return EasyRefresh.custom(
       header: MaterialHeader(),
       footer: MaterialFooter(),
-      emptyWidget: false ? MyEmpty() : null,
+      emptyWidget: data.isLoad && data.dtuData == null ? MyEmpty() : null,
       controller: _controller,
       enableControlFinishRefresh: true,
-      // firstRefresh: true,
+      firstRefresh: true,
       firstRefreshWidget: MyLoading(),
       onRefresh: () async {
-        // await Provide.value<SiteDetailProvide>(context).onRefresh(context);
-        // _controller.finishRefresh(); // 完成刷新
+        await Provide.value<DtuDetailProvide>(context).onRefresh(context);
+        _controller.finishRefresh(); // 完成刷新
       },
       slivers: _list,
     );
   }
 
   // 非列表内容
-  Widget _sliverTop(context) {
+  Widget _sliverTop(context, DtuDetailProvide data) {
     return SliverToBoxAdapter(
       child: Column(
-        children: <Widget>[_dtuContent(), _upDataBox(), _addMeter(context)],
+        children: <Widget>[
+          _dtuContent(data),
+          _upDataBox(data),
+          _addMeter(context)
+        ],
       ),
     );
   }
 
   // dtu内容
-  Widget _dtuContent() {
+  Widget _dtuContent(DtuDetailProvide data) {
     return Container(
       padding: MyScreen.setEdge(left: 30, right: 30),
       color: Colors.white,
@@ -83,19 +176,19 @@ class DtuDetailPage extends StatelessWidget {
           Container(
             padding: MyScreen.setEdge(top: 30),
             child: Text(
-              '富临-DTU1',
+              'DTU${data.dtuData.id}',
               style: MyStyles.f30c33,
             ),
           ),
-          _imeiBox(),
-          _dtuBox()
+          _imeiBox(data.dtuData),
+          _dtuBox(data)
         ],
       ),
     );
   }
 
   // imei 有线无线状态
-  Widget _imeiBox() {
+  Widget _imeiBox(DtuDetailModel dtuData) {
     return Container(
       padding: MyScreen.setEdge(top: 30, bottom: 40),
       child: Row(
@@ -105,7 +198,7 @@ class DtuDetailPage extends StatelessWidget {
           Container(
             width: MyScreen.setWidth(400),
             child: Text(
-              'gyujfkadsbfklafhkjahjf',
+              dtuData.imei,
               style: MyStyles.f26c66,
             ),
           ),
@@ -117,7 +210,7 @@ class DtuDetailPage extends StatelessWidget {
                   Padding(
                     padding: MyScreen.setEdge(left: 10),
                     child: Signal(
-                      signal: 0,
+                      signal: dtuData.rssi,
                     ),
                   )
                 ],
@@ -132,8 +225,10 @@ class DtuDetailPage extends StatelessWidget {
                   Padding(
                     padding: MyScreen.setEdge(left: 20),
                     child: Text(
-                      true ? '在线' : '离线',
-                      style: true ? MyStyles.f26c52 : MyStyles.f26ce0,
+                      dtuData.wiredOnline ? '在线' : '离线',
+                      style: dtuData.wiredOnline
+                          ? MyStyles.f26c52
+                          : MyStyles.f26ce0,
                     ),
                   )
                 ],
@@ -146,22 +241,27 @@ class DtuDetailPage extends StatelessWidget {
   }
 
   // dtu操作按钮布局
-  Widget _dtuBox() {
+  Widget _dtuBox(DtuDetailProvide data) {
     return Container(
       padding: MyScreen.setEdge(top: 20, bottom: 30),
       decoration: BoxDecoration(border: MyStyles.borderTop),
       child: Row(
-        children: <Widget>[_dtuBoxItem(true), _dtuBoxItem(false)],
+        children: <Widget>[_dtuBoxItem(true, data), _dtuBoxItem(false, data)],
       ),
     );
   }
 
   // dtu操作按钮item
-  Widget _dtuBoxItem(isReplace) {
+  Widget _dtuBoxItem(bool isReplace, DtuDetailProvide data) {
     return Expanded(
       child: InkWell(
         onTap: () {
-          print(isReplace);
+          if (data.disabled) return;
+          if (isReplace) {
+            showAddDtu(data.imei);
+          } else {
+            stopDtu();
+          }
         },
         child: Container(
           decoration:
@@ -189,7 +289,7 @@ class DtuDetailPage extends StatelessWidget {
   }
 
   // 立即更新数据
-  Widget _upDataBox() {
+  Widget _upDataBox(DtuDetailProvide data) {
     return Container(
       padding: MyScreen.setEdgeAll(30),
       child: Row(
@@ -199,15 +299,18 @@ class DtuDetailPage extends StatelessWidget {
             style: MyStyles.f24c99,
             child: Column(
               children: <Widget>[
-                Text('上一次数据更新时间2019-11-11 11:00'),
+                Text(
+                    '上一次数据更新时间${DateUtil.formatDateMs(data.dtuData.updateTime, format: "MM-dd HH:mm")}'),
                 Text('（每15分钟更新一次，下拉刷新页面）')
               ],
             ),
           )),
           Expanded(
             child: InkWell(
-              onTap: () {
-                print('立即更新');
+              onTap: () async {
+                if (data.disabled || countdown != 60) return;
+                await Provide.value<DtuDetailProvide>(context).upData(context);
+                countTime();
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -220,7 +323,7 @@ class DtuDetailPage extends StatelessWidget {
                   Padding(
                     padding: MyScreen.setEdge(left: 20),
                     child: Text(
-                      '立即更新',
+                      countdown == 60 ? '立即更新' : '$countdown s',
                       style: MyStyles.f24c66,
                     ),
                   )
