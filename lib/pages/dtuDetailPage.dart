@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-17 14:19:31
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-17 16:41:01
+ * @LastEditTime : 2020-01-18 11:29:53
  * @Description: DTU详情
  * @FilePath: /unicom_flutter/lib/pages/dtuDetailPage.dart
  */
@@ -14,6 +14,7 @@ import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/providers/dtuDetailProvide.dart';
+import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myAppBar.dart';
@@ -31,7 +32,7 @@ class DtuDetailPage extends StatelessWidget {
       body: CupertinoScrollbar(
         child: Provide<DtuDetailProvide>(
           builder: (BuildContext context, child, data) {
-            return _content();
+            return _content(context);
           },
         ),
       ),
@@ -39,12 +40,12 @@ class DtuDetailPage extends StatelessWidget {
   }
 
   // 内容
-  Widget _content() {
+  Widget _content(context) {
     List<Widget> _list = [];
     // if (data.siteData != null) {
     //   _list..addAll([_sliverTop(data), _sliverList(data.siteData)]);
     // }
-    _list..addAll([_sliverTop(), _sliverList()]);
+    _list..addAll([_sliverTop(context), _sliverList()]);
     return EasyRefresh.custom(
       header: MaterialHeader(),
       footer: MaterialFooter(),
@@ -62,10 +63,10 @@ class DtuDetailPage extends StatelessWidget {
   }
 
   // 非列表内容
-  Widget _sliverTop() {
+  Widget _sliverTop(context) {
     return SliverToBoxAdapter(
       child: Column(
-        children: <Widget>[_dtuContent(), _upDataBox(), _addMeter()],
+        children: <Widget>[_dtuContent(), _upDataBox(), _addMeter(context)],
       ),
     );
   }
@@ -233,26 +234,31 @@ class DtuDetailPage extends StatelessWidget {
   }
 
   // 添加电表
-  Widget _addMeter() {
-    return Container(
-      height: MyScreen.setHeight(88),
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          MyAsset(
-            name: MyConstant.add,
-            width: 28,
-          ),
-          Padding(
-            padding: MyScreen.setEdge(left: 20),
-            child: Text(
-              '添加表/传感器',
-              style: MyStyles.f30c33,
+  Widget _addMeter(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Application.router.navigateTo(context, '/meter');
+      },
+      child: Container(
+        height: MyScreen.setHeight(88),
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            MyAsset(
+              name: MyConstant.add,
+              width: 28,
             ),
-          )
-        ],
+            Padding(
+              padding: MyScreen.setEdge(left: 20),
+              child: Text(
+                '添加表/传感器',
+                style: MyStyles.f30c33,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -262,13 +268,186 @@ class DtuDetailPage extends StatelessWidget {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
-          return InkWell(
-              onTap: () {
-                // Application.router.navigateTo(context, '/dtuDetail');
-              },
-              child: Container());
+          return _meterList(
+              index == 0 ? '水浸传感器' : index == 1 ? '温湿度传感器' : '三相四线表');
         },
-        childCount: 0,
+        childCount: 3,
+      ),
+    );
+  }
+
+  // 电表item
+  Widget _meterList(String type) {
+    List<Widget> _list = [_meterInfo(type)];
+    if (type.contains('表')) {
+      _list..add(_meterLine());
+    }
+    return Container(
+      margin: MyScreen.setEdge(top: 10),
+      color: Colors.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: _list,
+      ),
+    );
+  }
+
+  // 表信息
+  Widget _meterInfo(String type) {
+    return Container(
+        constraints: BoxConstraints(
+          minHeight: MyScreen.setHeight(120),
+        ),
+        margin: MyScreen.setEdge(top: 10),
+        padding: MyScreen.setEdge(top: type.contains('表') ? 33 : 46),
+        color: Colors.white,
+        child: DefaultTextStyle(
+          style: MyStyles.f30c33,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: MyScreen.setWidth(300),
+                    alignment: Alignment.centerLeft,
+                    padding: MyScreen.setEdge(left: 30),
+                    child: Text(type),
+                  ),
+                  Expanded(
+                    child: Text('水浸'),
+                  ),
+                  InkWell(
+                    child: Container(
+                      padding: MyScreen.setEdge(right: 40),
+                      child: MyAsset(name: MyConstant.action, width: 28),
+                    ),
+                  )
+                ],
+              ),
+              type.contains('表')
+                  ? Padding(
+                      padding: MyScreen.setEdge(
+                          top: 20, left: 30, right: 40, bottom: 20),
+                      child: Text('六路直流表1'),
+                    )
+                  : Container()
+            ],
+          ),
+        ));
+  }
+
+  // 表线路
+  Widget _meterLine() {
+    return Container(
+      padding: MyScreen.setEdge(left: 30, top: 30, right: 30),
+      color: Colors.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[_lineItem()],
+      ),
+    );
+  }
+
+  // 表线路item
+  Widget _lineItem() {
+    return Container(
+      width: MyScreen.setWidth(690),
+      margin: MyScreen.setEdge(bottom: 30),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[_lineItemLeft(), _lineItemStatus(), _lineDevice()],
+      ),
+    );
+  }
+
+  // 路或相
+  Widget _lineItemLeft() {
+    return Container(
+      width: MyScreen.setWidth(110),
+      height: MyScreen.setWidth(110),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        border: MyStyles.borderAll,
+      ),
+      child: Text(
+        '1路',
+        style: MyStyles.f26c33,
+      ),
+    );
+  }
+
+  // 路或相的状态
+  Widget _lineItemStatus() {
+    return Container(
+      width: MyScreen.setWidth(140),
+      height: MyScreen.setWidth(110),
+      margin: MyScreen.setEdge(left: 20, right: 20),
+      child: DefaultTextStyle(
+        style: MyStyles.f26c52,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text('正常'),
+            MyAsset(
+              name: MyConstant.lineGreen,
+              width: 120,
+              height: 15,
+            ),
+            Text('36v/5A')
+          ],
+        ),
+      ),
+    );
+  }
+
+  // 路或相的设备
+  Widget _lineDevice() {
+    return Expanded(
+      child: Container(
+        height: MyScreen.setWidth(110),
+        padding: MyScreen.setEdge(top: 20, bottom: 20),
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(border: MyStyles.borderAll),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            _lineDeviceText(),
+            _lineDeviceIcon()
+          ],
+        ),
+      ),
+    );
+  }
+
+  // 设备
+  Widget _lineDeviceText() {
+    return Expanded(
+      child: Container(
+        padding: MyScreen.setEdge(left: 30),
+        child: Text(
+          '点击关联设备',
+          style: MyStyles.f26c99,
+        ),
+      ),
+    );
+  }
+
+  // 图标
+  Widget _lineDeviceIcon() {
+    return Container(
+      width: MyScreen.setWidth(75),
+      decoration: BoxDecoration(border: MyStyles.borderLeft),
+      child: Icon(
+        Icons.keyboard_arrow_right,
+        color: MyStyles.c999,
       ),
     );
   }

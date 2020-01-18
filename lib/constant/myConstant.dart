@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-21 17:14:27
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-17 09:57:57
+ * @LastEditTime : 2020-01-18 10:59:19
  * @Description: 常量
  * @FilePath: /unicom_flutter/lib/constant/myConstant.dart
  */
@@ -52,6 +52,10 @@ class MyConstant {
   static const String replace = 'assets/images/replace.png';
   static const String stop = 'assets/images/stop.png';
   static const String scan = 'assets/images/scan.png';
+  static const String action = 'assets/images/action.png';
+  static const String lineGreen = 'assets/images/lineGreen.png';
+  static const String lineGray = 'assets/images/lineGray.png';
+  static const String lineRed = 'assets/images/lineRed.png';
 
   // 阿里巴巴矢量图标
   static const IconData arrowIcon = IconData(0xe775, fontFamily: 'iconfont');
