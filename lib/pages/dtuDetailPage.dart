@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-17 14:19:31
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-18 15:55:55
+ * @LastEditTime : 2020-01-18 16:15:21
  * @Description: DTU详情
  * @FilePath: /unicom_flutter/lib/pages/dtuDetailPage.dart
  */
@@ -122,7 +122,7 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
             if (data.callRefresh) {
               _controller.callRefresh();
             }
-            return _content(context, data);
+            return _content(data);
           },
         ),
       ),
@@ -130,10 +130,10 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
   }
 
   // 内容
-  Widget _content(context, DtuDetailProvide data) {
+  Widget _content(DtuDetailProvide data) {
     List<Widget> _list = [];
     if (data.dtuData != null) {
-      _list..addAll([_sliverTop(context, data), _sliverList()]);
+      _list..addAll([_sliverTop(data), _sliverList(data)]);
     }
     return EasyRefresh.custom(
       header: MaterialHeader(),
@@ -152,13 +152,13 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
   }
 
   // 非列表内容
-  Widget _sliverTop(context, DtuDetailProvide data) {
+  Widget _sliverTop(DtuDetailProvide data) {
     return SliverToBoxAdapter(
       child: Column(
         children: <Widget>[
           _dtuContent(data),
           _upDataBox(data),
-          _addMeter(context)
+          _addMeter(data)
         ],
       ),
     );
@@ -337,9 +337,10 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
   }
 
   // 添加电表
-  Widget _addMeter(BuildContext context) {
+  Widget _addMeter(DtuDetailProvide data) {
     return InkWell(
       onTap: () {
+        if (data.disabled) return;
         Application.router.navigateTo(context, '/meter');
       },
       child: Container(
@@ -367,23 +368,22 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
   }
 
   // 电表列表
-  Widget _sliverList() {
+  Widget _sliverList(DtuDetailProvide data) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
-          return _meterList(
-              index == 0 ? '水浸传感器' : index == 1 ? '温湿度传感器' : '三相四线表');
+          return _meterList(data.dtuData.ammeterList[index]);
         },
-        childCount: 3,
+        childCount: data.dtuData.ammeterList.length,
       ),
     );
   }
 
   // 电表item
-  Widget _meterList(String type) {
-    List<Widget> _list = [_meterInfo(type)];
-    if (type.contains('表')) {
-      _list..add(_meterLine());
+  Widget _meterList(AmmeterList merterData) {
+    List<Widget> _list = [_meterInfo(merterData)];
+    if (merterData.name.contains('表')) {
+      _list..add(_meterLine(merterData));
     }
     return Container(
       margin: MyScreen.setEdge(top: 10),
@@ -397,13 +397,13 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
   }
 
   // 表信息
-  Widget _meterInfo(String type) {
+  Widget _meterInfo(AmmeterList merterData) {
     return Container(
         constraints: BoxConstraints(
           minHeight: MyScreen.setHeight(120),
         ),
         margin: MyScreen.setEdge(top: 10),
-        padding: MyScreen.setEdge(top: type.contains('表') ? 33 : 46),
+        padding: MyScreen.setEdge(top: merterData.name.contains('表') ? 33 : 46),
         color: Colors.white,
         child: DefaultTextStyle(
           style: MyStyles.f30c33,
@@ -419,10 +419,16 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
                     width: MyScreen.setWidth(300),
                     alignment: Alignment.centerLeft,
                     padding: MyScreen.setEdge(left: 30),
-                    child: Text(type),
+                    child: Text(merterData.name.contains('传感器')
+                        ? merterData.name
+                        : merterData.ammeterName),
                   ),
                   Expanded(
-                    child: Text('水浸'),
+                    child: Text(merterData.name.contains('水浸传感器')
+                        ? (merterData.alarming ? '水浸' : '未水浸')
+                        : (merterData.name.contains('温湿度传感器')
+                            ? "${merterData.temperature}℃${merterData.humidity}/%"
+                            : "${merterData.used}")),
                   ),
                   InkWell(
                     child: Container(
@@ -432,11 +438,11 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
                   )
                 ],
               ),
-              type.contains('表')
+              merterData.name.contains('表')
                   ? Padding(
                       padding: MyScreen.setEdge(
                           top: 20, left: 30, right: 40, bottom: 20),
-                      child: Text('六路直流表1'),
+                      child: Text(merterData.name),
                     )
                   : Container()
             ],
@@ -445,14 +451,16 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
   }
 
   // 表线路
-  Widget _meterLine() {
+  Widget _meterLine(AmmeterList merterData) {
     return Container(
       padding: MyScreen.setEdge(left: 30, top: 30, right: 30),
       color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[_lineItem(), _lineItem(), _lineItem()],
+        children: merterData.lineList.map((data) {
+          return _lineItem();
+        }).toList(),
       ),
     );
   }
