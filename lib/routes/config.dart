@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:40:16
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-17 14:24:25
+ * @LastEditTime : 2020-02-03 14:07:54
  * @Description: fluro 路由配置
  * @FilePath: /unicom_flutter/lib/routes/config.dart
  */
@@ -57,5 +57,8 @@ class Routes {
     // 设定表/传感器
     router.define('/meter',
         handler: meterHandler, transitionType: TransitionType.cupertino);
+    // 设备关联选择类型页面
+    router.define('/linkType',
+        handler: linkTypeHandler, transitionType: TransitionType.cupertino);
   }
 }

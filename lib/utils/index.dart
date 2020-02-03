@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:42:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-02-03 11:40:25
+ * @LastEditTime : 2020-02-03 13:38:50
  * @Description: utils方法
  * @FilePath: /unicom_flutter/lib/utils/index.dart
  */
@@ -295,5 +295,19 @@ class Utils {
       }
     }
     return _list;
+  }
+
+  // 判断是主设备还是动力设备
+  static bool isMainDevice(name) {
+    if (name == '传输' ||
+        name == '基站' ||
+        name == '室分' ||
+        name == '接入网' ||
+        name == '数据' ||
+        name == '其他') {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

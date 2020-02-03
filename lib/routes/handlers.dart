@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 10:40:26
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-17 14:23:32
+ * @LastEditTime : 2020-02-03 14:07:23
  * @Description: fluro handler配置集合
  * @FilePath: /unicom_flutter/lib/routes/handlers.dart
  */
@@ -11,6 +11,7 @@ import 'package:fluro/fluro.dart';
 import 'package:unicom_flutter/pages/airBatPage.dart';
 import 'package:unicom_flutter/pages/alarmDealPage.dart';
 import 'package:unicom_flutter/pages/alarmDetailsPage.dart';
+import 'package:unicom_flutter/pages/deviceLinktypPage.dart';
 import 'package:unicom_flutter/pages/dtuDetailPage.dart';
 import 'package:unicom_flutter/pages/homePage.dart';
 import 'package:unicom_flutter/pages/lifeAuditPage.dart';
@@ -103,4 +104,9 @@ Handler dtuDetailHandler =
 Handler meterHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   return MeterPage();
+});
+// 设备关联选择类型页面
+Handler linkTypeHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return DeviceLinkTypePage();
 });

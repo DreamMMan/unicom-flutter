@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-19 20:17:40
  * @LastEditors  : liangyt
- * @LastEditTime : 2019-12-23 13:53:39
+ * @LastEditTime : 2020-02-03 14:35:38
  * @Description: 底部弹出选项
  * @FilePath: /unicom-flutter/lib/widgets/showBottomSheet.dart
  */
@@ -16,9 +16,11 @@ class ShowBottomSheet extends StatelessWidget {
   final String closeName;
   final List list;
   final Function tap;
+  final isPop;
   ShowBottomSheet(
       {this.titleName,
       this.closeName,
+      this.isPop = true,
       @required this.list,
       @required this.tap});
 
@@ -57,8 +59,8 @@ class ShowBottomSheet extends StatelessWidget {
       height: MyScreen.setHeight(88),
       padding: MyScreen.setEdge(left: 30, right: 30),
       decoration: BoxDecoration(
-          border:
-              Border(bottom: BorderSide(width: 1, color: MyStyles.borderColor))),
+          border: Border(
+              bottom: BorderSide(width: 1, color: MyStyles.borderColor))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -106,8 +108,10 @@ class ShowBottomSheet extends StatelessWidget {
   Widget listItem(BuildContext context, int index) {
     return InkWell(
       onTap: () {
+        if (isPop) {
+          Navigator.pop(context);
+        }
         tap(index);
-        Navigator.pop(context);
       },
       child: Container(
         height: MyScreen.setHeight(88),
@@ -141,7 +145,8 @@ class ShowBottomSheet extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   border: Border(
-                      bottom: BorderSide(width: 1, color: MyStyles.borderColor))),
+                      bottom:
+                          BorderSide(width: 1, color: MyStyles.borderColor))),
               child: Text(closeName, style: MyStyles.f30c33),
             ),
           )

@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-17 14:19:31
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-02-03 11:51:12
+ * @LastEditTime : 2020-02-03 14:48:37
  * @Description: DTU详情
  * @FilePath: /unicom_flutter/lib/pages/dtuDetailPage.dart
  */
@@ -27,6 +27,7 @@ import 'package:unicom_flutter/widgets/common/myDialog.dart';
 import 'package:unicom_flutter/widgets/common/myDtuDialog.dart';
 import 'package:unicom_flutter/widgets/common/myEmpty.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
+import 'package:unicom_flutter/widgets/common/showBottomSheet.dart';
 import 'package:unicom_flutter/widgets/common/signal.dart';
 
 class DtuDetailPage extends StatefulWidget {
@@ -58,7 +59,7 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
   }
 
   // 更换dtu
-  showAddDtu(String imei) {
+  showReplaceDtu(String imei) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -71,7 +72,7 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
               scan: (val) {
                 Provide.value<DtuDetailProvide>(context).setImei(val);
                 Navigator.pop(context);
-                showAddDtu(val);
+                showReplaceDtu(val);
               },
               cancel: () {
                 Provide.value<DtuDetailProvide>(context).setImei('');
@@ -100,6 +101,52 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
             submit: () {
               Navigator.pop(context);
               Provide.value<DtuDetailProvide>(context).stopDtu(context);
+            },
+          );
+        });
+  }
+
+  // 表或传感器底部选项卡
+  showModal(BuildContext context, AmmeterList merterData) {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: MyStyles.d9DEE1,
+        builder: (BuildContext context) {
+          return ShowBottomSheet(
+            titleName: '请选择对${merterData.name}${merterData.sn} 的操作',
+            list: [
+              {'name': '更换${merterData.name.contains('表') ? '表' : '传感器'}'},
+              {'name': '停用${merterData.name.contains('表') ? '表' : '传感器'}'},
+            ],
+            tap: (index) async {
+              if (index == 0) {
+                Application.router.navigateTo(context, '/meter');
+              } else {
+                stopMeter(merterData.id);
+              }
+            },
+          );
+        });
+  }
+
+  // 停用表/传感器
+  stopMeter(int meterId) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MyDialog(
+            title: '停用表/传感器',
+            content: Container(
+              padding: MyScreen.setEdgeAll(30),
+              child: Text(
+                '停用后，表各路与设备的关联关系将被清除。如果要保留关联关系，请使用“更换”操作',
+                style: MyStyles.f28c666,
+              ),
+            ),
+            submit: () {
+              Navigator.pop(context);
+              Provide.value<DtuDetailProvide>(context)
+                  .stopMeter(context, meterId);
             },
           );
         });
@@ -260,7 +307,7 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
         onTap: () {
           if (data.disabled) return;
           if (isReplace) {
-            showAddDtu(data.imei);
+            showReplaceDtu(data.imei);
           } else {
             stopDtu();
           }
@@ -433,6 +480,9 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
                             : "${merterData.used}")),
                   ),
                   InkWell(
+                    onTap: () {
+                      showModal(context, merterData);
+                    },
                     child: Container(
                       padding: MyScreen.setEdge(right: 40),
                       child: MyAsset(name: MyConstant.action, width: 28),
@@ -489,50 +539,36 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
       );
     }
     return IntrinsicHeight(
-        // child: Container(
-        //   width: MyScreen.setWidth(690),
-        //   margin: MyScreen.setEdge(bottom: 30),
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.start,
-        //     crossAxisAlignment: CrossAxisAlignment.stretch,
-        //     children: <Widget>[
-        //       Container(
-        //         child: Column(
-        //           children: <Widget>[
-        //             IntrinsicHeight(
-        //               child: Container(
-        //                 margin: MyScreen.setEdge(bottom: 20),
-        //                 child: Row(
-        //                   mainAxisAlignment: MainAxisAlignment.start,
-        //                   crossAxisAlignment: CrossAxisAlignment.stretch,
-        //                   children: <Widget>[
-        //                     _lineItemLeft(lineData),
-        //                     _lineItemStatus(lineData),
-        //                   ],
-        //                 ),
-        //               ),
-        //             ),
-        //             IntrinsicHeight(
-        //               child: Container(
-        //                 margin: MyScreen.setEdge(bottom: 20),
-        //                 child: Row(
-        //                   mainAxisAlignment: MainAxisAlignment.start,
-        //                   crossAxisAlignment: CrossAxisAlignment.stretch,
-        //                   children: <Widget>[
-        //                     _lineItemLeft(lineData),
-        //                     _lineItemStatus(lineData),
-        //                   ],
-        //                 ),
-        //               ),
-        //             ),
-        //           ],
-        //         ),
-        //       ),
-        //       _lineDevice(lineData)
-        //     ],
-        //   ),
-        // ),
-        );
+      child: Container(
+        width: MyScreen.setWidth(690),
+        margin: MyScreen.setEdge(bottom: 30),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              child: Column(
+                  children: lineData.list.map((item) {
+                return IntrinsicHeight(
+                  child: Container(
+                    margin: MyScreen.setEdge(bottom: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        _lineItemLeft(item),
+                        _lineItemStatus(item),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList()),
+            ),
+            _lineDevice(lineData.deviceList)
+          ],
+        ),
+      ),
+    );
   }
 
   // 路或相
@@ -587,6 +623,10 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
   // 路或相的设备
   Widget _lineDevice(List<DeviceList> deviceList) {
     return Expanded(
+        child: InkWell(
+      onTap: () {
+        Application.router.navigateTo(context, '/linkType');
+      },
       child: Container(
         padding: MyScreen.setEdge(top: 20, bottom: 20),
         alignment: Alignment.centerLeft,
@@ -596,7 +636,7 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
           children: <Widget>[_lineDeviceText(deviceList), _lineDeviceIcon()],
         ),
       ),
-    );
+    ));
   }
 
   // 设备
@@ -614,18 +654,18 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
         children: <Widget>[
           Text.rich(TextSpan(children: <TextSpan>[
             TextSpan(
-              text: '动力设备类型',
+              text: '${deviceList[0].deviceType}',
               style: MyStyles.f26c33,
             ),
             TextSpan(
-              text: ' 设备ID设备ID设备ID设备ID',
+              text: ' ${deviceList[0].deviceSn}',
               style: MyStyles.f22c33,
             )
           ])),
           Padding(
             padding: MyScreen.setEdge(top: 15),
             child: Text(
-              '品牌-匹数/标称容量/规格型号',
+              '${deviceList[0].brandName ?? deviceList[0].nename ?? deviceList[0].name ?? deviceList[0].capacity ?? deviceList[0].power + '匹' ?? deviceList[0].specificationModel ?? ''}',
               style: MyStyles.f22c99,
             ),
           ),
@@ -633,42 +673,10 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
       );
     } else {
       _device = Text(
-        '动力设备（2）',
+        '${Utils.isMainDevice(deviceList[0].deviceType) ? '主' : '动力'}设备（${deviceList.length}）',
         style: MyStyles.f26c33,
       );
     }
-    // Widget _device = Text(
-    //   '点击关联设备',
-    //   style: MyStyles.f26c99,
-    // );
-    // _device = Text(
-    //   '动力设备（2）',
-    //   style: MyStyles.f26c33,
-    // );
-    // _device = Column(
-    //   mainAxisAlignment: MainAxisAlignment.center,
-    //   crossAxisAlignment: CrossAxisAlignment.start,
-    //   children: <Widget>[
-    //     Text.rich(TextSpan(children: <TextSpan>[
-    //       TextSpan(
-    //         text: '动力设备类型',
-    //         style: MyStyles.f26c33,
-    //       ),
-    //       TextSpan(
-    //         text: ' 设备ID设备ID设备ID设备ID',
-    //         style: MyStyles.f22c33,
-    //       )
-    //     ])),
-    //     Padding(
-    //       padding: MyScreen.setEdge(top: 15),
-    //       child: Text(
-    //         '品牌-匹数/标称容量/规格型号',
-    //         style: MyStyles.f22c99,
-    //       ),
-    //     ),
-    //   ],
-    // );
-
     return Expanded(
       child: Container(
         padding: MyScreen.setEdge(left: 30),

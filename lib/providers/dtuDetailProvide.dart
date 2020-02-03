@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-17 14:27:21
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-02-03 09:26:48
+ * @LastEditTime : 2020-02-03 14:46:51
  * @Description: DTU详情
  * @FilePath: /unicom_flutter/lib/providers/dtuDetailProvide.dart
  */
@@ -48,7 +48,7 @@ class DtuDetailProvide with ChangeNotifier {
     }
     Utils.showLoading(context, title: '正在更换');
     var params = {'id': id, 'imei': imei};
-    await HttpUtil.request(context, 'addDtu', data: params).then((data) {
+    await HttpUtil.request(context, 'replaceDtu', data: params).then((data) {
       Navigator.pop(context);
       Navigator.pop(context);
       imei = '';
@@ -63,13 +63,27 @@ class DtuDetailProvide with ChangeNotifier {
   // 停用dtu
   void stopDtu(context) async {
     Utils.showLoading(context, title: '正在停用');
-    var params = {'id': id, 'imei': imei};
-    await HttpUtil.request(context, 'addDtu', data: params).then((data) {
+    var params = {'id': dtuData.id};
+    await HttpUtil.request(context, 'removeDtu', data: params).then((data) {
       Navigator.pop(context);
       if (data != null) {
         Navigator.pop(context);
         Utils.showToast('停用DTU成功');
         Provide.value<SiteDetailProvide>(context).isCallRefresh();
+      }
+      notifyListeners();
+    });
+  }
+
+  // 停用表或传感器
+  void stopMeter(context, meterId) async {
+    Utils.showLoading(context, title: '正在停用');
+    var params = {'id': meterId};
+    await HttpUtil.request(context, 'removeAmmeter', data: params).then((data) {
+      Navigator.pop(context);
+      if (data != null) {
+        Utils.showToast('停用表或传感器成功');
+        isCallRefresh();
       }
       notifyListeners();
     });
