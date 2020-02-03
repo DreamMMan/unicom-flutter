@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2019-12-18 14:42:10
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-18 16:35:49
+ * @LastEditTime : 2020-02-03 11:40:25
  * @Description: utils方法
  * @FilePath: /unicom_flutter/lib/utils/index.dart
  */
@@ -15,6 +15,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/models/deviceList_model.dart';
 import 'package:unicom_flutter/models/dtuDetailModel.dart' as dtuDetailModel;
+import 'package:unicom_flutter/models/newLineModel.dart';
 import 'package:unicom_flutter/styles/myStyles.dart';
 import 'package:unicom_flutter/widgets/common/myLoading.dart';
 import 'dart:convert' as convert;
@@ -256,22 +257,43 @@ class Utils {
   }
 
   // dtu 表的线路组合
-  // static regroup(List<dtuDetailModel.LineList> array) {
-  //   print(array.length);
-  //   List _list = [];
-  //   var _obj = {'list': [], 'deviceList': [], "flag": false};
-  //   List index = [];
-  //   bool falg = false;
-  //   for (int i = 0; i < array.length; i++) {
-  //     if (array[i + 1] != null &&
-  //         array[i].deviceList.length > 0 &&
-  //         array[i + 1].deviceList.length > 0 &&
-  //         array[i].deviceList == array[i + 1].deviceList) {
-  //           _obj['flag'] = true;
-  //           if(falg){
-  //             _obj['list']..add(array[i + 1]);
-  //           }
-  //         }
-  //   }
-  // }
+  static regroup(List<dtuDetailModel.LineList> array) {
+    List _list = [];
+    List index = [];
+    bool flag = false;
+    for (int i = 0; i < array.length; i++) {
+      if (i <= array.length - 2 &&
+          array[i + 1] != null &&
+          array[i].deviceList.length > 0 &&
+          array[i + 1].deviceList.length > 0 &&
+          convert.jsonEncode(array[i].deviceList) ==
+              convert.jsonEncode(array[i + 1].deviceList)) {
+        NewLineMode _newLine = NewLineMode();
+        _newLine.flag = true;
+        if (flag) {
+          _newLine.list..add(array[i + 1]);
+          _list.removeLast();
+          index..add(i + 1);
+        } else {
+          _newLine.list = [];
+          _newLine.deviceList = array[i].deviceList;
+          flag = true;
+          _newLine.list..add(array[i])..add(array[i + 1]);
+          _list..add(_newLine);
+          index..add(i)..add(i + 1);
+        }
+      } else {
+        NewLineMode _newLine = NewLineMode();
+        flag = false;
+        if (index.indexOf(i) == -1) {
+          _newLine.flag = false;
+          _newLine.list = [];
+          _newLine.list..add(array[i]);
+          _newLine.deviceList = array[i].deviceList;
+          _list..add(_newLine);
+        }
+      }
+    }
+    return _list;
+  }
 }

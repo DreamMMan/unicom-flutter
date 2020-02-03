@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-17 14:19:31
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-18 16:15:21
+ * @LastEditTime : 2020-02-03 11:51:12
  * @Description: DTU详情
  * @FilePath: /unicom_flutter/lib/pages/dtuDetailPage.dart
  */
@@ -15,6 +15,7 @@ import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:provide/provide.dart';
 import 'package:unicom_flutter/constant/myConstant.dart';
 import 'package:unicom_flutter/models/dtuDetailModel.dart';
+import 'package:unicom_flutter/models/newLineModel.dart';
 import 'package:unicom_flutter/providers/dtuDetailProvide.dart';
 import 'package:unicom_flutter/routes/application.dart';
 import 'package:unicom_flutter/styles/myScreen.dart';
@@ -211,7 +212,7 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
                   Padding(
                     padding: MyScreen.setEdge(left: 10),
                     child: Signal(
-                      signal: dtuData.rssi,
+                      signal: dtuData.rssi ?? 0.0,
                     ),
                   )
                 ],
@@ -428,7 +429,7 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
                     child: Text(merterData.name.contains('水浸传感器')
                         ? (merterData.alarming ? '水浸' : '未水浸')
                         : (merterData.name.contains('温湿度传感器')
-                            ? "${merterData.temperature}℃${merterData.humidity}/%"
+                            ? "${merterData.temperature}℃/${merterData.humidity}%"
                             : "${merterData.used}")),
                   ),
                   InkWell(
@@ -453,23 +454,24 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
 
   // 表线路
   Widget _meterLine(AmmeterList merterData) {
-    // Utils.regroup(merterData.lineList);
+    // 重新组合相或路列表
+    List _list = Utils.regroup(merterData.lineList);
     return Container(
       padding: MyScreen.setEdge(left: 30, top: 30, right: 30),
       color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: merterData.lineList.map((data) {
-          return _lineItem();
+        children: _list.map((lineData) {
+          return _lineItem(lineData);
         }).toList(),
       ),
     );
   }
 
   // 表线路item
-  Widget _lineItem() {
-    if (true == true) {
+  Widget _lineItem(NewLineMode lineData) {
+    if (lineData.flag == false) {
       return IntrinsicHeight(
         child: Container(
           width: MyScreen.setWidth(690),
@@ -478,63 +480,63 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              _lineItemLeft(),
-              _lineItemStatus(),
-              _lineDevice()
+              _lineItemLeft(lineData.list[0]),
+              _lineItemStatus(lineData.list[0]),
+              _lineDevice(lineData.deviceList)
             ],
           ),
         ),
       );
     }
     return IntrinsicHeight(
-      child: Container(
-        width: MyScreen.setWidth(690),
-        margin: MyScreen.setEdge(bottom: 30),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              child: Column(
-                children: <Widget>[
-                  IntrinsicHeight(
-                    child: Container(
-                      margin: MyScreen.setEdge(bottom: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          _lineItemLeft(),
-                          _lineItemStatus(),
-                        ],
-                      ),
-                    ),
-                  ),
-                  IntrinsicHeight(
-                    child: Container(
-                      margin: MyScreen.setEdge(bottom: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          _lineItemLeft(),
-                          _lineItemStatus(),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            _lineDevice()
-          ],
-        ),
-      ),
-    );
+        // child: Container(
+        //   width: MyScreen.setWidth(690),
+        //   margin: MyScreen.setEdge(bottom: 30),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.start,
+        //     crossAxisAlignment: CrossAxisAlignment.stretch,
+        //     children: <Widget>[
+        //       Container(
+        //         child: Column(
+        //           children: <Widget>[
+        //             IntrinsicHeight(
+        //               child: Container(
+        //                 margin: MyScreen.setEdge(bottom: 20),
+        //                 child: Row(
+        //                   mainAxisAlignment: MainAxisAlignment.start,
+        //                   crossAxisAlignment: CrossAxisAlignment.stretch,
+        //                   children: <Widget>[
+        //                     _lineItemLeft(lineData),
+        //                     _lineItemStatus(lineData),
+        //                   ],
+        //                 ),
+        //               ),
+        //             ),
+        //             IntrinsicHeight(
+        //               child: Container(
+        //                 margin: MyScreen.setEdge(bottom: 20),
+        //                 child: Row(
+        //                   mainAxisAlignment: MainAxisAlignment.start,
+        //                   crossAxisAlignment: CrossAxisAlignment.stretch,
+        //                   children: <Widget>[
+        //                     _lineItemLeft(lineData),
+        //                     _lineItemStatus(lineData),
+        //                   ],
+        //                 ),
+        //               ),
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //       _lineDevice(lineData)
+        //     ],
+        //   ),
+        // ),
+        );
   }
 
   // 路或相
-  Widget _lineItemLeft() {
+  Widget _lineItemLeft(LineList lineData) {
     return Container(
       width: MyScreen.setWidth(110),
       constraints: BoxConstraints(minHeight: MyScreen.setWidth(110)),
@@ -543,31 +545,39 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
         border: MyStyles.borderAll,
       ),
       child: Text(
-        '1路',
+        lineData.name,
         style: MyStyles.f26c33,
       ),
     );
   }
 
   // 路或相的状态
-  Widget _lineItemStatus() {
+  Widget _lineItemStatus(LineList lineData) {
     return Container(
       width: MyScreen.setWidth(140),
       constraints: BoxConstraints(minHeight: MyScreen.setWidth(110)),
       margin: MyScreen.setEdge(left: 20, right: 20),
       child: DefaultTextStyle(
-        style: MyStyles.f26c52,
+        style: lineData.status == 0
+            ? MyStyles.f26c52
+            : lineData.status == 1 ? MyStyles.f26c99 : MyStyles.f26ce0,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text('正常'),
+            Text(lineData.status == 0
+                ? '正常'
+                : lineData.status == 1 ? '未关联' : '异常'),
             MyAsset(
-              name: MyConstant.lineGreen,
+              name: lineData.status == 0
+                  ? MyConstant.lineGreen
+                  : lineData.status == 1
+                      ? MyConstant.lineGray
+                      : MyConstant.lineRed,
               width: 120,
               height: 15,
             ),
-            Text('36v/5A36v/5A36v/5A36v/5A36v/5A')
+            Text('${lineData.voltage ?? 0}v/${lineData.current ?? 0}A')
           ],
         ),
       ),
@@ -575,7 +585,7 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
   }
 
   // 路或相的设备
-  Widget _lineDevice() {
+  Widget _lineDevice(List<DeviceList> deviceList) {
     return Expanded(
       child: Container(
         padding: MyScreen.setEdge(top: 20, bottom: 20),
@@ -583,45 +593,81 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
         decoration: BoxDecoration(border: MyStyles.borderAll),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[_lineDeviceText(), _lineDeviceIcon()],
+          children: <Widget>[_lineDeviceText(deviceList), _lineDeviceIcon()],
         ),
       ),
     );
   }
 
   // 设备
-  Widget _lineDeviceText() {
-    Widget _device = Text(
-      '点击关联设备',
-      style: MyStyles.f26c99,
-    );
-    _device = Text(
-      '动力设备（2）',
-      style: MyStyles.f26c33,
-    );
-    _device = Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text.rich(TextSpan(children: <TextSpan>[
-          TextSpan(
-            text: '动力设备类型',
-            style: MyStyles.f26c33,
+  Widget _lineDeviceText(List<DeviceList> deviceList) {
+    Widget _device;
+    if (deviceList.length == 0) {
+      _device = Text(
+        '点击关联设备',
+        style: MyStyles.f26c99,
+      );
+    } else if (deviceList.length == 1) {
+      _device = Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text.rich(TextSpan(children: <TextSpan>[
+            TextSpan(
+              text: '动力设备类型',
+              style: MyStyles.f26c33,
+            ),
+            TextSpan(
+              text: ' 设备ID设备ID设备ID设备ID',
+              style: MyStyles.f22c33,
+            )
+          ])),
+          Padding(
+            padding: MyScreen.setEdge(top: 15),
+            child: Text(
+              '品牌-匹数/标称容量/规格型号',
+              style: MyStyles.f22c99,
+            ),
           ),
-          TextSpan(
-            text: ' 设备ID设备ID设备ID设备ID',
-            style: MyStyles.f22c33,
-          )
-        ])),
-        Padding(
-          padding: MyScreen.setEdge(top: 15),
-          child: Text(
-            '品牌-匹数/标称容量/规格型号',
-            style: MyStyles.f22c99,
-          ),
-        ),
-      ],
-    );
+        ],
+      );
+    } else {
+      _device = Text(
+        '动力设备（2）',
+        style: MyStyles.f26c33,
+      );
+    }
+    // Widget _device = Text(
+    //   '点击关联设备',
+    //   style: MyStyles.f26c99,
+    // );
+    // _device = Text(
+    //   '动力设备（2）',
+    //   style: MyStyles.f26c33,
+    // );
+    // _device = Column(
+    //   mainAxisAlignment: MainAxisAlignment.center,
+    //   crossAxisAlignment: CrossAxisAlignment.start,
+    //   children: <Widget>[
+    //     Text.rich(TextSpan(children: <TextSpan>[
+    //       TextSpan(
+    //         text: '动力设备类型',
+    //         style: MyStyles.f26c33,
+    //       ),
+    //       TextSpan(
+    //         text: ' 设备ID设备ID设备ID设备ID',
+    //         style: MyStyles.f22c33,
+    //       )
+    //     ])),
+    //     Padding(
+    //       padding: MyScreen.setEdge(top: 15),
+    //       child: Text(
+    //         '品牌-匹数/标称容量/规格型号',
+    //         style: MyStyles.f22c99,
+    //       ),
+    //     ),
+    //   ],
+    // );
 
     return Expanded(
       child: Container(

@@ -2,13 +2,15 @@
  * @Author: liangyt
  * @Date: 2020-01-17 14:27:21
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-01-18 15:52:56
+ * @LastEditTime : 2020-02-03 09:26:48
  * @Description: DTU详情
  * @FilePath: /unicom_flutter/lib/providers/dtuDetailProvide.dart
  */
 import 'package:flutter/material.dart';
+import 'package:provide/provide.dart';
 import 'package:unicom_flutter/http/httpUtil.dart';
 import 'package:unicom_flutter/models/dtuDetailModel.dart';
+import 'package:unicom_flutter/providers/siteDetailProvide.dart';
 import 'package:unicom_flutter/utils/index.dart';
 
 class DtuDetailProvide with ChangeNotifier {
@@ -65,8 +67,9 @@ class DtuDetailProvide with ChangeNotifier {
     await HttpUtil.request(context, 'addDtu', data: params).then((data) {
       Navigator.pop(context);
       if (data != null) {
+        Navigator.pop(context);
         Utils.showToast('停用DTU成功');
-        isCallRefresh();
+        Provide.value<SiteDetailProvide>(context).isCallRefresh();
       }
       notifyListeners();
     });
