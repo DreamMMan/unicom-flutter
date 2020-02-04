@@ -2,7 +2,7 @@
  * @Author: liangyt
  * @Date: 2020-01-17 14:19:31
  * @LastEditors  : liangyt
- * @LastEditTime : 2020-02-03 14:48:37
+ * @LastEditTime : 2020-02-03 15:01:02
  * @Description: DTU详情
  * @FilePath: /unicom_flutter/lib/pages/dtuDetailPage.dart
  */
@@ -469,7 +469,7 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
                     alignment: Alignment.centerLeft,
                     padding: MyScreen.setEdge(left: 30),
                     child: Text(merterData.name.contains('传感器')
-                        ? merterData.name
+                        ? merterData.name + merterData.sn
                         : merterData.ammeterName),
                   ),
                   Expanded(
@@ -494,7 +494,7 @@ class _DtuDetailPageState extends State<DtuDetailPage> {
                   ? Padding(
                       padding: MyScreen.setEdge(
                           top: 20, left: 30, right: 40, bottom: 20),
-                      child: Text(merterData.name),
+                      child: Text(merterData.name + merterData.sn),
                     )
                   : Container()
             ],
